@@ -1,8 +1,6 @@
 import LoginModule from '@/modules/auth/login';
 import React, { FC } from 'react';
-export interface LoginPageProps {
-
-}
+export interface LoginPageProps {}
 const LoginPage: FC<LoginPageProps> = () => {
   return (
       <LoginModule />
