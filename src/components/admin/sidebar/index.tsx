@@ -14,8 +14,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { usePathname } from "next/navigation"
@@ -71,7 +69,6 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
                   <CollapsibleContent>
                     <SidebarGroupContent>
                       <SidebarMenuSub>
-                        <SidebarMenuSubItem>
                           {item.items.map((item) => (
                             <SidebarMenuItem key={item.title}>
                               <SidebarMenuButton asChild isActive={item.isActive}>
@@ -79,7 +76,6 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
                               </SidebarMenuButton>
                             </SidebarMenuItem>
                           ))}
-                        </SidebarMenuSubItem>
                       </SidebarMenuSub >
                     </SidebarGroupContent>
                   </CollapsibleContent>

@@ -5,7 +5,7 @@ import { getAuth } from "./lib/auth";
 export async function middleware(request: NextRequest) {
     const { user } = await getAuth()
 
-    if (!user && (request.nextUrl.pathname.includes('/admin')))
+    if (!user && !request.nextUrl.pathname.startsWith('/login'))
         return Response.redirect(new URL('/login', request.url))
 
     if (user) {

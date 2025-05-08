@@ -18,6 +18,34 @@ export const generateSidebar = (pathName: string) => {
 
                 ],
             },
+            {
+                title: "Customers",
+                url: "#",
+                items: [
+                    {
+                        title: "All Customers",
+                        url: "/admin/customers",
+                        isActive: pathName === "/admin/customers"
+                    },
+                    {
+                        title: "Add New Customer",
+                        url: "/admin/customers/add",
+                        isActive: pathName === "/admin/customers/add"
+                    },
+
+                ],
+            },
+            {
+                title: "Balances",
+                url: "#",
+                items: [
+                    {
+                        title: "All Balances",
+                        url: "/admin/balances",
+                        isActive: pathName === "/admin/balances"
+                    }
+                ],
+            },
         ],
     }
 }

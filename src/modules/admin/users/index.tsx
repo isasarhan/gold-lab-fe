@@ -7,7 +7,7 @@ import { Switch } from '@/components/ui/switch';
 import { useUserContext } from '@/providers/UserProvider';
 import useUsers from '@/services/users';
 import { IUser } from '@/types/user';
-import { Eye, ViewIcon } from 'lucide-react';
+import { Eye, Pen, Trash, ViewIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { FC, useEffect, useState } from 'react';
@@ -67,6 +67,22 @@ const UsersModule: FC<UsersModuleProps> = ({ users = [] }) => {
                     <Switch checked={value.isApproved} onCheckedChange={() => handleChangePublicity(value)} />
                 </div>
             }
+        },
+        {
+            label: 'Edit',
+            render: (value: IUser) => (
+                <div className='flex justify-center items-center w-full'>
+                    <Link href={`/admin/balances/${value._id}/edit`}><Pen size={20} /> </Link>
+                </div>
+            )
+        },
+        {
+            label: 'Delete',
+            render: (value: IUser) => (
+                <div className='flex justify-center items-center w-full'>
+                    <Trash size={20} />
+                </div>
+            )
         },
     ]
 
