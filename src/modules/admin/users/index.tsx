@@ -89,7 +89,7 @@ const UsersModule: FC<UsersModuleProps> = ({ users = [] }) => {
     return (
         <div className='flex flex-col gap-3 pb-7'>
             <SearchInput className='w-full' handleSearch={handleSearch} />
-            <Table data={filteredUsers} column={column} />
+            <Table data={filteredUsers} columns={column} />
         </div>
     );
 };

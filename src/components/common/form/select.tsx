@@ -21,7 +21,6 @@ const FormSelect: FC<FormSelectProps> = ({ control, name, title, placeholder, op
                     <FormLabel>{title}</FormLabel>
                     <FormControl>
                         <Select onValueChange={field.onChange} defaultValue={field.value} >
-
                             <FormControl className='w-full'>
                                 <SelectTrigger>
                                     <SelectValue placeholder={placeholder} />

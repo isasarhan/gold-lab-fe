@@ -1,5 +1,6 @@
 'use client'
 
+import PaginationComp from '@/components/common/pagination';
 import SearchInput from '@/components/common/searchInput';
 import Table, { Column } from '@/components/common/table';
 import { ICustomer } from '@/types/customer';
@@ -9,20 +10,14 @@ import { usePathname, useRouter } from 'next/navigation';
 import React, { FC, useEffect, useState } from 'react';
 export interface CustomersModuleProps {
     customers: ICustomer[];
+    total: number;
+    page: number;
+    pages: number;
 }
-const CustomersModule: FC<CustomersModuleProps> = ({ customers = [] }) => {
-    const [filteredCustomers, setFilteredCustomers] = useState<ICustomer[]>(customers)
-    const pathName = usePathname()
-    const router = useRouter()
+const CustomersModule: FC<CustomersModuleProps> = ({ customers = [], page, pages, total }) => {
 
-    useEffect(() => {
-        if (customers)
-            setFilteredCustomers(customers)
-    }, [customers])
 
-    const handleSearch = (query: string) => {
-        router.push(`${pathName}?query=${query}`)
-    }
+
     const column: Column[] = [
         {
             label: 'Full Name',
@@ -65,8 +60,13 @@ const CustomersModule: FC<CustomersModuleProps> = ({ customers = [] }) => {
 
     return (
         <div className='flex flex-col gap-3 pb-7'>
-            <SearchInput className='w-full' handleSearch={handleSearch} />
-            <Table data={filteredCustomers} column={column} />
+            <div className="flex justify-between px-4">
+                <div className='flex gap-3 text-xl font-bold'>Total: <span className='text-green-700'>{total}</span></div>
+                <div className='w-fit'>
+                    <PaginationComp page={page} pages={pages} total={total} />
+                </div>
+            </div>
+            <Table data={customers} columns={column} />
         </div>
     );
 };

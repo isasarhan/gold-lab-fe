@@ -1,30 +1,17 @@
 'use client'
 
-import SearchInput from '@/components/common/searchInput';
 import Table, { Column } from '@/components/common/table';
 import { Card } from '@/components/ui/card';
 import { IBalance, IBalanceTotals } from '@/types/balance';
-import { Eye, Pen, Trash } from 'lucide-react';
+import { Pen, Trash } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 export interface BalancesModuleProps {
     balaces: IBalance[];
     total: IBalanceTotals
 }
 const BalancesModule: FC<BalancesModuleProps> = ({ balaces = [], total }) => {
-    const [filteredBalaces, setFilteredBalaces] = useState<IBalance[]>(balaces)
-    const pathName = usePathname()
-    const router = useRouter()
 
-    useEffect(() => {
-        if (balaces)
-            setFilteredBalaces(balaces)
-    }, [balaces])
-
-    const handleSearch = (query: string) => {
-        router.push(`${pathName}?query=${query}`)
-    }
     const column: Column[] = [
         {
             label: 'Customer',
@@ -63,7 +50,6 @@ const BalancesModule: FC<BalancesModuleProps> = ({ balaces = [], total }) => {
 
     return (
         <div className='flex flex-col gap-3 pb-7'>
-            <SearchInput className='w-full' handleSearch={handleSearch} />
             <div className="flex flex-col lg:flex-row gap-6 ">
                 <Card className="w-full p-6 gap-0">
                     <div className="flex justify-between">
@@ -71,12 +57,12 @@ const BalancesModule: FC<BalancesModuleProps> = ({ balaces = [], total }) => {
                         <span>Gold In Market</span>
                         <div className="flex items-center gap-3">
                             <span className="text-sm text-gray-500">Debit + :</span>
-                            <span className="text-lg font-semibold text-yellow-700">{total.totalGoldPositive}gr</span>
+                            <span className="text-lg font-semibold text-yellow-700">{total.totalGoldPositive.toFixed(2)}gr</span>
                         </div>
 
                         <div className="flex items-center gap-3">
                             <span className="text-sm text-gray-500">Credit - :</span>
-                            <span className="text-lg font-semibold text-yellow-900">{total.totalGoldNegative}gr</span>
+                            <span className="text-lg font-semibold text-yellow-900">{total.totalGoldNegative.toFixed(2)}gr</span>
                         </div>
                     </div>
                 </Card>
@@ -86,18 +72,18 @@ const BalancesModule: FC<BalancesModuleProps> = ({ balaces = [], total }) => {
                         <span>Cash In Market</span>
                         <div className="flex items-center gap-3">
                             <span className="text-sm text-gray-500">Debit + :</span>
-                            <span className="text-lg font-semibold text-green-700">{total.totalCashPositive}$</span>
+                            <span className="text-lg font-semibold text-green-700">{total.totalCashPositive.toFixed(2)}$</span>
                         </div>
 
                         <div className="flex items-center gap-3">
                             <span className="text-sm text-gray-500">Credit - :</span>
-                            <span className="text-lg font-semibold text-red-700">{total.totalCashNegative}$</span>
+                            <span className="text-lg font-semibold text-red-700">{total.totalCashNegative.toFixed(2)}$</span>
                         </div>
                     </div>
                 </Card>
             </div>
             <div className="w-full">
-                <Table data={filteredBalaces} column={column} />
+                <Table data={balaces} columns={column} />
             </div>
 
         </div>

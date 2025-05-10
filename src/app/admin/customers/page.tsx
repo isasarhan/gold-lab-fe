@@ -1,25 +1,29 @@
+import Title from '@/components/common/title';
 import { getAuth } from '@/lib/auth';
 import CustomersModule from '@/modules/admin/customers';
 import useCustomers from '@/services/customers';
 import React, { FC } from 'react';
 
 export interface CustomersPageProps {
-    searchParams: Promise<{ query: string }>
+  searchParams: Promise<{
+    query: string
+    page: number;
+  }>
 }
 
 const CustomersPage: FC<CustomersPageProps> = async ({ searchParams }) => {
-    const { query } = await searchParams
-    
-    const { token, user } = await getAuth();
+  const { query,page } = await searchParams
 
-    const { getAll } = useCustomers({ token })
-    // const data = await getAll({ searchTerm:query });
+  const { token } = await getAuth();
 
-    const data = await getAll();
-    console.log('data', data);
-        
+  const { getAll } = useCustomers({ token })
+  const data = await getAll({ searchTerm: query,page });
+
   return (
-    <CustomersModule customers={data}/>
+    <>
+      <Title text='All Customers'/>
+      <CustomersModule customers={data.data} page={data.page} pages={data.pages} total={data.total} />
+    </>
   );
 };
 

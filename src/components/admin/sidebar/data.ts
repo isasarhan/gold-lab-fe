@@ -32,17 +32,26 @@ export const generateSidebar = (pathName: string) => {
                         url: "/admin/customers/add",
                         isActive: pathName === "/admin/customers/add"
                     },
-
-                ],
-            },
-            {
-                title: "Balances",
-                url: "#",
-                items: [
                     {
                         title: "All Balances",
                         url: "/admin/balances",
                         isActive: pathName === "/admin/balances"
+                    }
+                ],
+            },
+            {
+                title: "Invoices",
+                url: "#",
+                items: [
+                    {
+                        title: "All Invoices",
+                        url: "/admin/invoices",
+                        isActive: pathName === "/admin/invoices"
+                    },
+                    {
+                        title: "Add New Invoice",
+                        url: "/admin/invoices/add",
+                        isActive: pathName === "/admin/invoices/add"
                     }
                 ],
             },

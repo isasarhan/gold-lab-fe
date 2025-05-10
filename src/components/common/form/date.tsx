@@ -13,13 +13,15 @@ export interface FormDateProps {
     name: string
     title: string
     placeholder: string
+    defaultValue?:Date
 }
 
-const FormDate: FC<FormDateProps> = ({ control, name, title, placeholder }) => {
+const FormDate: FC<FormDateProps> = ({ control, name, title, placeholder, defaultValue }) => {
     return (
         <FormField
             control={control}
             name={name}
+            defaultValue={defaultValue}
             render={({ field }) => (
                 <FormItem className="flex flex-col">
                     <FormLabel>{title}</FormLabel>

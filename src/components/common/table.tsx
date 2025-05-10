@@ -9,6 +9,8 @@ import {
   TableRow
 } from '@/components/ui/table';
 import { Card } from '../ui/card';
+import PaginationComp from './pagination';
+import { cn } from '@/lib/utils';
 
 export interface Column {
   label: string;
@@ -18,13 +20,24 @@ export interface Column {
 
 export interface TablePropsComp {
   caption?: string;
-  column: Column[];
+  className?: string;
+  columns: Column[];
   data: any[];
+  total?: number;
+  page?: number;
+  pages?: number;
 }
 
-const TableComp: FC<TablePropsComp> = ({ data, column, caption }) => {
+const TableComp: FC<TablePropsComp> = ({ data, className, columns, caption, page, pages, total }) => {
   return (
-    <div className="w-full">
+    <div className={cn(["w-full", className])}>
+      {(page && pages && total) && <div className="flex justify-between px-4">
+        <div className='flex gap-3 text-xl font-bold'>Total: <span className='text-green-700'>{total}</span></div>
+        <div className='w-fit'>
+          <PaginationComp page={page} pages={pages} total={total} />
+        </div>
+      </div>}
+
       {/* Desktop and tablet view */}
       <div className="hidden sm:block">
         <Card className="p-4">
@@ -32,7 +45,7 @@ const TableComp: FC<TablePropsComp> = ({ data, column, caption }) => {
             {caption && <TableCaption>{caption}</TableCaption>}
             <TableHeader>
               <TableRow>
-                {column.map((col, index) => (
+                {columns.map((col, index) => (
                   <TableHead key={`table-header-${index}`} className="p-0 text-center">
                     {col.label}
                   </TableHead>
@@ -42,7 +55,7 @@ const TableComp: FC<TablePropsComp> = ({ data, column, caption }) => {
             <TableBody>
               {data.map((row, rowIndex) => (
                 <TableRow className="p-0 text-center" key={`table-row-${rowIndex}`}>
-                  {column.map((col, colIndex) => (
+                  {columns.map((col, colIndex) => (
                     <TableCell className="p-4 text-center" key={`table-cell-${colIndex}`}>
                       {col.render ? col.render(row) : row[col.value || '']}
                     </TableCell>
@@ -59,7 +72,7 @@ const TableComp: FC<TablePropsComp> = ({ data, column, caption }) => {
         {data.map((row, rowIndex) => (
           <Card key={`mobile-card-${rowIndex}`} className="p-4">
             <div className="space-y-2">
-              {column.map((col, colIndex) => (
+              {columns.map((col, colIndex) => (
                 <div className="flex justify-between text-sm" key={`mobile-cell-${colIndex}`}>
                   <span className="text-muted-foreground">{col.label}</span>
                   <span className="text-foreground font-medium">

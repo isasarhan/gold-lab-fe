@@ -3,7 +3,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 export interface DropdownProps {
     placeholder?:string
     defaultvalue?:string
-    options: { label: string, value: string, key: string }[];
+    options: { label: string, value: string, key?: string }[];
     handleDropdownChange(value: string): void
 }
 const Dropdown: FC<DropdownProps> = ({ options,defaultvalue,  handleDropdownChange, placeholder }) => {
@@ -15,13 +15,13 @@ const Dropdown: FC<DropdownProps> = ({ options,defaultvalue,  handleDropdownChan
     return (
         <>
             <Select value={value} onValueChange={handleChange}>
-                <SelectTrigger className="min-w-40">
+                <SelectTrigger className="min-w-40 w-full">
                     <SelectValue placeholder={placeholder} />
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value="all">All</SelectItem>
                     {options.map(option => (
-                        <SelectItem key={option.key} value={option.value}>
+                        <SelectItem key={option.key||option.label} value={option.value}>
                             {option.label}
                         </SelectItem>
                     ))}
