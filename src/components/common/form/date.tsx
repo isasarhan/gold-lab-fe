@@ -23,7 +23,7 @@ const FormDate: FC<FormDateProps> = ({ control, name, title, placeholder, defaul
             name={name}
             defaultValue={defaultValue}
             render={({ field }) => (
-                <FormItem className="flex flex-col">
+                <FormItem className="flex flex-col w-full ">
                     <FormLabel>{title}</FormLabel>
                     <Popover>
                         <PopoverTrigger asChild>

@@ -47,7 +47,6 @@ const AddCustomerModule: FC<AddCustomerModuleProps> = () => {
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="text-2xl font-bold">Add Customer</CardTitle>
                 <CardDescription>
                     Fill in the details to create a new customer
                 </CardDescription>

@@ -17,8 +17,8 @@ const FormSelect: FC<FormSelectProps> = ({ control, name, title, placeholder, op
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem className="flex-1">
-                    <FormLabel>{title}</FormLabel>
+                <FormItem className="flex-1 mb-2">
+                    <FormLabel className='p-0 m-0 gap-0'>{title}</FormLabel>
                     <FormControl>
                         <Select onValueChange={field.onChange} defaultValue={field.value} >
                             <FormControl className='w-full'>
@@ -26,9 +26,9 @@ const FormSelect: FC<FormSelectProps> = ({ control, name, title, placeholder, op
                                     <SelectValue placeholder={placeholder} />
                                 </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className='gap-0'>
                                 {options.map((option) => (
-                                    <SelectItem key={option.value} value={option.value}>
+                                    <SelectItem key={option.value} value={option.value} className='p-0 gap-0 m-0'>
                                         {option.label}
                                     </SelectItem>
                                 ))}

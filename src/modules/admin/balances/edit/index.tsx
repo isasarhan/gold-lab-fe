@@ -18,9 +18,7 @@ export interface EditBalanceModuleProps {
 }
 
 const EditBalanceModule: FC<EditBalanceModuleProps> = ({ balance }) => {
-    const { token } = useUserContext();
-    console.log('balance', balance);
-    
+    const { token } = useUserContext();    
     const { update } = useBalances({ token })
 
     const form = useForm({

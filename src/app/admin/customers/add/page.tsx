@@ -1,11 +1,16 @@
+import Title from "@/components/common/title";
 import AddCustomerModule from "@/modules/admin/customers/add";
 import React, { FC } from "react";
 
-export interface AddUserPageProps {}
+export interface AddCustomerPageProps {}
 
-const AddUserPage: FC<AddUserPageProps> = async () => {
+const AddCustomerPage: FC<AddCustomerPageProps> = async () => {
 
-  return <AddCustomerModule />;
+  return <>
+      <Title text='New Customer' />
+
+  <AddCustomerModule />;
+  </>
 };
 
-export default AddUserPage;
+export default AddCustomerPage;

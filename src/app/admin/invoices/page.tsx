@@ -22,7 +22,6 @@ const InvoicesPage: FC<InvoicesPageProps> = async ({ searchParams }) => {
     // const data = await getAll({ searchTerm:query });
     const [customers, invoices] = await Promise.all(
         [getCustomers({}), getInvoices({ searchTerm: query, page, customer, startDate, endDate })])
-    console.log(invoices);
 
     return (
         <>

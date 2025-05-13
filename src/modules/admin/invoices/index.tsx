@@ -6,6 +6,7 @@ import Table, { Column } from '@/components/common/table';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
+import { dateFormatter } from '@/lib/dateFormatter';
 import { ICustomer } from '@/types/customer';
 import { IInvoice } from '@/types/invoice';
 import { Eye, Pencil, Trash } from 'lucide-react';
@@ -38,11 +39,17 @@ const InvoicesModule: FC<InvoicesModuleProps> = ({ invoices, customers, page, pa
 
     const columns: Column[] = [
         { value: "invoiceNb", label: "Invoice #" },
-        { value: "date", label: "Date" },
+        {
+            label: "Date",
+            render: (item: IInvoice) =>
+                <div>
+                    {dateFormatter(item.date.toString())}
+                </div>
+        },
         { value: "totalCash", label: "Total Cash" },
         { value: "totalWeight", label: "Total Weight" },
         {
-            value: "_id", label: "View",
+            label: "View",
             render: (item) => (
                 <Link href={`/dashboard/invoices/${item._id}`}>
                     <button className="btn btn-success"
@@ -51,7 +58,7 @@ const InvoicesModule: FC<InvoicesModuleProps> = ({ invoices, customers, page, pa
             ),
         },
         {
-            value: "_id", label: "Edit",
+            label: "Edit",
             render: (item) => (
                 <button className="btn btn-primary" type="button">
                     <Pencil />
