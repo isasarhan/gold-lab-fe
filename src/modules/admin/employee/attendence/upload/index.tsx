@@ -24,7 +24,7 @@ const EmployeeAttendeceUploadModule: FC<EmployeeAttendeceUploadModuleProps> = ()
         const formData = new FormData();
         formData.append("file", files[0]); // if using FileInterceptor('files')
 
-        const response = await axios.post("http://localhost:5000/api/attendence/upload", formData, {
+        const response = await axios.post("http://localhost:5000/api/attendences/upload", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },

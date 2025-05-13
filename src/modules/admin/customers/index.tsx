@@ -1,6 +1,3 @@
-'use client'
-
-import PaginationComp from '@/components/common/pagination';
 import Table, { Column } from '@/components/common/table';
 import { ICustomer } from '@/types/customer';
 import { Eye, Pen } from 'lucide-react';
@@ -8,13 +5,15 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 export interface CustomersModuleProps {
     data: {
-        customers: ICustomer[];
+        data: ICustomer[];
         total: number;
         page: number;
         pages: number;
     }
 }
 const CustomersModule: FC<CustomersModuleProps> = ({ data }) => {
+    console.log(data);
+    
     const column: Column[] = [
         {
             label: 'Full Name',
@@ -57,7 +56,7 @@ const CustomersModule: FC<CustomersModuleProps> = ({ data }) => {
 
     return (
         <div className='flex flex-col gap-3 pb-7'>
-            <Table data={data.customers} columns={column} page={data.page} pages={data.pages} total={data.total}/>
+            <Table data={data.data} columns={column} page={data.page} pages={data.pages} total={data.total}/>
         </div>
     );
 };

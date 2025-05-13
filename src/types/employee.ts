@@ -8,7 +8,7 @@ export interface IEmployee {
 }
 
 export interface IAttendence {
-    employee: string;
+    employee: IEmployee;
     arrival: Date;
     departure: Date
 }

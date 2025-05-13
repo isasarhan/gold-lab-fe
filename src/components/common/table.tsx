@@ -31,7 +31,7 @@ export interface TablePropsComp {
 const TableComp: FC<TablePropsComp> = ({ data, className, columns, caption, page, pages, total }) => {
   return (
     <div className={cn(["w-full", className])}>
-      {(page && pages && total) ? <div className="flex justify-between px-4">
+      {(page && pages && total) ? <div className="flex items-center justify-between px-4 pb-3">
         <div className='flex gap-3 text-xl font-bold'>Total: <span className='text-green-700'>{total}</span></div>
         <div className='w-fit'>
           <PaginationComp page={page} pages={pages} total={total} />
