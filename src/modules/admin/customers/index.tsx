@@ -1,23 +1,20 @@
 'use client'
 
 import PaginationComp from '@/components/common/pagination';
-import SearchInput from '@/components/common/searchInput';
 import Table, { Column } from '@/components/common/table';
 import { ICustomer } from '@/types/customer';
 import { Eye, Pen } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 export interface CustomersModuleProps {
-    customers: ICustomer[];
-    total: number;
-    page: number;
-    pages: number;
+    data: {
+        customers: ICustomer[];
+        total: number;
+        page: number;
+        pages: number;
+    }
 }
-const CustomersModule: FC<CustomersModuleProps> = ({ customers = [], page, pages, total }) => {
-
-
-
+const CustomersModule: FC<CustomersModuleProps> = ({ data }) => {
     const column: Column[] = [
         {
             label: 'Full Name',
@@ -60,13 +57,7 @@ const CustomersModule: FC<CustomersModuleProps> = ({ customers = [], page, pages
 
     return (
         <div className='flex flex-col gap-3 pb-7'>
-            <div className="flex justify-between px-4">
-                <div className='flex gap-3 text-xl font-bold'>Total: <span className='text-green-700'>{total}</span></div>
-                <div className='w-fit'>
-                    <PaginationComp page={page} pages={pages} total={total} />
-                </div>
-            </div>
-            <Table data={customers} columns={column} />
+            <Table data={data.customers} columns={column} page={data.page} pages={data.pages} total={data.total}/>
         </div>
     );
 };

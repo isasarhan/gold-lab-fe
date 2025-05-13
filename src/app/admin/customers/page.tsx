@@ -22,7 +22,7 @@ const CustomersPage: FC<CustomersPageProps> = async ({ searchParams }) => {
   return (
     <>
       <Title text='All Customers'/>
-      <CustomersModule customers={data.data} page={data.page} pages={data.pages} total={data.total} />
+      <CustomersModule data={data} />
     </>
   );
 };

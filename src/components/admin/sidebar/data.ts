@@ -55,6 +55,27 @@ export const generateSidebar = (pathName: string) => {
                     }
                 ],
             },
+            {
+                title: "Employees",
+                url: "#",
+                items: [
+                    {
+                        title: "All Employees",
+                        url: "/admin/employees",
+                        isActive: pathName === "/admin/employees"
+                    },
+                    {
+                        title: "View Attendences",
+                        url: "/admin/employees/attendence",
+                        isActive: pathName === "/admin/employees/attendence"
+                    },
+                    {
+                        title: "Upload Employee Arrivals",
+                        url: "/admin/employees/attendence/upload",
+                        isActive: pathName === "/admin/employees/attendence/upload"
+                    },
+                ],
+            },
         ],
     }
 }
