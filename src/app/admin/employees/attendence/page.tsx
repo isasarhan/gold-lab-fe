@@ -19,7 +19,7 @@ const AttendencePage: FC<AttendencePageProps> = async ({ searchParams }) => {
     const { getAll: getAttendences } = useAttendences({ token })
     const [employees, attendences] = await Promise.all([getAllEmployees(), getAttendences({ searchTerm: query, page, month, employee, year })])
     return (
-        <AttendenceModule data={attendences} employees={employees} />
+        <AttendenceModule data={attendences} employees={employees.data} />
     );
 };
 

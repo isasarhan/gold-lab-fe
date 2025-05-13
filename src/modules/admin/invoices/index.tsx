@@ -125,7 +125,7 @@ const InvoicesModule: FC<InvoicesModuleProps> = ({ invoices, customers, page, pa
                                     placeholder="Pick a date"
                                 />
                             </div>
-                            <div className="flex-1 flex flex-col justify-end">
+                            <div className="flex-1 flex flex-col justify-end mb-2">
                                 <Button type="submit">View Invoices</Button>
                             </div>
                         </div>

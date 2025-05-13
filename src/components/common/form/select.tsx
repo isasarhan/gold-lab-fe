@@ -8,7 +8,7 @@ export interface FormSelectProps {
     name: string
     title: string
     placeholder: string
-    options: { label: string, value: string }[]
+    options: { label: string, value: any }[]
 }
 
 const FormSelect: FC<FormSelectProps> = ({ control, name, title, placeholder, options }) => {

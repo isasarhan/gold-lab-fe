@@ -5,9 +5,14 @@ import React, { FC } from 'react';
 import Link from 'next/link';
 import { Eye } from 'lucide-react';
 export interface EmployeesModuleProps {
-    employees: IEmployee[];
+    data: {
+        data: IEmployee[];
+        total: number;
+        page: number;
+        pages: number;
+    }
 }
-const EmployeesModule: FC<EmployeesModuleProps> = ({ employees }) => {
+const EmployeesModule: FC<EmployeesModuleProps> = ({ data }) => {
        const column: Column[] = [
         {
             label: 'Full Name',
@@ -42,7 +47,7 @@ const EmployeesModule: FC<EmployeesModuleProps> = ({ employees }) => {
 
     return (
         <div className='flex flex-col gap-3 pb-7'>
-            <Table data={employees} columns={column} />
+            <Table data={data.data} columns={column} />
         </div>
     );
 };

@@ -2,6 +2,7 @@
 import FormSelect from '@/components/common/form/select';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
+import { months, years } from '@/lib/dates';
 import { IEmployee } from '@/types/employee';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { FC } from 'react';
@@ -15,11 +16,11 @@ export interface AttendenceFiltersProps {
 
 interface Filter {
     employee: string,
-    month: Date,
-    year?: Date
+    month?: number,
+    year?: number
 }
 
-const AttendenceFilters: FC<AttendenceFiltersProps> = ({ employees }) => {
+const   AttendenceFilters: FC<AttendenceFiltersProps> = ({ employees }) => {
     const pathName = usePathname()
     const router = useRouter()
     const form = useForm<Filter>({
@@ -34,18 +35,16 @@ const AttendenceFilters: FC<AttendenceFiltersProps> = ({ employees }) => {
         }
         const params = new URLSearchParams();
         if (data.employee) params.append("employee", data.employee);
-        // if (data.startDate) {
-        //     params.append("startDate", data.startDate.toISOString());
-        //     params.append("endDate", data.endDate.toISOString());
-        // }
+        if (data.month) params.append("month", data.month.toString());
+        if (data.year) params.append("year", data.year.toString());
+
         router.push(`${pathName}?${params.toString()}`);
     };
 
     return (
         <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="flex flex-col gap-3 pe-8">
-                    <div className="flex-1">
+                <div className="flex items-center gap-3 pe-8">
                         <FormSelect
                             control={form.control}
                             name="employee"
@@ -57,9 +56,31 @@ const AttendenceFilters: FC<AttendenceFiltersProps> = ({ employees }) => {
                                 label: employee.name,
                             }))}
                         />
+                        <FormSelect
+                            control={form.control}
+                            name="month"
+                            title="Month"
+                            placeholder="Select month"
+                            options={months.map((month, index) => ({
+                                key: month.toString(),
+                                value: `${++index}`,
+                                label: month.toString(),
+                            }))}
+                        />
+                        <FormSelect
+                            control={form.control}
+                            name="year"
+                            title="Year"
+                            placeholder="Select year"
+                            options={years.map((year) => ({
+                                key: `${year}`,
+                                value: `${year}`,
+                                label: `${year}`,
+                            }))}
+                        />
 
+                    <Button className='mt-3' type="submit">View Attendence</Button>
                     </div>
-                    <Button type="submit">View Attendence</Button>
                     {/* <div className="flex-1">
                         <FormDate
                             control={form.control}
@@ -77,7 +98,6 @@ const AttendenceFilters: FC<AttendenceFiltersProps> = ({ employees }) => {
                             placeholder="Pick a date"
                         />
                     </div> */}
-                </div>
             </form>
         </Form>
     );

@@ -12,16 +12,16 @@ export interface CustomersPageProps {
 }
 
 const CustomersPage: FC<CustomersPageProps> = async ({ searchParams }) => {
-  const { query,page } = await searchParams
+  const { query, page } = await searchParams
 
   const { token } = await getAuth();
 
   const { getAll } = useCustomers({ token })
-  const data = await getAll({ searchTerm: query,page });
+  const data = await getAll({ searchTerm: query, page });
 
   return (
     <>
-      <Title text='All Customers'/>
+      <Title text='All Customers' />
       <CustomersModule data={data} />
     </>
   );
