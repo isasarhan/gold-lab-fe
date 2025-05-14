@@ -3,7 +3,7 @@ import { Textarea } from '@/components/ui/textarea';
 import React, { FC } from 'react';
 import { Control } from 'react-hook-form';
 
-export interface FormTextAreaProps {
+export interface FormTextAreaProps extends React.ComponentProps<"textarea">{
     control: Control<any>
     name: string
     title: string
@@ -18,7 +18,7 @@ const FormTextArea: FC<FormTextAreaProps> = ({ control, name, title, placeholder
                 <FormItem>
                     <FormLabel>{title}</FormLabel>
                     <FormControl>
-                        <Textarea placeholder={placeholder} className="resize-none min-h-[120px]" {...field} />
+                        <Textarea placeholder={placeholder} className="resize-none min-h-[80px]" {...field} />
                     </FormControl>
                     <FormMessage />
                 </FormItem>

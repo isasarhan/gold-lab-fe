@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 export interface Column {
   label: string;
   value?: string;
-  render?: (row: any) => React.ReactNode;
+  render?: (row: any, rowIndex: number) => React.ReactNode;
 }
 
 export interface TablePropsComp {
@@ -36,7 +36,7 @@ const TableComp: FC<TablePropsComp> = ({ data, className, columns, caption, page
         <div className='w-fit'>
           <PaginationComp page={page} pages={pages} total={total} />
         </div>
-      </div>:<></>}
+      </div> : <></>}
 
       {/* Desktop and tablet view */}
       <div className="hidden sm:block">
@@ -57,7 +57,7 @@ const TableComp: FC<TablePropsComp> = ({ data, className, columns, caption, page
                 <TableRow className="p-0 text-center" key={`table-row-${rowIndex}`}>
                   {columns.map((col, colIndex) => (
                     <TableCell className="p-4 text-center" key={`table-cell-${colIndex}`}>
-                      {col.render ? col.render(row) : row[col.value || '']}
+                      {col.render ? col.render(row, rowIndex) : row[col.value || '']}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -76,7 +76,7 @@ const TableComp: FC<TablePropsComp> = ({ data, className, columns, caption, page
                 <div className="flex justify-between text-sm" key={`mobile-cell-${colIndex}`}>
                   <span className="text-muted-foreground">{col.label}</span>
                   <span className="text-foreground font-medium">
-                    {col.render ? col.render(row) : row[col.value || '']}
+                    {col.render ? col.render(row, rowIndex) : row[col.value || '']}
                   </span>
                 </div>
               ))}

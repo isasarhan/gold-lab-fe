@@ -65,6 +65,11 @@ export const generateSidebar = (pathName: string) => {
                         isActive: pathName === "/admin/employees"
                     },
                     {
+                        title: "Add New Employee",
+                        url: "/admin/employees/add",
+                        isActive: pathName === "/admin/employees/add"
+                    },
+                    {
                         title: "View Attendences",
                         url: "/admin/employees/attendence",
                         isActive: pathName === "/admin/employees/attendence"

@@ -46,8 +46,18 @@ const InvoicesModule: FC<InvoicesModuleProps> = ({ invoices, customers, page, pa
                     {dateFormatter(item.date.toString())}
                 </div>
         },
-        { value: "totalCash", label: "Total Cash" },
-        { value: "totalWeight", label: "Total Weight" },
+        {
+            value: "totalWeight", label: "Total Weight",
+            render: (item: IInvoice) => (
+                <div>{item.totalWeight?.toFixed(2)}</div>
+            )
+        },
+        {
+            value: "totalCash", label: "Total Cash",
+            render: (item: IInvoice) => (
+                <div>{item.totalCash?.toFixed(2)}</div>
+            )
+        },
         {
             label: "View",
             render: (item) => (
