@@ -1,3 +1,4 @@
+import { ICustomer } from "./customer";
 
 export enum Karat {
     K18 = '18K',
@@ -33,10 +34,19 @@ export interface IOrder {
     description: string;
     date: Date;
 }
-export interface IInvoice {
+export interface IِAddInvoice {
     _id?: string
     invoiceNb: string;
     customer: string;
+    orders: IOrder[];
+    totalWeight?: number;
+    totalCash?: number;
+    date: Date;
+}
+export interface IInvoice {
+    _id?: string
+    invoiceNb: string;
+    customer: ICustomer;
     orders: IOrder[];
     totalWeight?: number;
     totalCash?: number;

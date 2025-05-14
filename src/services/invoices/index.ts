@@ -1,4 +1,4 @@
-import { IInvoice } from '@/types/invoice';
+import { IِAddInvoice } from '@/types/invoice';
 import httpService from '../axios';
 import axios from "axios";
 
@@ -30,7 +30,7 @@ const useInvoices = ({ token }: { token: string | undefined }) => {
         }) : null
     };
 
-    const add = async (invoice: Partial<IInvoice>) => {
+    const add = async (invoice: Partial<IِAddInvoice>) => {
         if (!token) return;
 
         if (!httpService.assignToken(token)) return null;
@@ -52,7 +52,7 @@ const useInvoices = ({ token }: { token: string | undefined }) => {
             throw new Error(errorMessage);
         }
     };
-    const update = async (id: string, invoice: Partial<IInvoice>) => {
+    const update = async (id: string, invoice: Partial<IِAddInvoice>) => {
         if (!token) return;
 
         if (!httpService.assignToken(token)) return null;

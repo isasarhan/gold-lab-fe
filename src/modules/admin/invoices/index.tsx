@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
 import { dateFormatter } from '@/lib/dateFormatter';
 import { ICustomer } from '@/types/customer';
-import { IInvoice } from '@/types/invoice';
+import { IِAddInvoice } from '@/types/invoice';
 import { Eye, Pencil, Trash } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -17,7 +17,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 export interface InvoicesModuleProps {
-    invoices: IInvoice[]
+    invoices: IِAddInvoice[]
     customers: ICustomer[]
     total: number;
     page: number;
@@ -41,27 +41,27 @@ const InvoicesModule: FC<InvoicesModuleProps> = ({ invoices, customers, page, pa
         { value: "invoiceNb", label: "Invoice #" },
         {
             label: "Date",
-            render: (item: IInvoice) =>
+            render: (item: IِAddInvoice) =>
                 <div>
                     {dateFormatter(item.date.toString())}
                 </div>
         },
         {
             value: "totalWeight", label: "Total Weight",
-            render: (item: IInvoice) => (
+            render: (item: IِAddInvoice) => (
                 <div>{item.totalWeight?.toFixed(2)}</div>
             )
         },
         {
             value: "totalCash", label: "Total Cash",
-            render: (item: IInvoice) => (
+            render: (item: IِAddInvoice) => (
                 <div>{item.totalCash?.toFixed(2)}</div>
             )
         },
         {
             label: "View",
             render: (item) => (
-                <Link href={`/dashboard/invoices/${item._id}`}>
+                <Link href={`/admin/invoices/${item._id}`}>
                     <button className="btn btn-success"
                         type="button"><Eye /></button>
                 </Link>
