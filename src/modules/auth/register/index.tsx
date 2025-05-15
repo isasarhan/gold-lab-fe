@@ -10,6 +10,7 @@ import useAuth from "@/services/auth"
 import React, { FC } from 'react';
 import { toast } from "sonner"
 import FormInput from "@/components/common/form/input"
+import FormPassword from "@/components/common/form/password"
 
 export interface RegisterModuleProps { }
 
@@ -66,12 +67,12 @@ const RegisterModule: FC<RegisterModuleProps> = () => {
                             title="Email"
                             placeholder="Enter your email" />
 
-                        <FormInput
+                        <FormPassword
                             control={form.control}
                             name="password"
                             title="Password"
-                            type="password"
-                            placeholder="Enter your password" />
+                            placeholder="Enter password" />
+
                         <Button type="submit">Submit</Button>
                     </form>
                 </Form>

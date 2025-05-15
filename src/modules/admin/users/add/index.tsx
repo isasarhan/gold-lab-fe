@@ -23,6 +23,7 @@ import useUsers from "@/services/users";
 import { toast } from "sonner";
 import FormInput from "@/components/common/form/input";
 import FormSelect from "@/components/common/form/select";
+import FormPassword from "@/components/common/form/password";
 
 export interface AddUserModuleProps { }
 const AddUserModule: FC<AddUserModuleProps> = () => {
@@ -105,13 +106,11 @@ const AddUserModule: FC<AddUserModuleProps> = () => {
                                 title='Email'
                                 placeholder="Enter email"
                             />
-                            <FormInput
+                            <FormPassword
                                 control={form.control}
                                 name="password"
-                                title='Password'
-                                placeholder="Enter password"
-                                type="password"
-                            />
+                                title="Password"
+                                placeholder="Enter password" />
 
 
                         </div>

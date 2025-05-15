@@ -8,6 +8,7 @@ import { loginSchema } from './validation';
 import { Form } from '@/components/ui/form';
 import { useUserContext } from '@/providers/UserProvider';
 import FormInput from '@/components/common/form/input';
+import FormPassword from '@/components/common/form/password';
 
 export interface LoginModuleProps { }
 
@@ -36,18 +37,16 @@ const LoginModule: FC<LoginModuleProps> = () => {
                             title="Email"
                             placeholder="Enter your email" />
 
-                        <FormInput
+                        <FormPassword
                             control={form.control}
                             name="password"
                             title="Password"
-                            type="password"
                             placeholder="Enter your password" />
-                    </CardContent>
-                    <CardFooter>
+                            
                         <Button type="submit" className="w-full">
                             Sign In
                         </Button>
-                    </CardFooter>
+                    </CardContent>
                 </form>
             </Form>
         </Card>
