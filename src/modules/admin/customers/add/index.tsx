@@ -92,11 +92,6 @@ const AddCustomerModule: FC<AddCustomerModuleProps> = () => {
                                 placeholder="Enter customer location"
                             />
                         </div>
-                        <div className="flex flex-col lg:flex-row items-center w-full gap-4">
-
-
-
-                        </div>
                         <Button type="submit" className="w-full">
                             Add
                         </Button>

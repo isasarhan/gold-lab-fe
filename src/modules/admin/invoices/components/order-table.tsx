@@ -7,15 +7,15 @@ import ConfirmDialog from './discard-dialog';
 export interface OrderTableProps {
     orders: IOrder[];
     onEdit(value: IOrder, id: number): void
-    onDelete(id: number): void
+    onDelete(id: number, value?: IOrder): void
 }
 
 const OrderTable: FC<OrderTableProps> = ({ orders, onEdit, onDelete }) => {
     const handleEdit = (data: IOrder, index: number) => {
         onEdit(data, index)
     }
-    const handleDelete = (index: number) => {
-        onDelete(index)
+    const handleDelete = (index: number, value?:IOrder) => {
+        onDelete(index, value)
     }
     const columns: Column[] = [
         {
@@ -59,7 +59,7 @@ const OrderTable: FC<OrderTableProps> = ({ orders, onEdit, onDelete }) => {
             render: (value: IOrder, index) => (
                 <div className='flex justify-center items-center w-full'>
                     <ConfirmDialog
-                        onConfirm={() => handleDelete(index)}
+                        onConfirm={() => handleDelete(index, value)}
                         text="Delete Order"
                         title="Delete Order"
                         description="Are you sure you want to delete order?">

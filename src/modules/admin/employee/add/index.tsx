@@ -53,39 +53,46 @@ const AddEmployeeModule: FC<AddEmployeeModuleProps> = () => {
             <Form {...form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <CardContent className="space-y-3">
-                        <div className="flex flex-col gap-4 ">
+                        <div className="flex flex-col gap-3">
+                            <div className="flex gap-3 w-1/2 ">
+                                <FormInput
+                                    className=""
+                                    control={form.control}
+                                    name="name"
+                                    title='Full Name'
+                                    placeholder="Enter employee name"
+                                />
+                            </div>
+                            <div className="flex gap-3">
 
-                            <FormInput
-                                control={form.control}
-                                name="name"
-                                title='Full Name'
-                                placeholder="Enter employee name"
-                            />
-                            <FormInput
-                                control={form.control}
-                                name="email"
-                                title='Email'
-                                placeholder="Enter employee email"
-                            />
+                                <FormInput
+                                    control={form.control}
+                                    name="email"
+                                    title='Email'
+                                    placeholder="Enter employee email"
+                                />
 
-                            <FormInput
-                                control={form.control}
-                                name="phone"
-                                title='Phone'
-                                placeholder="Enter employee phone"
-                            />
-                            <FormInput
-                                control={form.control}
-                                name="position"
-                                title='position'
-                                placeholder="Enter employee position"
-                            />
-                            <FormInput
-                                control={form.control}
-                                name="salary"
-                                title='salary'
-                                placeholder="Enter employee salary"
-                            />
+                                <FormInput
+                                    control={form.control}
+                                    name="phone"
+                                    title='Phone'
+                                    placeholder="Enter employee phone"
+                                />
+                            </div>
+                            <div className="flex gap-3">
+                                <FormInput
+                                    control={form.control}
+                                    name="position"
+                                    title='Position'
+                                    placeholder="Enter employee position"
+                                />
+                                <FormInput
+                                    control={form.control}
+                                    name="salary"
+                                    title='Salary'
+                                    placeholder="Enter employee salary"
+                                />
+                            </div>
                         </div>
                         <Button type="submit" className="w-full">
                             Add

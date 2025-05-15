@@ -1,4 +1,5 @@
 import { getAuth } from '@/lib/auth';
+import ViewInvoiceModule from '@/modules/admin/invoices/view';
 import useInvoices from '@/services/invoices';
 import React, { FC } from 'react';
 export interface ViewInvoicePageProps {
@@ -15,12 +16,10 @@ const fetchInvoice = async (id: string) => {
 const ViewInvoicePage: FC<ViewInvoicePageProps> = async ({ params }) => {
     const { id } = await params;
     const invoice = await fetchInvoice(id)
-    console.log(invoice);
+    
     
     return (
-        <div>
-            Hello ViewInvoicePage
-        </div>
+        <ViewInvoiceModule invoice={invoice}/>
     );
 };
 

@@ -1,10 +1,10 @@
-import { IِAddInvoice } from '@/types/invoice';
+import { IOrder } from '@/types/invoice';
 import httpService from '../axios';
 import axios from "axios";
 
-const useInvoices = ({ token }: { token: string | undefined }) => {
+const useOrders = ({ token }: { token: string | undefined }) => {
     const instance = httpService.instance
-    const url = `/invoices`;
+    const url = `/orders`;
 
     const getAll = async (query?: Record<string, any>) => {
         if (!token) return;
@@ -16,7 +16,7 @@ const useInvoices = ({ token }: { token: string | undefined }) => {
             return res.data;
         } catch (e) {
             console.error(e);
-            throw new Error("Failed to fetch invoices");
+            throw new Error("Failed to fetch orders");
         }
     }
 
@@ -30,16 +30,16 @@ const useInvoices = ({ token }: { token: string | undefined }) => {
         }) : null
     };
 
-    const add = async (invoice: Partial<IِAddInvoice>) => {
+    const add = async (order: Partial<IOrder>) => {
         if (!token) return;
 
         if (!httpService.assignToken(token)) return null;
 
         try {
-            const res = await instance.post(`${url}/add`, invoice);
+            const res = await instance.post(`${url}/add`, order);
             return res.data;
         } catch (error) {
-            console.error("Error adding invoice:", error);
+            console.error("Error adding order:", error);
 
             let errorMessage = "An unexpected error occurred";
 
@@ -52,16 +52,16 @@ const useInvoices = ({ token }: { token: string | undefined }) => {
             throw new Error(errorMessage);
         }
     };
-    const update = async (id: string, invoice: Partial<IِAddInvoice>) => {
+    const update = async (id: string, order: Partial<IOrder>) => {
         if (!token) return;
 
         if (!httpService.assignToken(token)) return null;
 
         try {
-            const res = await instance.put(`${url}/${id}`, invoice);
+            const res = await instance.put(`${url}/${id}`, order);
             return res.data;
         } catch (error) {
-            console.error("Error adding invoice:", error);
+            console.error("Error adding order:", error);
 
             let errorMessage = "An unexpected error occurred";
 
@@ -74,13 +74,13 @@ const useInvoices = ({ token }: { token: string | undefined }) => {
             throw new Error(errorMessage);
         }
     };
-    const remove = async (id: string) => {
+    const remove = async (id: string, query?: { invoiceId: string }) => {
         if (!token) return;
 
         if (!httpService.assignToken(token)) return null;
 
         try {
-            const res = await instance.delete(`${url}/${id}`);
+            const res = await instance.delete(`${url}/${id}`, { params: query });
             return res.data;
         } catch (e) {
             console.error(e);
@@ -91,4 +91,4 @@ const useInvoices = ({ token }: { token: string | undefined }) => {
     return { getById, getAll, add, update, remove };
 }
 
-export default useInvoices;
+export default useOrders;

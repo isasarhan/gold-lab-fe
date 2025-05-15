@@ -32,6 +32,9 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
     const form = useForm({
         mode: "onBlur",
         resolver: zodResolver(AddOrderSchema),
+        defaultValues:{
+            karat:Karat.K18
+        }
     });
     const { handleSubmit } = form;
 
@@ -70,7 +73,9 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
     };
     const handleDiscardInvoice = () => {
         setOrders([]);
-        form.reset({})
+        form.reset({
+            karat:Karat.K18
+        })
     };
 
     return (

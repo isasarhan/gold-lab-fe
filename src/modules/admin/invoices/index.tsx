@@ -7,14 +7,17 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
 import { dateFormatter } from '@/lib/dateFormatter';
+import { useUserContext } from '@/providers/UserProvider';
+import useInvoices from '@/services/invoices';
 import { ICustomer } from '@/types/customer';
-import { IِAddInvoice } from '@/types/invoice';
+import { IInvoice, IِAddInvoice } from '@/types/invoice';
 import { Eye, Pencil, Trash } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import ConfirmDialog from './components/discard-dialog';
 
 export interface InvoicesModuleProps {
     invoices: IِAddInvoice[]
@@ -31,12 +34,25 @@ interface Filter {
 }
 
 const InvoicesModule: FC<InvoicesModuleProps> = ({ invoices, customers, page, pages, total }) => {
+    const { token } = useUserContext();
+    const { remove } = useInvoices({ token })
     const pathName = usePathname()
     const router = useRouter()
     const form = useForm<Filter>({
         mode: "onBlur",
     });
 
+    const handleDelete = async (item: IInvoice) => {
+        try {
+            await remove(item?._id!).then(() => {
+                toast.success("invoice removed successfully!");
+                router.refresh()
+            })
+
+        } catch (e: any) {
+            toast.error(e.message);
+        }
+    }
     const columns: Column[] = [
         { value: "invoiceNb", label: "Invoice #" },
         {
@@ -78,7 +94,13 @@ const InvoicesModule: FC<InvoicesModuleProps> = ({ invoices, customers, page, pa
         {
             value: "_id", label: "Delete",
             render: (item) => (
-                <button className="btn btn-danger" type="button"><Trash /></button>
+                <ConfirmDialog
+                    onConfirm={() => handleDelete(item)}
+                    text="Delete Order"
+                    title="Delete Order"
+                    description="Are you sure you want to delete order?">
+                    <Trash size={20} />
+                </ConfirmDialog>
             ),
         },
     ];

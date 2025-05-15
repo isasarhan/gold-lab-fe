@@ -47,8 +47,8 @@ export interface IInvoice {
     _id?: string
     invoiceNb: string;
     customer: ICustomer;
-    orders: IOrder[];
     totalWeight?: number;
     totalCash?: number;
     date: Date;
+    orders: IOrder[];
 }
