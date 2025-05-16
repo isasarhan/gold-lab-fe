@@ -44,7 +44,7 @@ const UserProvider: FC<UserProviderProps> = ({ children }) => {
             setUser(user)
             setToken(token)
             Cookies.set('token', token)
-            Cookies.set('currentUser', JSON.stringify(user))
+            Cookies.set('user', JSON.stringify(user))
             router.push('/admin/dashboard')
             return data
         }).catch((e)=>{
@@ -53,7 +53,7 @@ const UserProvider: FC<UserProviderProps> = ({ children }) => {
     }
     const signOut = () => {
         Cookies.remove('token')
-        Cookies.remove('currentUser')
+        Cookies.remove('user')
         setIsLoggedIn(false);
         setToken('')
         router.refresh()
@@ -63,7 +63,7 @@ const UserProvider: FC<UserProviderProps> = ({ children }) => {
 
     useEffect(() => {
         const retreiveUserInfo = () => {
-            const storedUser = Cookies.get("currentUser")
+            const storedUser = Cookies.get("user")
             const storedToken = Cookies.get('token')
             if (storedUser && storedToken) {
                 const parsedUser = JSON.parse(storedUser);
