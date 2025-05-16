@@ -5,11 +5,13 @@ import { getAuth } from "./lib/auth";
 export async function middleware(request: NextRequest) {
   const { user } = await getAuth();
 
+  console.log('user', user);
+  
   const pathname = request.nextUrl.pathname;
 
-  if (!user && !pathname.startsWith('/login')) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
+  // if (!user && !pathname.startsWith('/login')) {
+  //   return NextResponse.redirect(new URL('/login', request.url));
+  // }
 
   if (user) {
     switch (user.role) {
