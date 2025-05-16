@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { RefreshCcw, Search } from "lucide-react";
 import { usePathname, useRouter } from 'next/navigation';
+import { ModeToggle } from './mode-toggle';
 
 interface AdminHeaderProps { }
 
@@ -28,8 +29,8 @@ const AdminHeader: FC<AdminHeaderProps> = () => {
                 <Popover>
                     <PopoverTrigger asChild>
                         <Button
-                            variant={"default"} className='text-white'>
-                            <Search className="ml-auto h-4 w-4 text-white" />
+                            variant="outline" size="icon">
+                            <Search />
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0 me-2 mt-2" align="start">
@@ -37,9 +38,10 @@ const AdminHeader: FC<AdminHeaderProps> = () => {
                     </PopoverContent>
                 </Popover>
                 <Button
-                    variant={"default"} className='text-white' onClick={handleRefresh}>
-                    <RefreshCcw className="ml-auto h-4 w-4 text-white" />
+                    variant="outline" size="icon" onClick={handleRefresh}>
+                    <RefreshCcw />
                 </Button>
+                <ModeToggle/>
             </div>
         </header>
     );

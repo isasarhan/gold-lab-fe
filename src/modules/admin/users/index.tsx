@@ -10,18 +10,25 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { FC } from 'react';
 import { toast } from 'sonner';
+import ConfirmDialog from '../../../components/common/discard-dialog';
 export interface UsersModuleProps {
     users: IUser[];
 }
 const UsersModule: FC<UsersModuleProps> = ({ users = [] }) => {
     const { token } = useUserContext()
-    const { update } = useUsers({ token })
+    const { update, remove } = useUsers({ token })
     const router = useRouter()
 
     const handleChangePublicity = async (user: IUser) => {
         await update(user._id!, { isApproved: !user.isApproved }).then(() => {
             router.refresh()
             toast.success('updated!')
+        })
+    }
+    const handleDelete = async (index: number, value: IUser) => {
+        await remove(value._id!).then(() => {
+            router.refresh()
+            toast.success('user deleted!')
         })
     }
 
@@ -70,10 +77,14 @@ const UsersModule: FC<UsersModuleProps> = ({ users = [] }) => {
         },
         {
             label: 'Delete',
-            render: (value: IUser) => (
-                <div className='flex justify-center items-center w-full'>
-                    <Trash size={20} />
-                </div>
+            render: (value: IUser, index) => (
+                <ConfirmDialog
+                    onConfirm={() => handleDelete(index, value)}
+                    text="Delete Order"
+                    title="Delete Order"
+                    description="Are you sure you want to delete order?">
+                    <Trash size={20} className="text-white" />
+                </ConfirmDialog>
             )
         },
     ]

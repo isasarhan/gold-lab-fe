@@ -1,20 +1,20 @@
-import { IOrder } from '@/types/invoice';
 import React, { FC } from 'react';
 import Table, { Column } from '@/components/common/table';
 import { Pen, Trash } from 'lucide-react';
 import ConfirmDialog from '../../../../components/common/discard-dialog';
+import { IِAddReceipt, IِReceipt } from '@/types/receipts';
 
-export interface OrderTableProps {
-    orders: IOrder[];
-    onEdit(value: IOrder, id: number): void
-    onDelete(id: number, value?: IOrder): void
+export interface ReceiptTableProps {
+    receipts: IِAddReceipt[];
+    onEdit(value: IِAddReceipt, id: number): void
+    onDelete(id: number, value?: IِAddReceipt): void
 }
 
-const OrderTable: FC<OrderTableProps> = ({ orders, onEdit, onDelete }) => {
-    const handleEdit = (data: IOrder, index: number) => {
+const ReceiptTable: FC<ReceiptTableProps> = ({ receipts, onEdit, onDelete }) => {
+    const handleEdit = (data: IِAddReceipt, index: number) => {
         onEdit(data, index)
     }
-    const handleDelete = (index: number, value?:IOrder) => {
+    const handleDelete = (index: number, value?:IِAddReceipt) => {
         onDelete(index, value)
     }
     const columns: Column[] = [
@@ -27,20 +27,12 @@ const OrderTable: FC<OrderTableProps> = ({ orders, onEdit, onDelete }) => {
             value: 'karat'
         },
         {
-            label: 'Per Gram',
-            value: 'perGram'
+            label: 'Cash',
+            value: 'cash'
         },
         {
-            label: 'Per Item',
-            value: 'perItem'
-        },
-        {
-            label: 'Type',
-            value: 'type'
-        },
-        {
-            label: 'Quantity',
-            value: 'quantity'
+            label: 'Currency',
+            value: 'currency'
         },
         {
             label: 'Description',
@@ -48,7 +40,7 @@ const OrderTable: FC<OrderTableProps> = ({ orders, onEdit, onDelete }) => {
         },
         {
             label: 'Edit',
-            render: (value: IOrder, index) => (
+            render: (value: IِAddReceipt, index) => (
                 <div className='flex justify-center items-center w-full'>
                     <Pen onClick={() => handleEdit(value, index)} size={20} />
                 </div>
@@ -56,13 +48,13 @@ const OrderTable: FC<OrderTableProps> = ({ orders, onEdit, onDelete }) => {
         },
         {
             label: 'Delete',
-            render: (value: IOrder, index) => (
+            render: (value: IِAddReceipt, index) => (
                 <div className='flex justify-center items-center w-full'>
                     <ConfirmDialog
                         onConfirm={() => handleDelete(index, value)}
-                        text="Delete Order"
-                        title="Delete Order"
-                        description="Are you sure you want to delete order?">
+                        text="Delete Receipt"
+                        title="Delete Receipt"
+                        description="Are you sure you want to delete Receipt?">
                         <Trash size={20} />
                     </ConfirmDialog>
 
@@ -71,8 +63,8 @@ const OrderTable: FC<OrderTableProps> = ({ orders, onEdit, onDelete }) => {
         }
     ]
     return (
-        <Table columns={columns} data={orders} />
+        <Table columns={columns} data={receipts} />
     );
 };
 
-export default OrderTable;
+export default ReceiptTable;

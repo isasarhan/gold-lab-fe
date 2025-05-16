@@ -17,7 +17,7 @@ const EmployeesPage: FC<EmployeesPageProps> = async ({ searchParams }) => {
     const data = await getAll({ searchTerm: query, page });
     return (
         <>
-            <Title text='All Emplloyees' />
+            <Title text='All Employees' buttonText='Add Employee' url='/admin/employees/add' />
             <EmployeesModule data={data} />
         </>
     );

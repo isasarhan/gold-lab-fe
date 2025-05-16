@@ -18,7 +18,7 @@ const FormInput: FC<FormInputProps> = ({ control, name, className, title, placeh
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem className={cn(className, "flex-1 w-full")}>
+                <FormItem className={cn(className, "flex-1 w-full p-0 m-0")}>
                     <FormLabel>{title}</FormLabel>
                     <FormControl>
                         <Input {...props} placeholder={placeholder} {...field} />

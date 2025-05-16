@@ -12,14 +12,6 @@ const EmployeeAttendeceUploadModule: FC<EmployeeAttendeceUploadModuleProps> = ()
     const [files, setFiles] = useState<File[]>([])
 
     const handleUpload = async (files: File[]) => {
-        // Simulate an upload delay
-        // await new Promise((resolve) => setTimeout(resolve, 2000))
-
-        // In a real application, you would upload the files to your server or a storage service
-        // console.log("Files to upload:", files)
-
-        // Example of how you might upload files to a server
-        console.log('file', files[0]);
 
         const formData = new FormData();
         formData.append("file", files[0]); // if using FileInterceptor('files')

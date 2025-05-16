@@ -14,7 +14,7 @@ export interface InvoicesPageProps {
 const InvoicesPage: FC<InvoicesPageProps> = async ({ searchParams }) => {
     const { query, customer, startDate, endDate, page } = await searchParams
 
-    const { token, user } = await getAuth();
+    const { token } = await getAuth();
 
     const { getAll: getInvoices } = useInvoices({ token })
     const { getAll: getCustomers } = useCustomers({ token })
@@ -25,9 +25,8 @@ const InvoicesPage: FC<InvoicesPageProps> = async ({ searchParams }) => {
 
     return (
         <>
-            <Title text='All Invoices' />
-            <InvoicesModule invoices={invoices.data} customers={customers.data}
-                page={invoices.page} pages={invoices.pages} total={invoices.total} />
+            <Title text='All Invoices' buttonText='Add Invoice' url='/admin/invoices/add' />
+            <InvoicesModule data={invoices} customers={customers.data} />
         </>
     );
 };

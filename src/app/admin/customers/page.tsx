@@ -21,7 +21,7 @@ const CustomersPage: FC<CustomersPageProps> = async ({ searchParams }) => {
 
   return (
     <>
-      <Title text='All Customers' />
+      <Title text='All Customers' buttonText='Add Customer' url='/admin/customers/add'/>
       <CustomersModule data={data} />
     </>
   );

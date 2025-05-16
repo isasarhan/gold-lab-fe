@@ -32,7 +32,7 @@ const TableComp: FC<TablePropsComp> = ({ data, className, columns, caption, page
   return (
     <div className={cn(["w-full", className])}>
       {(page && pages && total) ? <div className="flex justify-between px-4 pb-3 ">
-        <div className='flex gap-3 text-xl font-bold items-center'>Total: <span className='text-green-700'>{total}</span></div>
+        <div className='flex gap-3 text-xl font-bold items-center'>Total: <span className='text-green-700 dark:text-white'>{total}</span></div>
         <div className='w-fit'>
           <PaginationComp page={page} pages={pages} total={total} />
         </div>

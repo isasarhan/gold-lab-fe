@@ -137,7 +137,7 @@ const getBadgeVariant = (type: CustomerType) => {
 }
 
 import React, { FC } from 'react';
-import ConfirmDialog from "../../invoices/components/discard-dialog"
+import ConfirmDialog from "../../../../components/common/discard-dialog"
 export interface ViewCustomerModuleProps {
   customer: ICustomer
 }

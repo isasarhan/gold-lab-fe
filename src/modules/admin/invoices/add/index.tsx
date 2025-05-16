@@ -18,7 +18,7 @@ import FormDate from "@/components/common/form/date";
 import { IOrder, ItemType, Karat } from "@/types/invoice";
 import FormTextArea from "@/components/common/form/textarea";
 import OrderTable from "../components/order-table";
-import ConfirmDialog from "../components/discard-dialog";
+import ConfirmDialog from "../../../../components/common/discard-dialog";
 
 interface AddInvoiceModuleProps {
     customers: ICustomer[]
@@ -83,7 +83,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                 <Card className="p-5">
                     <div className="flex gap-3">
-                        <div className="flex w-1/3">
+                        <div className="flex items-start w-1/3">
                             <FormSelect
                                 control={form.control}
                                 name="customer"

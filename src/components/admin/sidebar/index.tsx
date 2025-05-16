@@ -35,9 +35,9 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link href={'/admin/dashboard'}>
-                <div className="flex aspect-square bg-primary size-8 items-center justify-center rounded-lg  text-sidebar-primary-foreground">
-                  <GalleryVerticalEnd className="size-4" />
-                </div>
+                <Button variant="default" size="icon">
+                  <GalleryVerticalEnd />
+                </Button>
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-semibold">Gold Lab Management App</span>
                 </div>
@@ -62,7 +62,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
                     className="group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                   >
                     <CollapsibleTrigger>
-                      {item.title}{" "}
+                      {item.title}
                       <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
                     </CollapsibleTrigger>
                   </SidebarGroupLabel>
@@ -70,9 +70,9 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
                     <SidebarGroupContent>
                       <SidebarMenuSub>
                           {item.items.map((item) => (
-                            <SidebarMenuItem key={item.title}>
+                            <SidebarMenuItem key={item.title} className="my-1.5 ">
                               <SidebarMenuButton asChild isActive={item.isActive}>
-                                <a href={item.url}>{item.title}</a>
+                                <a href={item.url}>{'icon' in item && item.icon} {item.title}</a>
                               </SidebarMenuButton>
                             </SidebarMenuItem>
                           ))}

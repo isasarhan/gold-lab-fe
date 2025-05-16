@@ -1,10 +1,10 @@
-import { IUser } from '@/types/user';
+import { IِAddReceipt } from '@/types/receipts';
 import httpService from '../axios';
 import axios from "axios";
 
-const useUsers = ({ token }: { token: string | undefined }) => {
+const useReceipts = ({ token }: { token: string | undefined }) => {
     const instance = httpService.instance
-    const url = `/users`;
+    const url = `/receipts`;
 
     const getAll = async (query?: Record<string, any>) => {
         if (!token) return;
@@ -16,7 +16,7 @@ const useUsers = ({ token }: { token: string | undefined }) => {
             return res.data;
         } catch (e) {
             console.error(e);
-            throw new Error("Failed to fetch users");
+            throw new Error("Failed to fetch receipts");
         }
     }
 
@@ -30,16 +30,16 @@ const useUsers = ({ token }: { token: string | undefined }) => {
         }) : null
     };
 
-    const add = async (user: Partial<IUser>) => {
+    const add = async (receipt: Partial<IِAddReceipt>) => {
         if (!token) return;
 
         if (!httpService.assignToken(token)) return null;
 
         try {
-            const res = await instance.post(`${url}/add`, user);
+            const res = await instance.post(`${url}/add`, receipt);
             return res.data;
         } catch (error) {
-            console.error("Error adding user:", error);
+            console.error("Error adding receipt:", error);
 
             let errorMessage = "An unexpected error occurred";
 
@@ -52,16 +52,38 @@ const useUsers = ({ token }: { token: string | undefined }) => {
             throw new Error(errorMessage);
         }
     };
-    const update = async (id: string, user: Partial<IUser>) => {
+    const addMany = async (receipts: Partial<IِAddReceipt[]>) => {
         if (!token) return;
 
         if (!httpService.assignToken(token)) return null;
 
         try {
-            const res = await instance.put(`${url}/${id}`, user);
+            const res = await instance.post(`${url}/add/bulk`, receipts);
             return res.data;
         } catch (error) {
-            console.error("Error adding user:", error);
+            console.error("Error adding receipts:", error);
+
+            let errorMessage = "An unexpected error occurred";
+
+            if (axios.isAxiosError(error)) {
+                errorMessage = error.response?.data?.message || error.message || errorMessage;
+            } else if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+
+            throw new Error(errorMessage);
+        }
+    };
+    const update = async (id: string, receipt: Partial<IِAddReceipt>) => {
+        if (!token) return;
+
+        if (!httpService.assignToken(token)) return null;
+
+        try {
+            const res = await instance.put(`${url}/${id}`, receipt);
+            return res.data;
+        } catch (error) {
+            console.error("Error adding receipt:", error);
 
             let errorMessage = "An unexpected error occurred";
 
@@ -80,14 +102,15 @@ const useUsers = ({ token }: { token: string | undefined }) => {
         if (!httpService.assignToken(token)) return null;
 
         try {
-            const res = await instance.delete(`${url}/${id}`,);
+            const res = await instance.delete(`${url}/${id}`);
             return res.data;
         } catch (e) {
             console.error(e);
-            throw new Error("Failed to delete user");
+            throw new Error("Failed to delete orders");
         }
     }
-    return { getById, getAll, add, update, remove };
+
+    return { getById, getAll, add, addMany, update, remove };
 }
 
-export default useUsers;
+export default useReceipts;

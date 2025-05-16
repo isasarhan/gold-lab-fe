@@ -18,7 +18,7 @@ const FormSelect: FC<FormSelectProps> = ({ control, name, title, placeholder, op
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem className="flex-1 mb-2">
+                <FormItem className="flex-1 ">
                     <FormLabel className='p-0 m-0 gap-0'>{title}</FormLabel>
                     <FormControl>
                         <Select onValueChange={field.onChange} defaultValue={defaultValue || field.value} >
