@@ -39,16 +39,20 @@ const UsersModule: FC<UsersModuleProps> = ({ users = [] }) => {
     }
     const column: Column[] = [
         {
-            label: 'First Name',
-            value: 'firstName'
+            label: 'Full Name',
+            render: (value: IUser) => (
+                <div className='flex justify-center items-center w-full'>
+                    {value.firstName +" "+ value.lastName}
+                </div>
+            )
         },
         {
-            label: 'Last Name',
-            value: 'lastName'
-        },
-        {
-            label: 'Email',
-            value: 'email'
+            label: 'Role',
+            render: (value: IUser) => (
+                <div className='flex justify-center items-center w-full'>
+                    {value.role}
+                </div>
+            )
         },
         {
             label: 'View More',
@@ -72,7 +76,7 @@ const UsersModule: FC<UsersModuleProps> = ({ users = [] }) => {
             label: 'Edit',
             render: (value: IUser) => (
                 <div className='flex justify-center items-center w-full'>
-                    <Link href={`/admin/balances/${value._id}/edit`}><Pen size={20} /> </Link>
+                    <Link href={`/admin/users/${value._id}/edit`}><Pen size={20} /> </Link>
                 </div>
             )
         },

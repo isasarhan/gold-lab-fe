@@ -1,9 +1,12 @@
 import Title from '@/components/common/title';
 import { getAuth } from '@/lib/auth';
-import ViewCustomerModule from '@/modules/admin/customers/view';
+import EditCustomerModule from '@/modules/admin/customers/edit';
 import useCustomers from '@/services/customers';
-import React from 'react';
+import React, { FC } from 'react';
 
+export interface EditCustomerPageProps {
+        params: Promise<{ id: string }>
+}
 
 const fetchCustomer = async (id: string) => {
     const { token } = await getAuth();
@@ -11,16 +14,16 @@ const fetchCustomer = async (id: string) => {
     return await getById(id)
 }
 
-const UserPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+
+const EditCustomerPage: FC<EditCustomerPageProps> = async ({ params }) => {
     const { id } = await params;
     const customer = await fetchCustomer(id)
-    
     return (
         <>
-        <Title text='Customer Info' goBack={true}/>
-       <ViewCustomerModule customer={customer}/>
+            <Title text='Edit Customer'/>
+            <EditCustomerModule customer={customer}/>
         </>
     );
 };
 
-export default UserPage;
+export default EditCustomerPage;

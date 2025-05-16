@@ -7,11 +7,12 @@ export interface FormSelectProps {
     control: Control<any>
     name: string
     title: string
+    defaultValue?: any
     placeholder: string
     options: { label: string, value: any }[]
 }
 
-const FormSelect: FC<FormSelectProps> = ({ control, name, title, placeholder, options }) => {
+const FormSelect: FC<FormSelectProps> = ({ control, name, title, placeholder, options, defaultValue }) => {
     return (
         <FormField
             control={control}
@@ -20,7 +21,7 @@ const FormSelect: FC<FormSelectProps> = ({ control, name, title, placeholder, op
                 <FormItem className="flex-1 mb-2">
                     <FormLabel className='p-0 m-0 gap-0'>{title}</FormLabel>
                     <FormControl>
-                        <Select onValueChange={field.onChange} defaultValue={field.value} >
+                        <Select onValueChange={field.onChange} defaultValue={defaultValue || field.value} >
                             <FormControl className='w-full'>
                                 <SelectTrigger>
                                     <SelectValue placeholder={placeholder} />

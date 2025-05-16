@@ -24,11 +24,18 @@ const BalancesModule: FC<BalancesModuleProps> = ({ balaces = [], total }) => {
         },
         {
             label: 'Gold',
-            value: 'gold'
+            value: 'gold',
+            render: (value: IBalance) => (
+                <span>{value.gold.toFixed(2)}</span>
+            )
+
         },
         {
             label: 'Cash',
-            value: 'cash'
+            value: 'cash',
+            render: (value: IBalance) => (
+                <span>{value.cash.toFixed(2)}</span>
+            )
         },
         {
             label: 'Edit',
@@ -38,14 +45,7 @@ const BalancesModule: FC<BalancesModuleProps> = ({ balaces = [], total }) => {
                 </div>
             )
         },
-        {
-            label: 'Delete',
-            render: (value: IBalance) => (
-                <div className='flex justify-center items-center w-full'>
-                    <Trash size={20} />
-                </div>
-            )
-        },
+
     ]
 
     return (

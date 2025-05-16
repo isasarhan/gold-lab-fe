@@ -39,7 +39,7 @@ const CustomersModule: FC<CustomersModuleProps> = ({ data }) => {
             label: 'Edit',
             render: (value: ICustomer) => (
                 <div className='flex justify-center items-center w-full'>
-                    <Link href={`/admin/balances/${value._id}/edit`}><Pen size={20} /> </Link>
+                    <Link href={`/admin/customers/${value._id}/edit`}><Pen size={20} /> </Link>
                 </div>
             )
         },
