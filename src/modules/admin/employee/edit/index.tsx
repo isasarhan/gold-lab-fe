@@ -1,44 +1,43 @@
-"use client";
-import React, { FC } from "react";
+'use client'
+import { useUserContext } from '@/providers/UserProvider';
+import useEmployees from '@/services/employees';
+import { IEmployee } from '@/types/employee';
+import React, { FC, useEffect } from 'react';
+import { EditEmployeeSchema } from '../validation';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
+import { Form } from '@/components/ui/form';
+import FormInput from '@/components/common/form/input';
+import { Button } from '@/components/ui/button';
 
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
-import { useForm } from "react-hook-form";
-import {
-    Form,
-} from "@/components/ui/form";
-import { useUserContext } from "@/providers/UserProvider";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
-import FormInput from "@/components/common/form/input";
-import FormSelect from "@/components/common/form/select";
-import { AddEmployeeSchema } from "../validation";
-import useEmployees from "@/services/employees";
+export interface EditEmployeeModuleProps {
+    employee: IEmployee
+}
 
-export interface AddEmployeeModuleProps { }
-const AddEmployeeModule: FC<AddEmployeeModuleProps> = () => {
+const EditEmployeeModule: FC<EditEmployeeModuleProps> = ({ employee }) => {
     const { token } = useUserContext();
-    const { add } = useEmployees({ token })
+    const { update } = useEmployees({ token })
 
     const form = useForm({
         mode: "onBlur",
-        resolver: zodResolver(AddEmployeeSchema),
+        resolver: zodResolver(EditEmployeeSchema),
     });
     const { handleSubmit } = form;
-    
-    type employeeData = z.infer<typeof AddEmployeeSchema>;
+
+    useEffect(() => {
+        form.reset(employee)
+    }, [employee])
+
+    type employeeData = z.infer<typeof EditEmployeeSchema>;
 
     const onSubmit = async (data: employeeData) => {
         try {
-            await add(data);
-            toast.success("employee added successfully!");
+            const { name, phone, position, salary, email } = data
+            await update(employee?._id!, { name, phone, position, salary, email });
+            toast.success("Employee updated successfully!");
         } catch (e: any) {
             toast.error(e.message);
         }
@@ -48,7 +47,7 @@ const AddEmployeeModule: FC<AddEmployeeModuleProps> = () => {
         <Card>
             <CardHeader>
                 <CardDescription>
-                    Fill in the details to create a new employee
+                    Fill in the details to update a new employee
                 </CardDescription>
             </CardHeader>
             <Form {...form}>
@@ -96,7 +95,7 @@ const AddEmployeeModule: FC<AddEmployeeModuleProps> = () => {
                             </div>
                         </div>
                         <Button type="submit" className="w-full">
-                            Add
+                            Update
                         </Button>
                     </CardContent>
                 </form>
@@ -105,5 +104,4 @@ const AddEmployeeModule: FC<AddEmployeeModuleProps> = () => {
     );
 };
 
-export default AddEmployeeModule;
-
+export default EditEmployeeModule;

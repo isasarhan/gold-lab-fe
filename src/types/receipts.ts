@@ -19,6 +19,7 @@ export interface IِAddReceipt {
     description?: string;
 }
 export interface IِReceipt {
+    _id?:string
     customer: ICustomer;
     invoiceNb: string;
     date: Date;

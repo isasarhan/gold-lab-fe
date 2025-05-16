@@ -83,21 +83,23 @@ const InvoicesModule: FC<InvoicesModuleProps> = ({ data, customers }) => {
         {
             value: "_id", label: "Delete",
             render: (item) => (
-                <ConfirmDialog
-                    onConfirm={() => handleDelete(item)}
-                    text="Delete Order"
-                    title="Delete Order"
-                    description="Are you sure you want to delete order?">
-                    <Trash size={20} />
-                </ConfirmDialog>
+                <div className="flex justify-center">
+                    <ConfirmDialog
+                        onConfirm={() => handleDelete(item)}
+                        text="Delete Order"
+                        title="Delete Order"
+                        description="Are you sure you want to delete order?">
+                        <Trash size={20} />
+                    </ConfirmDialog>
+                </div>
             ),
         },
     ];
 
- 
+
     return (
         <div className="flex flex-col gap-3 pb-7">
-            <CustomerDatesfilter customers={customers}/>
+            <CustomerDatesfilter customers={customers} />
             <Table data={data.data} columns={columns} page={data.page} pages={data.pages} total={data.total} />
         </div>
 

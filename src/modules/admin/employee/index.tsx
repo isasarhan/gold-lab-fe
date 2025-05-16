@@ -3,7 +3,7 @@ import PaginationComp from '@/components/common/pagination';
 import Table, { Column } from '@/components/common/table';
 import React, { FC } from 'react';
 import Link from 'next/link';
-import { Eye } from 'lucide-react';
+import { Eye, Pen } from 'lucide-react';
 export interface EmployeesModuleProps {
     data: {
         data: IEmployee[];
@@ -35,11 +35,11 @@ const EmployeesModule: FC<EmployeesModuleProps> = ({ data }) => {
             value: 'salary'
         },
         {
-            label: 'View More',
+            label: 'Edit',
             value: '_id',
             render: (value: IEmployee) => (
                 <div className='flex justify-center items-center w-full'>
-                    <Link href={`/admin/employees/${value._id}`}><Eye size={20} /> </Link>
+                    <Link href={`/admin/employees/${value._id}/edit`}><Pen size={20} /> </Link>
                 </div>
             )
         }

@@ -1,9 +1,16 @@
+'use client'
 import CustomerDatesfilter from '@/components/common/customer-dates-filters';
 import { ICustomer } from '@/types/customer';
 import { IِReceipt } from '@/types/receipts';
 import React, { FC } from 'react';
 import Table, { Column } from '@/components/common/table';
 import { dateFormatter } from '@/lib/dateFormatter';
+import ConfirmDialog from '@/components/common/discard-dialog';
+import { Trash } from 'lucide-react';
+import { useUserContext } from '@/providers/UserProvider';
+import useReceipts from '@/services/receipts';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export interface ReceiptsModuleProps {
     customers: ICustomer[]
@@ -17,6 +24,21 @@ export interface ReceiptsModuleProps {
 }
 
 const ReceiptsModule: FC<ReceiptsModuleProps> = ({ data, customers }) => {
+    const { token } = useUserContext();
+    const { remove } = useReceipts({ token })
+    const router = useRouter()
+
+    const handleDelete = async (item: IِReceipt) => {
+        try {
+            await remove(item?._id!).then(() => {
+                toast.success("receipt removed successfully!");
+                router.refresh()
+            })
+
+        } catch (e: any) {
+            toast.error(e.message);
+        }
+    }
     const columns: Column[] = [
         { value: "invoiceNb", label: "Invoice #" },
         { value: "weight", label: "Weight" },
@@ -29,6 +51,20 @@ const ReceiptsModule: FC<ReceiptsModuleProps> = ({ data, customers }) => {
                 <div>
                     {dateFormatter(item.date.toString())}
                 </div>
+        },
+        {
+            value: "_id", label: "Delete",
+            render: (item) => (
+                <div className="flex justify-center">
+                    <ConfirmDialog
+                        onConfirm={() => handleDelete(item)}
+                        text="Delete Order"
+                        title="Delete Order"
+                        description="Are you sure you want to delete order?">
+                        <Trash size={20} />
+                    </ConfirmDialog>
+                </div>
+            ),
         },
     ]
     return (

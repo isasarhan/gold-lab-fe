@@ -12,7 +12,6 @@ export function middleware(request: NextRequest) {
 
     const user = JSON.parse(currentUser!)
 
-
     if (user) {
       switch (user.role) {
         case Role.User:
