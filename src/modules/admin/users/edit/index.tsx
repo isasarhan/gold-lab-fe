@@ -2,7 +2,7 @@
 import FormInput from '@/components/common/form/input';
 import FormSelect from '@/components/common/form/select';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
 import { useUserContext } from '@/providers/UserProvider';
 import useUsers from '@/services/users';
@@ -32,7 +32,8 @@ const EditUserModule: FC<EditUserModuleProps> = ({ user }) => {
 
     const onSubmit = async (data: any) => {
         try {
-            await update(user._id!, data);
+            const { role, email, firstName, lastName, phone, username } = data
+            await update(user._id!, { role, email, firstName, lastName, phone, username });
             toast.success("User updated successfully!");
         } catch (e: any) {
             toast.error(e.message);

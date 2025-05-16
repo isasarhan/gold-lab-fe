@@ -11,12 +11,11 @@ export interface UsersPageProps {
 const UsersPage: FC<UsersPageProps> = async ({ searchParams }) => {
     const { query } = await searchParams
 
-    const { token, user } = await getAuth();
+    const { token } = await getAuth();
 
     const { getAll } = useUsers({ token })
-    // const data = await getAll({ searchTerm:query });
 
-    const data = await getAll({});
+    const data = await getAll({ searchTerm: query });
 
     return (
         <>
