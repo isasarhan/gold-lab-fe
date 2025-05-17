@@ -1,8 +1,9 @@
 import { ICustomer } from "./customer";
 
 export enum Karat {
-    K18 = '18K',
-    K21 = '21K',
+  K18 = '18K',
+  K21 = '21K',
+  K24 = '24K',
 }
 
 export enum ItemType {

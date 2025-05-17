@@ -2,24 +2,23 @@
 import React, { FC } from 'react';
 import FormDate from '@/components/common/form/date';
 import FormSelect from '@/components/common/form/select';
-import PaginationComp from '@/components/common/pagination';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
 import { usePathname, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { ICustomer } from '@/types/customer';
-export interface CustomerDatesfilterProps {
-    customers: ICustomer[]
+import { ISupplier } from '@/types/supplier';
+export interface SupplierDatesfilterProps {
+    suppliers: ISupplier[]
 }
 
 interface Filter {
-    customer: string,
+    supplier: string,
     startDate: Date,
     endDate: Date
 }
-const CustomerDatesfilter: FC<CustomerDatesfilterProps> = ({ customers }) => {
+const SupplierDatesfilter: FC<SupplierDatesfilterProps> = ({ suppliers }) => {
     const pathName = usePathname()
     const router = useRouter()
     const form = useForm<Filter>({
@@ -28,12 +27,8 @@ const CustomerDatesfilter: FC<CustomerDatesfilterProps> = ({ customers }) => {
     const { handleSubmit } = form;
 
     const onSubmit = async (data: Filter) => {
-        if (!data.customer) {
-            toast.error('choose a customer')
-            return
-        }
         const params = new URLSearchParams();
-        if (data.customer) params.append("customer", data.customer);
+        if (data.supplier) params.append("supplier", data.supplier);
         if (data.startDate) {
             params.append("startDate", data.startDate.toISOString());
             params.append("endDate", data.endDate.toISOString());
@@ -48,13 +43,13 @@ const CustomerDatesfilter: FC<CustomerDatesfilterProps> = ({ customers }) => {
                     <div className="flex-1">
                         <FormSelect
                             control={form.control}
-                            name="customer"
-                            title="Customer"
-                            placeholder="Select customer"
-                            options={customers.map((customer) => ({
-                                key: customer._id,
-                                value: customer._id!,
-                                label: customer.name,
+                            name="supplier"
+                            title="Supplier"
+                            placeholder="Select supplier"
+                            options={suppliers.map((supplier) => ({
+                                key: supplier._id,
+                                value: supplier._id!,
+                                label: supplier.name,
                             }))}
                         />
                     </div>
@@ -84,4 +79,4 @@ const CustomerDatesfilter: FC<CustomerDatesfilterProps> = ({ customers }) => {
     </Card>
 };
 
-export default CustomerDatesfilter;
+export default SupplierDatesfilter;

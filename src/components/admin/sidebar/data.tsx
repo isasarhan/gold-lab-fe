@@ -59,6 +59,32 @@ export const generateSidebar = (pathName: string) => {
                 ],
             },
             {
+                title: "Supplies",
+                url: "#",
+                items: [
+                    {
+                        title: "View Supplies",
+                        url: "/admin/supplies",
+                        isActive: pathName === "/admin/supplies",
+                        icon: <Users />
+
+                    },
+                    {
+                        title: "View Suppliers",
+                        url: "/admin/suppliers",
+                        isActive: pathName === "/admin/suppliers",
+                        icon: <Package />
+                    },
+                    {
+                        title: "Payments",
+                        url: "/admin/payments",
+                        isActive: pathName === "/admin/payments",
+                        icon: <Package />
+                    },
+
+                ],
+            },
+            {
                 title: "Employees",
                 url: "#",
                 items: [
@@ -83,26 +109,7 @@ export const generateSidebar = (pathName: string) => {
                     },
                 ],
             },
-            {
-                title: "Supplies",
-                url: "#",
-                items: [
-                    {
-                        title: "View Supplies",
-                        url: "/admin/supplies",
-                        isActive: pathName === "/admin/supplies",
-                        icon: <Users />
 
-                    },
-                    {
-                        title: "View Suppliers",
-                        url: "/admin/suppliers",
-                        isActive: pathName === "/admin/suppliers",
-                        icon: <Package />
-                    },
-
-                ],
-            },
         ],
     }
 }

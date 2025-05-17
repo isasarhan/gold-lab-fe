@@ -11,9 +11,7 @@ export interface CustomersModuleProps {
         pages: number;
     }
 }
-const CustomersModule: FC<CustomersModuleProps> = ({ data }) => {
-    console.log(data);
-    
+const CustomersModule: FC<CustomersModuleProps> = ({ data }) => {    
     const column: Column[] = [
         {
             label: 'Full Name',

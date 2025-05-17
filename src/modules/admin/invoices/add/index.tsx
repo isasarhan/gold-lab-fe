@@ -175,12 +175,12 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                             />
                         </div>
                     </div>
-                    <FormTextArea
-                        control={form.control}
-                        name="description"
-                        title='Description'
-                        placeholder="Enter description"
-                    />
+                        <FormTextArea
+                            control={form.control}
+                            name="description"
+                            title='Description'
+                            placeholder="Enter description"
+                        />
 
                     <div className="flex justify-between">
                         <div>

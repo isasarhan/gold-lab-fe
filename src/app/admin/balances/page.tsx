@@ -11,12 +11,11 @@ export interface BalancesPageProps {
 const BalancesPage: FC<BalancesPageProps> = async ({ searchParams }) => {
   const { query } = await searchParams
 
-  const { token, user } = await getAuth();
+  const { token } = await getAuth();
 
   const { getAll, getTotal } = useBalances({ token })
-  // const data = await getAll({ searchTerm:query });
 
-  const [data, total] = await Promise.all([getAll(), getTotal()]);
+  const [data, total] = await Promise.all([getAll({ searchTerm:query }), getTotal()]);
 
   return (
     <>

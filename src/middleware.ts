@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
 
-    const user = JSON.parse(currentUser!)
+    const user = currentUser && JSON.parse(currentUser)    
 
     if (user) {
       switch (user.role) {
