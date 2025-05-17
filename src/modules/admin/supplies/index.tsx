@@ -70,23 +70,6 @@ const SuppliesModule: FC<SuppliesModuleProps> = ({ data, suppliers }) => {
             )
         },
         {
-            label: "View",
-            render: (item) => (
-                <Link href={`/admin/supplies/${item._id}`}>
-                    <button className="btn btn-success"
-                        type="button"><Eye /></button>
-                </Link>
-            ),
-        },
-        {
-            label: "Edit",
-            render: (item) => (
-                <button className="btn btn-primary" type="button">
-                    <Pencil />
-                </button>
-            ),
-        },
-        {
             value: "_id", label: "Delete",
             render: (item) => (
                 <div className="flex justify-center">

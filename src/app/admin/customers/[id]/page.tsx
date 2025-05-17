@@ -14,11 +14,11 @@ const fetchCustomer = async (id: string) => {
 const UserPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = await params;
     const customer = await fetchCustomer(id)
-    
+
     return (
         <>
-        <Title text='Customer Info' goBack={true}/>
-       <ViewCustomerModule customer={customer}/>
+            <Title text='Customer Info' goBack={true} />
+            <ViewCustomerModule customer={customer} />
         </>
     );
 };

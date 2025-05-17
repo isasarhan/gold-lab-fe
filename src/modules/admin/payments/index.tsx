@@ -62,29 +62,15 @@ const PaymentsModule: FC<PaymentsModuleProps> = ({ data, suppliers }) => {
                 <div>{item.weight?.toFixed(2)}</div>
             )
         },
-        { value: "karat", label: "Karat" },
+        {
+            value: "karat",
+            label: "Karat"
+        },
         {
             label: "Cash",
             render: (item: ISupplyPayment) => (
                 <div>{item.cash?.toFixed(2)}</div>
             )
-        },
-        {
-            label: "View",
-            render: (item) => (
-                <Link href={`/admin/supplies/${item._id}`}>
-                    <button className="btn btn-success"
-                        type="button"><Eye /></button>
-                </Link>
-            ),
-        },
-        {
-            label: "Edit",
-            render: (item) => (
-                <button className="btn btn-primary" type="button">
-                    <Pencil />
-                </button>
-            ),
         },
         {
             value: "_id", label: "Delete",
