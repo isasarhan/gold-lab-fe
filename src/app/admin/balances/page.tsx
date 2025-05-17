@@ -16,11 +16,12 @@ const BalancesPage: FC<BalancesPageProps> = async ({ searchParams }) => {
   const { getAll, getTotal } = useBalances({ token })
 
   const [data, total] = await Promise.all([getAll({ searchTerm:query }), getTotal()]);
-
+  console.log('data', data);
+  
   return (
     <>
       <Title text='All Balances' />
-      <BalancesModule balaces={data} total={total} />
+      <BalancesModule data={data} total={total} />
     </>
   );
 };

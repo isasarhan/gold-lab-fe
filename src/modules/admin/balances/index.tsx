@@ -1,5 +1,4 @@
 'use client'
-
 import Table, { Column } from '@/components/common/table';
 import { Card } from '@/components/ui/card';
 import { IBalance, IBalanceTotals } from '@/types/balance';
@@ -7,10 +6,15 @@ import { Pen, Trash } from 'lucide-react';
 import Link from 'next/link';
 import React, { FC } from 'react';
 export interface BalancesModuleProps {
-    balaces: IBalance[];
+    data: {
+        data: IBalance[];
+        total: number;
+        page: number;
+        pages: number;
+    }
     total: IBalanceTotals
 }
-const BalancesModule: FC<BalancesModuleProps> = ({ balaces = [], total }) => {
+const BalancesModule: FC<BalancesModuleProps> = ({ data, total }) => {
 
     const column: Column[] = [
         {
@@ -82,7 +86,7 @@ const BalancesModule: FC<BalancesModuleProps> = ({ balaces = [], total }) => {
                 </Card>
             </div>
             <div className="w-full">
-                <Table data={balaces} columns={column} />
+                <Table data={data.data} columns={column} page={data.page} pages={data.pages} total={data.total}/>
             </div>
 
         </div>
