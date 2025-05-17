@@ -5,18 +5,19 @@ export function middleware(request: NextRequest) {
   try {
     const currentUser = request.cookies.get('user')?.value
     const pathname = request.nextUrl.pathname;
-
+    
     if (!currentUser && !pathname.startsWith('/login')) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
-
-    const user = currentUser && JSON.parse(currentUser)    
-
-    if (user) {
+    
+    if (currentUser) {
+      console.log('currentUser', currentUser);
+      
+      const user = JSON.parse(currentUser)
       switch (user.role) {
         case Role.User:
           if (!pathname.startsWith("/account")) {
-            return NextResponse.redirect(new URL("/", request.url));
+            return NextResponse.redirect(new URL("/account/dashboard", request.url));
           }
           break;
         case Role.Admin:
@@ -26,15 +27,16 @@ export function middleware(request: NextRequest) {
           break;
       }
       return NextResponse.next();
-    }}
-catch (e) {
-      console.error("Middleware error", e);
-      return NextResponse.next();
     }
   }
+  catch (e) {
+    console.error("Middleware error", e);
+    return NextResponse.next();
+  }
+}
 
 export const config = {
-    matcher: [
-      '/((?!api|_next/static|_next/image|.*\\.(?:png|jpg|jpeg|svg|xlsx|pdf)$).*)',
-    ],
-  };
+  matcher: [
+    '/((?!api|_next/static|_next/image|.*\\.(?:png|jpg|jpeg|svg|xlsx|pdf)$).*)',
+  ],
+};

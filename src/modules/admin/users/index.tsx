@@ -34,10 +34,10 @@ const UsersModule: FC<UsersModuleProps> = ({ users = [] }) => {
 
     const column: Column[] = [
         {
-            label: 'Full Name',
+            label: 'User Name',
             render: (value: IUser) => (
                 <div className='flex justify-center items-center w-full'>
-                    {value.name}
+                    {value.username}
                 </div>
             )
         },
