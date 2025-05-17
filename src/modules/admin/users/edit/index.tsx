@@ -32,8 +32,8 @@ const EditUserModule: FC<EditUserModuleProps> = ({ user }) => {
 
     const onSubmit = async (data: any) => {
         try {
-            const { role, email, firstName, lastName, phone, username } = data
-            await update(user._id!, { role, email, firstName, lastName, phone, username });
+            const { role, email, name, phone, username } = data
+            await update(user._id!, { role, email, name, phone, username });
             toast.success("User updated successfully!");
         } catch (e: any) {
             toast.error(e.message);
@@ -68,16 +68,9 @@ const EditUserModule: FC<EditUserModuleProps> = ({ user }) => {
 
                             <FormInput
                                 control={form.control}
-                                name="firstName"
-                                title='First Name'
+                                name="name"
+                                title='Full Name'
                                 placeholder="Enter user first name"
-                            />
-
-                            <FormInput
-                                control={form.control}
-                                name="lastName"
-                                title='Last Name'
-                                placeholder="Enter user last name"
                             />
                         </div>
                         <div className="flex flex-col lg:flex-row items-center w-full gap-4">

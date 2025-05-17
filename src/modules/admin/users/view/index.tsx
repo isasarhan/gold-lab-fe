@@ -37,7 +37,7 @@ const ViewUserModule: FC<ViewUserModuleProps> = ({ user }) => {
                     </CardHeader>
                     <CardContent >
                         <div className='flex justify-center flex-col items-center gap-2'>
-                            <p className='flex  items-center gap-3 text-xl'><UserIcon className='text-primary' />{user.firstName} {user.lastName}</p>
+                            <p className='flex  items-center gap-3 text-xl'><UserIcon className='text-primary' />{user.name}</p>
                             <p className='flex items-center gap-3 text-xl'> <Mail className='text-primary' />{user.email}</p>
                             <p className='flex items-center gap-3 text-xl'><PhoneIcon className='text-primary' />{user.phone}</p>
                             <p className='flex items-center gap-3 text-xl'>

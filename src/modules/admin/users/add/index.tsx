@@ -79,16 +79,9 @@ const AddUserModule: FC<AddUserModuleProps> = () => {
                             />
                             <FormInput
                                 control={form.control}
-                                name="firstName"
-                                title='First Name'
+                                name="name"
+                                title='Full Name'
                                 placeholder="Enter user first name"
-                            />
-
-                            <FormInput
-                                control={form.control}
-                                name="lastName"
-                                title='Last Name'
-                                placeholder="Enter user last name"
                             />
                         </div>
                         <div className="flex flex-col lg:flex-row items-center w-full gap-4">

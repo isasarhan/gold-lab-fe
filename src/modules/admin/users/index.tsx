@@ -37,7 +37,7 @@ const UsersModule: FC<UsersModuleProps> = ({ users = [] }) => {
             label: 'Full Name',
             render: (value: IUser) => (
                 <div className='flex justify-center items-center w-full'>
-                    {value.firstName + " " + value.lastName}
+                    {value.name}
                 </div>
             )
         },
@@ -78,13 +78,15 @@ const UsersModule: FC<UsersModuleProps> = ({ users = [] }) => {
         {
             label: 'Delete',
             render: (value: IUser, index) => (
-                <ConfirmDialog
-                    onConfirm={() => handleDelete(index, value)}
-                    text="Delete Order"
-                    title="Delete Order"
-                    description="Are you sure you want to delete order?">
-                    <Trash size={20} className="text-white" />
-                </ConfirmDialog>
+                <div className='flex justify-center'>
+                    <ConfirmDialog
+                        onConfirm={() => handleDelete(index, value)}
+                        text="Delete Order"
+                        title="Delete Order"
+                        description="Are you sure you want to delete order?">
+                        <Trash size={20} />
+                    </ConfirmDialog>
+                </div>
             )
         },
     ]
