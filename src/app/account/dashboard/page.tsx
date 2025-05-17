@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-export interface AccountDashboardPageProps {
-  height: number;
-}
+
+export interface AccountDashboardPageProps {}
+
 const AccountDashboardPage: FC<AccountDashboardPageProps> = () => {
   return (
     <div>
