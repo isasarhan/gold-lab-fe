@@ -13,7 +13,7 @@ const AddSupplyPage: FC<AddSupplyPageProps> = async () => {
     const data = await getAll();
     return (
         <>
-            <Title text='New Receipt' />
+            <Title text='New Supply' />
             <AddSupplyModule suppliers={data} />
         </>
     );

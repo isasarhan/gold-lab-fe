@@ -82,8 +82,8 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
         <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                 <Card className="p-5">
-                    <div className="flex gap-3">
-                        <div className="flex items-start w-1/3">
+                    <div className="flex gap-3 flex-col lg:flex-row ">
+                        <div className="flex items-start lg:w-1/3">
                             <FormSelect
                                 control={form.control}
                                 name="customer"
@@ -96,7 +96,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                                 }))}
                             />
                         </div>
-                        <div className="flex w-1/3 ">
+                        <div className="flex lg:w-1/3 ">
                             <FormInput
                                 control={form.control}
                                 name="invoiceNb"
@@ -104,7 +104,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                                 placeholder="Enter invoice #"
                             />
                         </div>
-                        <div className="flex w-1/3">
+                        <div className="flex lg:w-1/3">
                             <FormDate
                                 control={form.control}
                                 name="date"
@@ -115,8 +115,8 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                     </div>
                 </Card>
                 <Card className="p-5">
-                    <div className="flex gap-3">
-                        <div className="flex w-1/3">
+                    <div className="flex gap-3 flex-col lg:flex-row">
+                        <div className="flex lg:w-1/3">
                             <FormSelect
                                 control={form.control}
                                 name="type"
@@ -128,7 +128,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                                 }))}
                             />
                         </div>
-                        <div className="flex w-1/3">
+                        <div className="flex lg:w-1/3">
                             <FormInput
                                 control={form.control}
                                 name="quantity"
@@ -136,7 +136,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                                 placeholder="Enter quantity"
                             />
                         </div>
-                        <div className="flex w-1/3">
+                        <div className="flex lg:w-1/3">
                             <FormSelect
                                 control={form.control}
                                 name="karat"
@@ -149,8 +149,8 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                             />
                         </div>
                     </div>
-                    <div className="flex gap-3">
-                        <div className="flex w-1/3">
+                    <div className="flex gap-3 flex-col lg:flex-row">
+                        <div className="flex lg:w-1/3">
                             <FormInput
                                 control={form.control}
                                 name="weight"
@@ -158,7 +158,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                                 placeholder="Enter quantity"
                             />
                         </div>
-                        <div className="flex w-1/3">
+                        <div className="flex lg:w-1/3">
                             <FormInput
                                 control={form.control}
                                 name="perGram"
@@ -166,7 +166,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                                 placeholder="Enter price per weight"
                             />
                         </div>
-                        <div className="flex w-1/3">
+                        <div className="flex lg:w-1/3">
                             <FormInput
                                 control={form.control}
                                 name="perItem"
@@ -182,8 +182,8 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                             placeholder="Enter description"
                         />
 
-                    <div className="flex justify-between">
-                        <div>
+                    <div className="flex justify-between flex-col lg:flex-row">
+                        <div className="mb-3 lg:mb-0">
                             <Button variant={'secondary'} type="submit">Add</Button>
                         </div>
                         <div className="flex gap-3">

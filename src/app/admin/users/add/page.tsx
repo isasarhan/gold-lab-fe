@@ -6,10 +6,12 @@ export interface AddUserPageProps { }
 
 const AddUserPage: FC<AddUserPageProps> = async () => {
 
-  return <>
-    <Title text='New User' />
-    <AddUserModule />;
-  </>
+  return (
+    <>
+      <Title text='New User' />
+      <AddUserModule />
+    </>
+  )
 
 };
 

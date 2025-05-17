@@ -57,7 +57,7 @@ const AddUserModule: FC<AddUserModuleProps> = () => {
             <Form {...form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <CardContent className="space-y-3">
-                        <div className="flex flex-col lg:flex-row lg:w-1/3 items-center w-full ">
+                        <div className="flex flex-col lg:flex-row lg:items-center w-full gap-4 ">
                             <FormSelect
                                 control={form.control}
                                 name="role"
@@ -68,8 +68,6 @@ const AddUserModule: FC<AddUserModuleProps> = () => {
                                     value: type
                                 }))}
                             />
-                        </div>
-                        <div className="flex flex-col lg:flex-row items-center w-full gap-4 ">
 
                             <FormInput
                                 control={form.control}
@@ -84,7 +82,7 @@ const AddUserModule: FC<AddUserModuleProps> = () => {
                                 placeholder="Enter user first name"
                             />
                         </div>
-                        <div className="flex flex-col lg:flex-row items-center w-full gap-4">
+                        <div className="flex flex-col lg:flex-row lg:items-center w-full gap-4">
 
                             <FormInput
                                 control={form.control}
@@ -104,7 +102,6 @@ const AddUserModule: FC<AddUserModuleProps> = () => {
                                 name="password"
                                 title="Password"
                                 placeholder="Enter password" />
-
 
                         </div>
                         <Button type="submit" className="w-full">

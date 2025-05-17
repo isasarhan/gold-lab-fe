@@ -23,14 +23,14 @@ const LoginModule: FC<LoginModuleProps> = () => {
         await signIn(email, password)
     }
     return (
-        <Card className="w-1/2">
+        <Card className="lg:w-1/2 ">
             <CardHeader>
                 <CardTitle className="text-2xl font-bold">Login</CardTitle>
                 <CardDescription>Enter your credentials to access your account</CardDescription>
             </CardHeader>
             <Form {...form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <CardContent className="space-y-4">
+                    <CardContent className="space-y-4 gap-3">
                         <FormInput
                             control={form.control}
                             name="email"

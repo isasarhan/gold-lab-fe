@@ -48,7 +48,7 @@ const AddSupplierModule: FC<AddSupplyModuiereProps> = () => {
         <Card>
             <CardHeader>
                 <CardDescription>
-                    Fill in the details to create a new customer
+                    Fill in the details to create a new supplier
                 </CardDescription>
             </CardHeader>
             <Form {...form}>
@@ -56,38 +56,38 @@ const AddSupplierModule: FC<AddSupplyModuiereProps> = () => {
                     <CardContent className="space-y-3">
                         <div className="flex flex-col gap-3 ">
 
-                            <div className="flex items-start gap-3">
+                            <div className="flex items-start gap-3 flex-col lg:flex-row">
                                 <FormInput
                                     control={form.control}
                                     name="name"
-                                    title='Supplier Name'
-                                    placeholder="Enter customer name"
+                                    title='Full Name'
+                                    placeholder="Enter supplier name"
                                 />
 
                                 <FormInput
                                     control={form.control}
                                     name="phone"
                                     title='Phone'
-                                    placeholder="Enter customer phone"
+                                    placeholder="Enter supplier phone"
                                 />
                             </div>
                             <FormInput
                                 control={form.control}
                                 name="gold"
                                 title='Gold'
-                                placeholder="Enter customer phone"
+                                placeholder="Enter supplier gold balance"
                             />
                             <FormInput
                                 control={form.control}
                                 name="cash"
                                 title='Cash'
-                                placeholder="Enter customer phone"
+                                placeholder="Enter supplier cash balance"
                             />
                             <FormInput
                                 control={form.control}
                                 name="silver"
                                 title='Silver'
-                                placeholder="Enter customer phone"
+                                placeholder="Enter supplier silver balance"
                             />
                             <FormTextArea
                                 control={form.control}

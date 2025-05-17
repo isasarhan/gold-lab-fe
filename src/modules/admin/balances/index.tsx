@@ -52,8 +52,7 @@ const BalancesModule: FC<BalancesModuleProps> = ({ balaces = [], total }) => {
         <div className='flex flex-col gap-3 pb-7'>
             <div className="flex flex-col lg:flex-row gap-6 ">
                 <Card className="w-full p-6 gap-0">
-                    <div className="flex justify-between">
-
+                    <div className="flex justify-between lg:flex-row flex-col gap-3">
                         <span>Gold In Market</span>
                         <div className="flex items-center gap-3">
                             <span className="text-sm text-gray-500">Debit + :</span>
@@ -67,7 +66,7 @@ const BalancesModule: FC<BalancesModuleProps> = ({ balaces = [], total }) => {
                     </div>
                 </Card>
                 <Card className="w-full p-6 gap-0">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between lg:flex-row flex-col gap-3">
 
                         <span>Cash In Market</span>
                         <div className="flex items-center gap-3">
