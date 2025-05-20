@@ -1,8 +1,13 @@
-import { Clock, CreditCard, Package, ReceiptText, Upload, User, Users, Weight } from "lucide-react"
+import { Clock, CreditCard, LayoutDashboard, Package, ReceiptText, Upload, User, Users, Weight } from "lucide-react"
 
 export const generateSidebar = (pathName: string) => {
     return {
         navMain: [
+            {
+                title: "Dashboard",
+                url: "/",
+                icon:<LayoutDashboard/>
+            },
             {
                 title: "Users",
                 url: "#",

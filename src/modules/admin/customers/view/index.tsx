@@ -241,17 +241,6 @@ const ViewCustomerModule: FC<ViewCustomerModuleProps> = ({ customer }) => {
         </Card>
 
       </div>
-      <Card>
-        <CardHeader>
-          <CardTitle>Order History</CardTitle>
-          <CardDescription>Recent purchases and transactions</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex justify-center items-center h-32">
-            <p className="text-muted-foreground">No order history available</p>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   )
 }

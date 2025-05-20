@@ -91,7 +91,7 @@ const EditUserModule: FC<EditUserModuleProps> = ({ user }) => {
 
                         </div>
                         <Button type="submit" className="w-full">
-                            Add
+                            Edit
                         </Button>
                     </CardContent>
                 </form>

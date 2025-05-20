@@ -62,23 +62,26 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
                     className="group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                   >
                     <CollapsibleTrigger>
-                      {item.title}
-                      <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                      <SidebarMenuButton asChild >
+                        <Link href={item.url}>{'icon' in item && item.icon} {item.title}</Link>
+                      </SidebarMenuButton>
+
+                      {item?.items && <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />}
                     </CollapsibleTrigger>
                   </SidebarGroupLabel>
-                  <CollapsibleContent>
+                  {item?.items && <CollapsibleContent>
                     <SidebarGroupContent>
                       <SidebarMenuSub>
-                          {item.items.map((item) => (
-                            <SidebarMenuItem key={item.title} className="my-1.5 ">
-                              <SidebarMenuButton asChild isActive={item.isActive}>
-                                <a href={item.url}>{'icon' in item && item.icon} {item.title}</a>
-                              </SidebarMenuButton>
-                            </SidebarMenuItem>
-                          ))}
+                        {item?.items?.map((item) => (
+                          <SidebarMenuItem key={item.title} className="my-1.5 ">
+                            <SidebarMenuButton asChild isActive={item.isActive}>
+                              <Link href={item.url}>{'icon' in item && item.icon} {item.title}</Link>
+                            </SidebarMenuButton>
+                          </SidebarMenuItem>
+                        ))}
                       </SidebarMenuSub >
                     </SidebarGroupContent>
-                  </CollapsibleContent>
+                  </CollapsibleContent>}
                 </SidebarGroup>
               </Collapsible>
             ))}
