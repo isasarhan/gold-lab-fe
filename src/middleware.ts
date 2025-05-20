@@ -10,9 +10,7 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
     
-    if (currentUser) {
-      console.log('currentUser', currentUser);
-      
+    if (currentUser) {      
       const user = JSON.parse(currentUser)
       switch (user.role) {
         case Role.User:

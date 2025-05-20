@@ -11,9 +11,7 @@ const useSupplies = ({ token }: { token: string | undefined }) => {
 
         if (!httpService.assignToken(token)) return null;
 
-        try {
-            console.log('query', query);
-            
+        try {            
             const res = await instance.get(url, { params: query });
             return res.data;
         } catch (e) {

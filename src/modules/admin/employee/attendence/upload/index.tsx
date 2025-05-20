@@ -6,6 +6,8 @@ import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Download } from 'lucide-react';
+import { toast } from 'sonner';
+import { getError } from '@/lib/getErrorMessage';
 export interface EmployeeAttendeceUploadModuleProps { }
 
 const EmployeeAttendeceUploadModule: FC<EmployeeAttendeceUploadModuleProps> = () => {
@@ -16,11 +18,13 @@ const EmployeeAttendeceUploadModule: FC<EmployeeAttendeceUploadModuleProps> = ()
         const formData = new FormData();
         formData.append("file", files[0]); // if using FileInterceptor('files')
 
-        const response = await axios.post("http://localhost:5000/api/attendences/upload", formData, {
+        await axios.post("http://localhost:5000/api/attendences/upload", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
-        });
+        }).catch((e) => {            
+            toast.error(getError(e))
+        })
         return
     }
     return (
