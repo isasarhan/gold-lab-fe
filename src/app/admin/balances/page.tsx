@@ -5,19 +5,18 @@ import useBalances from '@/services/balances';
 import React, { FC } from 'react';
 
 export interface BalancesPageProps {
-  searchParams: Promise<{ query: string }>
+  searchParams: Promise<{ query: string, page: number; }>
 }
 
 const BalancesPage: FC<BalancesPageProps> = async ({ searchParams }) => {
-  const { query } = await searchParams
+  const { query, page } = await searchParams
 
   const { token } = await getAuth();
 
   const { getAll, getTotal } = useBalances({ token })
 
-  const [data, total] = await Promise.all([getAll({ searchTerm:query }), getTotal()]);
-  console.log('data', data);
-  
+  const [data, total] = await Promise.all([getAll({ searchTerm: query, page }), getTotal()]);
+
   return (
     <>
       <Title text='All Balances' />

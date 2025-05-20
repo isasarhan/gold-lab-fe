@@ -17,6 +17,7 @@ const CustomersPage: FC<CustomersPageProps> = async ({ searchParams }) => {
   const { token } = await getAuth();
 
   const { getAll } = useCustomers({ token })
+  
   const data = await getAll({ searchTerm: query, page });
 
   return (
