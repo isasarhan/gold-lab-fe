@@ -1,6 +1,7 @@
 import { IAttendence } from '@/types/employee';
 import httpService from '../axios';
 import axios from "axios";
+import { getAxiosError } from '@/lib/getErrorMessage';
 
 const useAttendences = ({ token }: { token: string | undefined }) => {
     const instance = httpService.instance
@@ -41,15 +42,7 @@ const useAttendences = ({ token }: { token: string | undefined }) => {
         } catch (error) {
             console.error("Error adding attendence:", error);
 
-            let errorMessage = "An unexpected error occurred";
-
-            if (axios.isAxiosError(error)) {
-                errorMessage = error.response?.data?.message || error.message || errorMessage;
-            } else if (error instanceof Error) {
-                errorMessage = error.message;
-            }
-
-            throw new Error(errorMessage);
+            throw new Error(getAxiosError(error));
         }
     };
     const update = async (id: string, attendence: Partial<IAttendence>) => {
@@ -63,19 +56,28 @@ const useAttendences = ({ token }: { token: string | undefined }) => {
         } catch (error) {
             console.error("Error adding attendence:", error);
 
-            let errorMessage = "An unexpected error occurred";
-
-            if (axios.isAxiosError(error)) {
-                errorMessage = error.response?.data?.message || error.message || errorMessage;
-            } else if (error instanceof Error) {
-                errorMessage = error.message;
-            }
-
-            throw new Error(errorMessage);
+            throw new Error(getAxiosError(error));
         }
     };
+    
+    const uploadXlsx = async (file: File) => {
+        const formData = new FormData();
+        formData.append("file", file);
 
-    return { getById, getAll, add, update };
+        try {
+            const res = await instance.post(`${url}/upload`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                }
+            });
+            return res.data;
+        } catch (error) {
+            
+            throw new Error(getAxiosError(error));
+        }
+    }
+
+    return { getById, getAll, add, update, uploadXlsx };
 }
 
 export default useAttendences;

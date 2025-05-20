@@ -1,32 +1,29 @@
 'use client'
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { FileUpload } from "@/components/common/file-upload"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Download } from 'lucide-react';
 import { toast } from 'sonner';
-import { getError } from '@/lib/getErrorMessage';
+import { useUserContext } from '@/providers/UserProvider';
+import useAttendences from '@/services/attendence';
 export interface EmployeeAttendeceUploadModuleProps { }
 
 const EmployeeAttendeceUploadModule: FC<EmployeeAttendeceUploadModuleProps> = () => {
-    const [files, setFiles] = useState<File[]>([])
 
-    const handleUpload = async (files: File[]) => {
+    const { token } = useUserContext()
+    const { uploadXlsx } = useAttendences({ token })
 
-        const formData = new FormData();
-        formData.append("file", files[0]); // if using FileInterceptor('files')
-
-        await axios.post("http://localhost:5000/api/attendences/upload", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        }).catch((e) => {            
-            toast.error(getError(e))
-        })
-        return
+    const handleUpload = async (file: File) => {
+        try {
+            await uploadXlsx(file);
+            toast.success("employees' attendencees added successfully!");
+        } catch (e: any) {
+            toast.error(e.message);
+        }
     }
+
     return (
         <main className="container mx-auto py-10">
             <Card>
@@ -43,8 +40,6 @@ const EmployeeAttendeceUploadModule: FC<EmployeeAttendeceUploadModuleProps> = ()
                 </CardHeader>
                 <CardContent>
                     <FileUpload
-                        value={files}
-                        onChange={setFiles}
                         onUpload={handleUpload}
                         maxFiles={5}
                         maxSize={5 * 1024 * 1024} // 5MB

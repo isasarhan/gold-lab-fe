@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getError = (error: any) => {
+export const getAxiosError = (error: any) => {
     let errorMessage = "An unexpected error occurred";
 
     if (axios.isAxiosError(error)) {
