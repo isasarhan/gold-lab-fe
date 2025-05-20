@@ -30,7 +30,7 @@ const LoginModule: FC<LoginModuleProps> = () => {
             </CardHeader>
             <Form {...form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <CardContent className="space-y-4 gap-3">
+                    <CardContent className="space-y-4 flex flex-col gap-3">
                         <FormInput
                             control={form.control}
                             name="email"

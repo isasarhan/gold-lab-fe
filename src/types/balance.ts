@@ -1,5 +1,11 @@
 import { ICustomer } from "./customer";
 
+export enum BalancessSort {
+    AtoZ,
+    ZtoA,
+    HighestGold,
+    HighestCash,
+}
 export interface IBalance {
     _id: string;
     customer: ICustomer;
