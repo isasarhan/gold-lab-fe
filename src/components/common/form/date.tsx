@@ -13,10 +13,10 @@ export interface FormDateProps {
     name: string
     title: string
     placeholder: string
-    defaultValue?:Date
+    defaultValue?: Date
 }
 
-const FormDate: FC<FormDateProps> = ({ control, name, title, placeholder, defaultValue = new Date() }) => {
+const FormDate: FC<FormDateProps> = ({ control, name, title, placeholder, defaultValue }) => {
     return (
         <FormField
             control={control}

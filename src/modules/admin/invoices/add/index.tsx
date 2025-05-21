@@ -122,6 +122,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                                 control={form.control}
                                 name="date"
                                 title="Date"
+                                defaultValue={new Date()}
                                 placeholder="Pick a date"
                             />
                         </div>

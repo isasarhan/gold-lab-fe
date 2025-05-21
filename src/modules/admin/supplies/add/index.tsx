@@ -49,7 +49,6 @@ const AddSupplyModule: FC<AddSupplyModuleProps> = ({ suppliers }) => {
                 toast.success("Supplies added successfully!");
                 handleDiscardReceipt()
             })
-
         } catch (e: any) {
             toast.error(e.message);
         }
@@ -114,6 +113,7 @@ const AddSupplyModule: FC<AddSupplyModuleProps> = ({ suppliers }) => {
                                 control={form.control}
                                 name="date"
                                 title="Date"
+                                defaultValue={new Date()}
                                 placeholder="Pick a date"
                             />
                         </div>
