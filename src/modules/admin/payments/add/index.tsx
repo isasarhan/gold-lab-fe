@@ -20,6 +20,7 @@ import FormTextArea from '@/components/common/form/textarea';
 import { Button } from '@/components/ui/button';
 import ConfirmDialog from '@/components/common/discard-dialog';
 import PaymentsTable from '../components/payments-table';
+import FormAutocomplete from '@/components/common/form/autocomplete';
 
 export interface AddPaymentModuleProps {
     suppliers: ISupplier[];
@@ -82,7 +83,7 @@ const AddPaymentModule: FC<AddPaymentModuleProps> = ({ suppliers }) => {
                 <Card className="p-5">
                     <div className="flex gap-3">
                         <div className="flex items-start w-1/3">
-                            <FormSelect
+                            <FormAutocomplete
                                 control={form.control}
                                 name="supplier"
                                 title="supplier"

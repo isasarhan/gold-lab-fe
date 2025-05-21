@@ -18,6 +18,7 @@ import FormTextArea from '@/components/common/form/textarea';
 import { Button } from '@/components/ui/button';
 import ConfirmDialog from '../../../../components/common/discard-dialog';
 import ReceiptTable from '../components/receipt-table';
+import FormAutocomplete from '@/components/common/form/autocomplete';
 
 export interface AddReceiptModuleProps {
     customers: ICustomer[]
@@ -78,7 +79,7 @@ const AddReceiptModule: FC<AddReceiptModuleProps> = ({ customers }) => {
                 <Card className="p-5">
                     <div className="flex gap-3 flex-col lg:flex-row">
                        <div className="flex items-start lg:w-1/3 ">
-                            <FormSelect
+                            <FormAutocomplete
                                 control={form.control}
                                 name="customer"
                                 title="Customer"

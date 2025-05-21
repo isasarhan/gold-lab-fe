@@ -10,6 +10,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ICustomer } from '@/types/customer';
+import FormAutocomplete from './form/autocomplete';
 export interface CustomerDatesfilterProps {
     customers: ICustomer[]
 }
@@ -46,17 +47,17 @@ const CustomerDatesfilter: FC<CustomerDatesfilterProps> = ({ customers }) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col gap-3 w-full md:flex-row">
                     <div className="flex-1">
-                        <FormSelect
-                            control={form.control}
-                            name="customer"
-                            title="Customer"
-                            placeholder="Select customer"
-                            options={customers.map((customer) => ({
-                                key: customer._id,
-                                value: customer._id!,
-                                label: customer.name,
-                            }))}
-                        />
+                        <FormAutocomplete
+                                control={form.control}
+                                name="customer"
+                                title="Customer"
+                                placeholder="Select customer"
+                                options={customers.map((customer) => ({
+                                    key: customer._id,
+                                    value: customer._id!,
+                                    label: customer.name,
+                                }))}
+                            />
                     </div>
                     <div className="flex-1">
                         <FormDate

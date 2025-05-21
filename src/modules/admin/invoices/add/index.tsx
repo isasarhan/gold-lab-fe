@@ -19,6 +19,7 @@ import { IOrder, ItemType, Karat } from "@/types/invoice";
 import FormTextArea from "@/components/common/form/textarea";
 import OrderTable from "../components/order-table";
 import ConfirmDialog from "../../../../components/common/discard-dialog";
+import FormAutocomplete from "@/components/common/form/autocomplete";
 
 interface AddInvoiceModuleProps {
     customers: ICustomer[]
@@ -32,8 +33,8 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
     const form = useForm({
         mode: "onBlur",
         resolver: zodResolver(AddOrderSchema),
-        defaultValues:{
-            karat:Karat.K18
+        defaultValues: {
+            karat: Karat.K18
         }
     });
     const { handleSubmit } = form;
@@ -74,7 +75,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
     const handleDiscardInvoice = () => {
         setOrders([]);
         form.reset({
-            karat:Karat.K18
+            karat: Karat.K18
         })
     };
 
@@ -84,7 +85,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                 <Card className="p-5">
                     <div className="flex gap-3 flex-col lg:flex-row ">
                         <div className="flex items-start lg:w-1/3">
-                            <FormSelect
+                            <FormAutocomplete
                                 control={form.control}
                                 name="customer"
                                 title="Customer"
@@ -175,12 +176,12 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                             />
                         </div>
                     </div>
-                        <FormTextArea
-                            control={form.control}
-                            name="description"
-                            title='Description'
-                            placeholder="Enter description"
-                        />
+                    <FormTextArea
+                        control={form.control}
+                        name="description"
+                        title='Description'
+                        placeholder="Enter description"
+                    />
 
                     <div className="flex justify-between flex-col lg:flex-row">
                         <div className="mb-3 lg:mb-0">

@@ -19,6 +19,7 @@ import { AddSupplySchema } from '../validation';
 import { IAddSupply, ItemType } from '@/types/supply';
 import useSupplies from '@/services/supplies';
 import { Karat } from '@/types/invoice';
+import FormAutocomplete from '@/components/common/form/autocomplete';
 
 export interface AddSupplyModuleProps {
     suppliers: ISupplier[]
@@ -35,10 +36,10 @@ const AddSupplyModule: FC<AddSupplyModuleProps> = ({ suppliers }) => {
         defaultValues: {
             karat: Karat.K18
         }
-    });    
+    });
 
     const { handleSubmit } = form;
-    
+
     type SupplyData = z.infer<typeof AddSupplySchema>;
 
     const handleSave = async () => {
@@ -78,11 +79,11 @@ const AddSupplyModule: FC<AddSupplyModuleProps> = ({ suppliers }) => {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                 <Card className="p-5">
                     <div className="flex gap-3 flex-col lg:flex-row ">
-                       <div className="flex items-start lg:w-1/3">
-                            <FormSelect
+                        <div className="flex items-start lg:w-1/3">
+                            <FormAutocomplete
                                 control={form.control}
                                 name="supplier"
-                                title="Supplier"
+                                title="supplier"
                                 placeholder="Select supplier"
                                 options={suppliers.map((supplier) => ({
                                     key: supplier._id,
@@ -120,7 +121,7 @@ const AddSupplyModule: FC<AddSupplyModuleProps> = ({ suppliers }) => {
                             />
                         </div>
                         <div className="flex items-end lg:w-1/3">
-                           <FormSelect
+                            <FormSelect
                                 control={form.control}
                                 name="karat"
                                 title='Karat'
