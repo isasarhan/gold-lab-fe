@@ -1,17 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Role } from "./types/user";
+import { IUser, Role } from "./types/user";
+import { cookies } from "next/headers";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   try {
     const currentUser = request.cookies.get('user')?.value
     const pathname = request.nextUrl.pathname;
-    
+
     if (!currentUser && !pathname.startsWith('/login')) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
-    
-    if (currentUser) {      
-      const user = JSON.parse(currentUser)
+
+    if (currentUser) {
+      const user = JSON.parse(currentUser) as IUser
+
+      if (!user.isApproved) {
+        const cookieStore = await cookies()
+        cookieStore.delete('user').delete('token')
+        return NextResponse.redirect(new URL('/login', request.url));
+      }
       switch (user.role) {
         case Role.User:
           if (!pathname.startsWith("/account")) {

@@ -39,8 +39,12 @@ const UserProvider: FC<UserProviderProps> = ({ children }) => {
 
     const signIn = async (email: string, password: string) => {
         return await login(email, password ).then((data) => {
-            toast.success("Logged In Successfully")
             const { token, user } = data
+            if(!user.isApproved){
+                toast.success("User not verified!")
+                return
+            }
+            toast.success("Logged In Successfully")
             setUser(user)
             setToken(token)
             Cookies.set('token', token)
