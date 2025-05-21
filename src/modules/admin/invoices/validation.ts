@@ -10,7 +10,7 @@ const AddOrderSchema = z.object({
     invoiceNb: z.string().min(2, "invoice # must be at least 2 characters"),
     type: z.nativeEnum(ItemType).default(ItemType.LAZER).optional(),
     quantity: z.coerce.number(),
-    description: z.string().min(2, "description must be at least 2 characters"),
+    description: z.string().optional(),
     date: z.date(),
 });
 

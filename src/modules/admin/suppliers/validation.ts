@@ -6,7 +6,7 @@ const AddSupplierSchema = z.object({
     gold: z.coerce.number(),
     cash: z.coerce.number(),
     silver: z.coerce.number(),
-    description: z.string().min(2, "Username must be at least 2 characters"),
+    description: z.string().optional(),
 });
 
 export { AddSupplierSchema };
