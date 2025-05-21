@@ -1,13 +1,23 @@
+import { getAuth } from '@/lib/auth';
+import AdminDashboardModule from '@/modules/admin/dashboard';
+import useBalances from '@/services/balances';
+import useCustomers from '@/services/customers';
 import React, { FC } from 'react';
 
-export interface AccountDashboardPageProps {}
+export interface DashboardPageProps { }
 
-const AccountDashboardPage: FC<AccountDashboardPageProps> = () => {
+const DashboardPage: FC<DashboardPageProps> = async () => {
+  const { token } = await getAuth();
+
+  const { getTotal } = useBalances({ token })
+  const { getTypesAnalytics } = useCustomers({ token })
+  const { getAll:getCustomers } = useCustomers({ token })
+
+  const [total, customersAnalytics, customers] = await Promise.all([getTotal(), getTypesAnalytics(), getCustomers({pageSize:10})]);
+  
   return (
-    <div>
-      Hello AccountDashboardPage
-    </div>
+    <AdminDashboardModule balanceTotal={total} customersAnalytics={customersAnalytics} customers={customers}/>
   );
 };
 
-export default AccountDashboardPage;
+export default DashboardPage;

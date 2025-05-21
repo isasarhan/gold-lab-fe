@@ -20,6 +20,20 @@ const useCustomers = ({ token }: { token: string | undefined }) => {
         }
     }
 
+    const getTypesAnalytics = async (query?: Record<string, any>) => {
+        if (!token) return;
+
+        if (!httpService.assignToken(token)) return null;
+
+        try {
+            const res = await instance.get(`${url}/types`, { params: query });
+            return res.data;
+        } catch (e) {
+            console.error(e);
+            throw new Error("Failed to fetch customers");
+        }
+    }
+
     const getById = async (id: string) => {
         if (!token) return
         return httpService.assignToken(token) ? await instance.get(`${url}/${id}`).then((res) => {
@@ -75,7 +89,7 @@ const useCustomers = ({ token }: { token: string | undefined }) => {
         }
     };
 
-    return { getById, getAll, add, update };
+    return { getById, getAll, add, update, getTypesAnalytics };
 }
 
 export default useCustomers;

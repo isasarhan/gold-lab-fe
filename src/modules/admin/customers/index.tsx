@@ -1,4 +1,5 @@
 import Table, { Column } from '@/components/common/table';
+import { cn } from '@/lib/utils';
 import { ICustomer } from '@/types/customer';
 import { Eye, Pen } from 'lucide-react';
 import Link from 'next/link';
@@ -10,8 +11,9 @@ export interface CustomersModuleProps {
         page: number;
         pages: number;
     }
+    className?:string
 }
-const CustomersModule: FC<CustomersModuleProps> = ({ data }) => {    
+const CustomersModule: FC<CustomersModuleProps> = ({ data , className}) => {    
     const column: Column[] = [
         {
             label: 'Full Name',
@@ -53,7 +55,7 @@ const CustomersModule: FC<CustomersModuleProps> = ({ data }) => {
     ]
 
     return (
-        <div className='flex flex-col gap-3 pb-7'>
+        <div className={cn('flex flex-col gap-3 pb-7', className)}>
             <Table data={data.data} columns={column} page={data.page} pages={data.pages} total={data.total}/>
         </div>
     );

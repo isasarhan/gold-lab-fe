@@ -1,8 +1,8 @@
 'use client'
 
-import type { FC, ElementType } from 'react';
+import type { FC } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Plus, PlusCircle } from 'lucide-react';
+import { ArrowLeft, PlusCircle } from 'lucide-react';
 import { Button } from '../ui/button';
 
 interface TitleProps {
