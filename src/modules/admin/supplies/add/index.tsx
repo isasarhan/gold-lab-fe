@@ -92,7 +92,7 @@ const AddSupplyModule: FC<AddSupplyModuleProps> = ({ suppliers }) => {
                             <FormAutocomplete
                                 control={form.control}
                                 name="supplier"
-                                title="supplier"
+                                title="Supplier"
                                 placeholder="Select supplier"
                                 options={suppliers.map((supplier) => ({
                                     key: supplier._id,
