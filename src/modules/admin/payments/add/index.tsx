@@ -21,6 +21,7 @@ import { Button } from '@/components/ui/button';
 import ConfirmDialog from '@/components/common/discard-dialog';
 import PaymentsTable from '../components/payments-table';
 import FormAutocomplete from '@/components/common/form/autocomplete';
+import { parseReceiptKarat } from '@/lib/parseKarat';
 
 export interface AddPaymentModuleProps {
     suppliers: ISupplier[];
@@ -35,7 +36,7 @@ const AddPaymentModule: FC<AddPaymentModuleProps> = ({ suppliers }) => {
         resolver: zodResolver(AddPaymentSchema),
         defaultValues: {
             currency: Currency.Usd,
-            karat: Karat.K24
+            karat: 995
         }
     });
 
@@ -73,10 +74,18 @@ const AddPaymentModule: FC<AddPaymentModuleProps> = ({ suppliers }) => {
         setPayments([]);
         form.reset({
             currency: Currency.Usd,
-            karat: Karat.K24
+            karat: 995
 
         })
     };
+        const getTotals = () => {
+            return payments.reduce((total, payment) => {
+                return {
+                    gold: total.gold + (payment?.weight ? (payment?.weight * parseReceiptKarat(payment.karat!)) : 0),
+                    cash: total.cash + (payment?.cash || 0)
+                }
+            }, { gold: 0, cash: 0 })
+        }
     return (
         <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
@@ -124,15 +133,11 @@ const AddPaymentModule: FC<AddPaymentModuleProps> = ({ suppliers }) => {
                             />
                         </div>
                         <div className="flex items-end w-1/3">
-                            <FormSelect
+                            <FormInput
                                 control={form.control}
                                 name="karat"
                                 title='Karat'
-                                placeholder="Select Karat"
-                                options={Object.values(Karat).map((karat) => ({
-                                    label: karat,
-                                    value: karat
-                                }))}
+                                placeholder="Enter karat"
                             />
                         </div>
                         <div className="flex items-end w-1/3">
@@ -178,6 +183,16 @@ const AddPaymentModule: FC<AddPaymentModuleProps> = ({ suppliers }) => {
                             </ConfirmDialog>
                             <Button type="button" onClick={handleSave}>Save Receipt</Button>
                         </div>
+                    </div>
+                </Card>
+                <Card className="flex lg:gap-10 lg:flex-row px-3 justify-center ">
+                    <div className="flex items-center gap-5 justify-center text-center">
+                        <span className="font-semibold">Total Weight:</span>
+                        <span>{getTotals().gold.toFixed(2)} gr</span>
+                    </div>
+                    <div className="flex items-center gap-5 justify-center text-center">
+                        <span className="font-semibold">Total Cash:</span>
+                        <span>{getTotals().cash.toFixed(2)} $</span>
                     </div>
                 </Card>
                 <PaymentsTable payments={payments} onDelete={handleDeleteReceipt} onEdit={handleEditReceipt} />

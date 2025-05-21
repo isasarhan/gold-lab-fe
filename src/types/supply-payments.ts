@@ -1,4 +1,3 @@
-import { Karat } from "./invoice";
 import { Currency } from "./receipts";
 import { ISupplier } from "./supplier";
 
@@ -7,7 +6,7 @@ export interface IAddSupplyPayment {
     invoiceNb: string;
     date: Date;
     weight?: number;
-    karat?: Karat;
+    karat?: number;
     cash?: number;
     currency?: Currency;
     description?: string;
@@ -18,7 +17,7 @@ export interface ISupplyPayment {
     invoiceNb: string;
     date: Date;
     weight: number;
-    karat: Karat;
+    karat: number;
     cash: number;
     currency: Currency;
     description: string;

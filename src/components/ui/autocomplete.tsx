@@ -26,7 +26,8 @@ export interface AutocompleteProps {
 const Autocomplete: FC<AutocompleteProps> = ({ options, onChange }) => {
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState("")
-
+    console.log('value', value);
+    
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
@@ -62,7 +63,7 @@ const Autocomplete: FC<AutocompleteProps> = ({ options, onChange }) => {
                                     <Check
                                         className={cn(
                                             "ml-auto",
-                                            option.value === value ? "opacity-100" : "opacity-0"
+                                            option.label === value ? "opacity-100" : "opacity-0"
                                         )}
                                     />
                                 </CommandItem>

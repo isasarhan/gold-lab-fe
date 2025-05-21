@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button';
 import ConfirmDialog from '../../../../components/common/discard-dialog';
 import ReceiptTable from '../components/receipt-table';
 import FormAutocomplete from '@/components/common/form/autocomplete';
+import { parseReceiptKarat } from '@/lib/parseKarat';
 
 export interface AddReceiptModuleProps {
     customers: ICustomer[]
@@ -56,6 +57,7 @@ const AddReceiptModule: FC<AddReceiptModuleProps> = ({ customers }) => {
             customer: data.customer,
             date: data.date,
             invoiceNb: data.invoiceNb,
+            karat: 995,
             currency: Currency.Usd
         })
         setReceipts(prev => [...prev, data])
@@ -73,12 +75,20 @@ const AddReceiptModule: FC<AddReceiptModuleProps> = ({ customers }) => {
             karat: 995
         })
     };
+    const getTotals = () => {
+        return receipts.reduce((total, receipt) => {
+            return {
+                gold: total.gold + (receipt?.weight ? (receipt?.weight * parseReceiptKarat(receipt.karat!)) : 0),
+                cash: total.cash + (receipt?.cash || 0)
+            }
+        }, { gold: 0, cash: 0 })
+    }
     return (
         <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                 <Card className="p-5">
                     <div className="flex gap-3 flex-col lg:flex-row">
-                       <div className="flex items-start lg:w-1/3 ">
+                        <div className="flex items-start lg:w-1/3 ">
                             <FormAutocomplete
                                 control={form.control}
                                 name="customer"
@@ -170,6 +180,16 @@ const AddReceiptModule: FC<AddReceiptModuleProps> = ({ customers }) => {
                             </ConfirmDialog>
                             <Button type="button" onClick={handleSave}>Save Receipt</Button>
                         </div>
+                    </div>
+                </Card>
+                <Card className="flex lg:gap-10 lg:flex-row px-3 justify-center ">
+                    <div className="flex items-center gap-5 justify-center text-center">
+                        <span className="font-semibold">Total Weight:</span>
+                        <span>{getTotals().gold.toFixed(2)} gr</span>
+                    </div>
+                    <div className="flex items-center gap-5 justify-center text-center">
+                        <span className="font-semibold">Total Cash:</span>
+                        <span>{getTotals().cash.toFixed(2)} $</span>
                     </div>
                 </Card>
                 <ReceiptTable receipts={receipts} onDelete={handleDeleteReceipt} onEdit={handleEditReceipt} />

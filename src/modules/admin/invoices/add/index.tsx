@@ -20,6 +20,8 @@ import FormTextArea from "@/components/common/form/textarea";
 import OrderTable from "../components/order-table";
 import ConfirmDialog from "../../../../components/common/discard-dialog";
 import FormAutocomplete from "@/components/common/form/autocomplete";
+import { or } from "ramda";
+import { parseInvoiceKarat } from "@/lib/parseKarat";
 
 interface AddInvoiceModuleProps {
     customers: ICustomer[]
@@ -37,7 +39,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
             karat: Karat.K18
         }
     });
-    const { handleSubmit } = form;
+    const { handleSubmit, watch } = form;
 
     type InvoiceDate = z.infer<typeof AddOrderSchema>;
 
@@ -61,7 +63,10 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
         form.reset({
             customer: data.customer,
             date: data.date,
-            invoiceNb: data.invoiceNb
+            invoiceNb: data.invoiceNb,
+            karat: Karat.K18,
+            perItem: 0,
+            quantity: 1,
         })
         setOrders(prev => [...prev, data])
     };
@@ -78,7 +83,14 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
             karat: Karat.K18
         })
     };
-
+    const getTotals = () => {
+        return orders.reduce((total, order) => {
+            return {
+                gold: total.gold + (order.weight * parseInvoiceKarat(order.karat!) / 995),
+                cash: total.cash + (order.weight * order.perGram + order.quantity * order.perItem)
+            }
+        }, { gold: 0, cash: 0 })
+    }
     return (
         <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
@@ -142,6 +154,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                                 control={form.control}
                                 name="karat"
                                 title='Karat'
+                                defaultValue={watch('karat')}
                                 placeholder="Select Type"
                                 options={Object.values(Karat).map((karat) => ({
                                     label: karat,
@@ -197,6 +210,16 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                             </ConfirmDialog>
                             <Button type="button" onClick={handleSave}>Save Invoice</Button>
                         </div>
+                    </div>
+                </Card>
+                <Card className="flex lg:gap-10 lg:flex-row px-3 justify-center ">
+                    <div className="flex items-center gap-5 justify-center text-center">
+                        <span className="font-semibold">Total Weight:</span>
+                        <span>{getTotals().gold.toFixed(2)} gr</span>
+                    </div>
+                    <div className="flex items-center gap-5 justify-center text-center">
+                        <span className="font-semibold">Total Cash:</span>
+                        <span>{getTotals().cash.toFixed(2)} $</span>
                     </div>
                 </Card>
                 <OrderTable orders={orders} onDelete={handleDeleteOrder} onEdit={handleEditOrder} />

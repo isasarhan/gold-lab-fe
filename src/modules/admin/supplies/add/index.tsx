@@ -20,6 +20,7 @@ import { IAddSupply, ItemType } from '@/types/supply';
 import useSupplies from '@/services/supplies';
 import { Karat } from '@/types/invoice';
 import FormAutocomplete from '@/components/common/form/autocomplete';
+import { parseInvoiceKarat } from '@/lib/parseKarat';
 
 export interface AddSupplyModuleProps {
     suppliers: ISupplier[]
@@ -74,6 +75,14 @@ const AddSupplyModule: FC<AddSupplyModuleProps> = ({ suppliers }) => {
             karat: Karat.K18
         })
     };
+    const getTotals = () => {
+        return supplies.reduce((total, supply) => {
+            return {
+                gold: total.gold + (supply.weight * parseInvoiceKarat(supply.karat!) / 995),
+                cash: total.cash + (supply.weight * supply.perGram)
+            }
+        }, { gold: 0, cash: 0 })
+    }
     return (
         <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
@@ -175,6 +184,16 @@ const AddSupplyModule: FC<AddSupplyModuleProps> = ({ suppliers }) => {
                             </ConfirmDialog>
                             <Button type="button" onClick={handleSave}>Save Receipt</Button>
                         </div>
+                    </div>
+                </Card>
+                <Card className="flex lg:gap-10 lg:flex-row px-3 justify-center ">
+                    <div className="flex items-center gap-5 justify-center text-center">
+                        <span className="font-semibold">Total Weight:</span>
+                        <span>{getTotals().gold.toFixed(2)} gr</span>
+                    </div>
+                    <div className="flex items-center gap-5 justify-center text-center">
+                        <span className="font-semibold">Total Cash:</span>
+                        <span>{getTotals().cash.toFixed(2)} $</span>
                     </div>
                 </Card>
                 <SuppliesTable supplies={supplies} onDelete={handleDeleteReceipt} onEdit={handleEditReceipt} />

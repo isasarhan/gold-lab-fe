@@ -9,7 +9,7 @@ export const AddPaymentSchema = z.object({
   invoiceNb: z.string().min(2, "Invoice # must be at least 2 characters"),
   weight: z.coerce.number().optional().default(0),
   cash: z.coerce.number().optional().default(0),
-  karat: z.nativeEnum(Karat).default(Karat.K18).optional(),
+  karat: z.coerce.number().optional().default(750),
   currency: z.nativeEnum(Currency).default(Currency.Other).optional(),
   date: z.date(),
   description: z.string().optional(),
