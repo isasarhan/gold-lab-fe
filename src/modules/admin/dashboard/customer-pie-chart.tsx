@@ -85,7 +85,7 @@ const CustomerPieChart: React.FC<CustomerPieChartProps> = ({ customersAnalytics 
                         <Pie
                             data={chartData}
                             dataKey="count"
-                            nameKey="_id"
+                            nameKey="type"
                             innerRadius={60}
                             strokeWidth={5}
                         >
