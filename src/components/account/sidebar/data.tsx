@@ -4,57 +4,20 @@ export const generateSidebar = (pathName: string) => {
     return {
         navMain: [
             {
-                title: "Users",
-                url: "#",
-                items: [
-                    {
-                        title: "View Users",
-                        url: "/admin/users",
-                        isActive: pathName === "/admin/users",
-                        icon: <Users />
-                    },
-                    {
-                        title: "New User",
-                        url: "/admin/users/add",
-                        isActive: pathName === "/admin/users/add",
-                        icon: <User />
-                    },
-
-                ],
-            },
-            {
                 title: "Customers",
                 url: "#",
                 items: [
-                    {
-                        title: "View Customers",
-                        url: "/admin/customers",
-                        isActive: pathName === "/admin/customers",
-                        icon: <Users />
-                    },
+                    // {
+                    //     title: "View Customers",
+                    //     url: "/account/customers",
+                    //     isActive: pathName === "/account/customers",
+                    //     icon: <Users />
+                    // },
                     {
                         title: "View Balances",
-                        url: "/admin/balances",
-                        isActive: pathName === "/admin/balances",
+                        url: "/account/balances",
+                        isActive: pathName === "/account/balances",
                         icon: <Weight />
-                    }
-                ],
-            },
-            {
-                title: "Transactions",
-                url: "#",
-                items: [
-                    {
-                        title: "Invoices",
-                        url: "/admin/invoices",
-                        isActive: pathName === "/admin/invoices",
-                        icon: <ReceiptText />
-                    },
-                    {
-                        title: "Receipts",
-                        url: "/admin/receipts",
-                        isActive: pathName === "/admin/receipts",
-                        icon: <CreditCard />
                     }
                 ],
             },
@@ -64,21 +27,21 @@ export const generateSidebar = (pathName: string) => {
                 items: [
                     {
                         title: "View Supplies",
-                        url: "/admin/supplies",
-                        isActive: pathName === "/admin/supplies",
+                        url: "/account/supplies",
+                        isActive: pathName === "/account/supplies",
                         icon: <Users />
 
                     },
                     {
                         title: "View Suppliers",
-                        url: "/admin/suppliers",
-                        isActive: pathName === "/admin/suppliers",
+                        url: "/account/suppliers",
+                        isActive: pathName === "/account/suppliers",
                         icon: <Package />
                     },
                     {
                         title: "Payments",
-                        url: "/admin/payments",
-                        isActive: pathName === "/admin/payments",
+                        url: "/account/payments",
+                        isActive: pathName === "/account/payments",
                         icon: <Package />
                     },
 
@@ -90,22 +53,16 @@ export const generateSidebar = (pathName: string) => {
                 items: [
                     {
                         title: "View Employees",
-                        url: "/admin/employees",
-                        isActive: pathName === "/admin/employees",
+                        url: "/account/employees",
+                        isActive: pathName === "/account/employees",
                         icon: <Users />
 
                     },
                     {
                         title: "View Attendences",
-                        url: "/admin/employees/attendence",
-                        isActive: pathName === "/admin/employees/attendence",
+                        url: "/account/employees/attendence",
+                        isActive: pathName === "/account/employees/attendence",
                         icon: <Clock />
-                    },
-                    {
-                        title: "Upload Attendences",
-                        url: "/admin/employees/attendence/upload",
-                        isActive: pathName === "/admin/employees/attendence/upload",
-                        icon: <Upload />
                     },
                 ],
             },

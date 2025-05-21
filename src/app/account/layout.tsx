@@ -1,5 +1,5 @@
-import AdminHeader from "@/components/admin/header";
-import { AdminSidebar } from "@/components/admin/sidebar";
+import AccountHeader from "@/components/account/header";
+import { AccountSidebar } from "@/components/account/sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export default function AdminLayout({
@@ -9,9 +9,9 @@ export default function AdminLayout({
 }>) {
     return (
         <SidebarProvider>
-            <AdminSidebar />
+            <AccountSidebar />
             <SidebarInset>
-               <AdminHeader/>
+               <AccountHeader/>
                 <div className="w-full p-7">
                     {children}
                 </div>
