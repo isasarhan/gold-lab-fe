@@ -32,7 +32,7 @@ export interface IOrder {
     invoiceNb: string;
     type?: ItemType;
     quantity: number;
-    description: string;
+    description?: string;
     date: Date;
 }
 export interface IِAddInvoice {
