@@ -6,7 +6,7 @@ export const generateSidebar = (pathName: string) => {
             {
                 title: "Dashboard",
                 url: "/",
-                icon:<LayoutDashboard/>
+                icon: <LayoutDashboard />
             },
             {
                 title: "Users",
@@ -68,18 +68,19 @@ export const generateSidebar = (pathName: string) => {
                 url: "#",
                 items: [
                     {
+                        title: "View Suppliers",
+                        url: "/admin/suppliers",
+                        isActive: pathName === "/admin/suppliers",
+                        icon: <Package />
+                    },  
+                    {
                         title: "View Supplies",
                         url: "/admin/supplies",
                         isActive: pathName === "/admin/supplies",
                         icon: <Users />
 
                     },
-                    {
-                        title: "View Suppliers",
-                        url: "/admin/suppliers",
-                        isActive: pathName === "/admin/suppliers",
-                        icon: <Package />
-                    },
+
                     {
                         title: "Payments",
                         url: "/admin/payments",
