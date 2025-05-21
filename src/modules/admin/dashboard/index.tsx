@@ -44,7 +44,7 @@ const AdminDashboardModule: FC<AdminDashboardModuleProps> = ({ balanceTotal, cus
                     value={`$ ${balanceTotal.totalCashNegative.toFixed(2)}`} />
             </div>
             <div className='grid lg:grid-cols-4 grid-cols-2 gap-4 relative items-center '>
-                <CustomerPieChart customersAnalytics={customersAnalytics} />
+                <div className='col-span-4 lg:col-span-1'><CustomerPieChart customersAnalytics={customersAnalytics} /></div>
                 <div className='col-span-3'>
                     <CustomersModule data={customers}/>
                 </div>
