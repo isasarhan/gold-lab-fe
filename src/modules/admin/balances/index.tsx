@@ -1,9 +1,11 @@
 'use client'
 import Table, { Column } from '@/components/common/table';
 import { Card } from '@/components/ui/card';
-import { IBalance, IBalanceTotals } from '@/types/balance';
-import { Pen, Trash } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { BalancessSort, IBalance, IBalanceTotals } from '@/types/balance';
+import { Filter, Pen, Trash } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { FC } from 'react';
 export interface BalancesModuleProps {
     data: {
@@ -85,8 +87,18 @@ const BalancesModule: FC<BalancesModuleProps> = ({ data, total }) => {
                     </div>
                 </Card>
             </div>
+
+
             <div className="w-full">
-                <Table data={data.data} columns={column} page={data.page} pages={data.pages} total={data.total}/>
+                <Table data={data.data} columns={column} page={data.page}
+                    pages={data.pages}
+                    total={data.total}
+                    sortOptions={Object.values(BalancessSort).map((op) => {
+                        return {
+                            label: op, value: op
+                        }
+                    })}
+                />
             </div>
 
         </div>

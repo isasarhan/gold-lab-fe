@@ -1,10 +1,10 @@
 import { ICustomer } from "./customer";
 
 export enum BalancessSort {
-    AtoZ,
-    ZtoA,
-    HighestGold,
-    HighestCash,
+    HighestGold = "HighestGold",
+    HighestCash = "HighestCash",
+    LowestGold = "LowestGold",
+    LowestCash = "LowestCash",
 }
 export interface IBalance {
     _id: string;
