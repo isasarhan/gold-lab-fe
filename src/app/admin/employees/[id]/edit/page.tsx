@@ -21,7 +21,7 @@ const EditEmployeePage: FC<EditEmployeePageProps> = async ({ params }) => {
 
   return (
         <>
-            <Title text='Edit Employee'/>
+            <Title text='Edit Employee' goBack={true}/>
             <EditEmployeeModule employee={employee}/>
         </>
     );

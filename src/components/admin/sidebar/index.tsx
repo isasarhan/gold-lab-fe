@@ -74,8 +74,8 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
                       <SidebarMenuSub>
                         {item?.items?.map((item) => (
                           <SidebarMenuItem key={item.title} className="my-1.5 ">
-                            <SidebarMenuButton asChild isActive={item.isActive}>
-                              <Link href={item.url}>{'icon' in item && item.icon} {item.title}</Link>
+                            <SidebarMenuButton asChild isActive={item.isActive} >
+                              <Link href={item.url} >{'icon' in item && item.icon}<span> {item.title}</span></Link>
                             </SidebarMenuButton>
                           </SidebarMenuItem>
                         ))}

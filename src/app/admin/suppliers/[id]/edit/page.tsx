@@ -21,7 +21,7 @@ const EditSupplierPage: FC<EditSupplierPageProps> = async ({ params }) => {
     const supplier = await fetchSupplier(id)
     return (
         <>
-            <Title text='Edit Supplier'/>
+            <Title text='Edit Supplier' goBack={true}/>
             <EditSupplierModule supplier={supplier}/>
         </>
     );

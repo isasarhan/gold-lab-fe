@@ -28,7 +28,7 @@ export interface TablePropsComp {
   total?: number;
   page?: number;
   pages?: number;
-  sortOptions?:{ label: string, value: string }[];
+  sortOptions?: { label: string, value: string }[];
 }
 
 const TableComp: FC<TablePropsComp> = ({ data, className, columns, caption, page, pages, total, sortOptions }) => {
@@ -41,7 +41,7 @@ const TableComp: FC<TablePropsComp> = ({ data, className, columns, caption, page
             <PaginationComp page={page} pages={pages} total={total} />
           </div>
           <div>
-            {sortOptions?<SortFilter options={sortOptions} />:<></>}
+            {sortOptions ? <SortFilter options={sortOptions} /> : <></>}
           </div>
         </div> : <></>}
 

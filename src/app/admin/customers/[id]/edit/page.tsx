@@ -20,7 +20,7 @@ const EditCustomerPage: FC<EditCustomerPageProps> = async ({ params }) => {
     const customer = await fetchCustomer(id)
     return (
         <>
-            <Title text='Edit Customer'/>
+            <Title text='Edit Customer' goBack={true}/>
             <EditCustomerModule customer={customer}/>
         </>
     );

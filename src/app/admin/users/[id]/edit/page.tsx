@@ -22,7 +22,7 @@ const EditUserPage: FC<EditUserPageProps> = async ({ params }) => {
     const user = await fetchUser(id)
     return (
         <>
-            <Title text='Edit User'/>
+            <Title text='Edit User' goBack={true}/>
             <EditUserModule user={user}/>
         </>
     );
