@@ -7,7 +7,7 @@ export interface AddCustomerPageProps { }
 const AddCustomerPage: FC<AddCustomerPageProps> = async () => {
 
   return <>
-    <Title text='New Customer' />
+    <Title text='New Customer' goBack={true}/>
     <AddCustomerModule />
   </>
 };

@@ -14,7 +14,7 @@ const AddInvoicePage: FC<AddInvoicePageProps> = async () => {
 
     return (
         <>
-            <Title text='New Invoice' />
+            <Title text='New Invoice' goBack={true}/>
             <AddInvoiceModule customers={data.data} />
         </>
     );

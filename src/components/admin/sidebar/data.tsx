@@ -91,6 +91,19 @@ export const generateSidebar = (pathName: string) => {
                 ],
             },
             {
+                title: "Daily Workflow",
+                url: "#",
+                items: [
+                    {
+                        title: "View Daily Report",
+                        url: "/admin/daily-workflow",
+                        isActive: pathName === "/admin/daily-workflow",
+                        icon: <Users />
+
+                    },
+                ],
+            },
+            {
                 title: "Employees",
                 url: "#",
                 items: [
