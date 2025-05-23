@@ -1,4 +1,4 @@
-import { Clock, CreditCard, LayoutDashboard, Package, ReceiptText, Upload, User, Users, Weight } from "lucide-react"
+import { CircleDollarSign, Clock, CreditCard, LayoutDashboard, Package, ReceiptText, Upload, User, Users, Weight } from "lucide-react"
 
 export const generateSidebar = (pathName: string) => {
     return {
@@ -113,6 +113,12 @@ export const generateSidebar = (pathName: string) => {
                         isActive: pathName === "/admin/employees",
                         icon: <Users />
 
+                    },
+                    {
+                        title: "Salary Payment",
+                        url: "/admin/employees/payments",
+                        isActive: pathName === "/admin/employees/payments",
+                        icon: <CircleDollarSign />
                     },
                     {
                         title: "View Attendences",
