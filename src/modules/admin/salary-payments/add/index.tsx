@@ -26,26 +26,28 @@ import { MonthEnum, years } from "@/lib/dates";
 import { PaymentTypeEnum } from "@/types/salary-payment";
 import FormTextArea from "@/components/common/form/textarea";
 import FormDate from "@/components/common/form/date";
+import useSalaryPayments from "@/services/salary-payment";
+import { AddSalaryPayment } from "../validation";
 
 export interface AddSalaryPaymentModuleProps {
     employees: IEmployee[]
 }
 const AddSalaryPaymentModule: FC<AddSalaryPaymentModuleProps> = ({ employees }) => {
     const { token } = useUserContext();
-    const { add } = useEmployees({ token })
+    const { add } = useSalaryPayments({ token })
 
     const form = useForm({
         mode: "onBlur",
-        // resolver: zodResolver(AddEmployeeSchema),
+        resolver: zodResolver(AddSalaryPayment),
     });
     const { handleSubmit } = form;
 
-    // type employeeData = z.infer<typeof AddEmployeeSchema>;
+    type paymentData = z.infer<typeof AddSalaryPayment>;
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: paymentData) => {
         try {
             await add(data);
-            toast.success("employee added successfully!");
+            toast.success("salary payment added successfully!");
         } catch (e: any) {
             toast.error(e.message);
         }
