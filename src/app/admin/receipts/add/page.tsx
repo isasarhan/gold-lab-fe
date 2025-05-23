@@ -10,7 +10,7 @@ const AddRecieptsPage: FC<AddRecieptsPageProps> = async () => {
     const { token } = await getAuth();
 
     const { getAll } = useCustomers({ token })
-    const data = await getAll();
+    const data = await getAll({ pageSize: 100 });
     return (
         <>
             <Title text='New Receipt' />
