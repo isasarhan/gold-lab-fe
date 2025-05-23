@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const AddOrderSchema = z.object({
     customer: z.string().min(2, "customer must be at least 2 characters"),
-    weight: z.coerce.number().min(0),
+    weight: z.coerce.number(),
     karat: z.nativeEnum(Karat).default(Karat.K18).optional(),
     perGram: z.coerce.number(),
     perItem: z.coerce.number(),

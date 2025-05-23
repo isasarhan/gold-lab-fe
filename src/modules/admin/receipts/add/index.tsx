@@ -34,7 +34,9 @@ const AddReceiptModule: FC<AddReceiptModuleProps> = ({ customers }) => {
         mode: "onBlur",
         resolver: zodResolver(AddReceiptSchema),
         defaultValues: {
-            karat: 995
+            karat: 995,
+            weight:0,
+            cash:0
         }
     });
     const { handleSubmit } = form;
@@ -127,6 +129,7 @@ const AddReceiptModule: FC<AddReceiptModuleProps> = ({ customers }) => {
                                 control={form.control}
                                 name="weight"
                                 title='Weight'
+                                defaultValue={0}
                                 placeholder="Enter quantity"
                             />
                         </div>
@@ -143,6 +146,7 @@ const AddReceiptModule: FC<AddReceiptModuleProps> = ({ customers }) => {
                                 control={form.control}
                                 name="cash"
                                 title='Cash'
+                                defaultValue={0}
                                 placeholder="Enter quantity"
                             />
                         </div>
@@ -151,6 +155,7 @@ const AddReceiptModule: FC<AddReceiptModuleProps> = ({ customers }) => {
                                 control={form.control}
                                 name="currency"
                                 title='Currency'
+                                defaultValue={Currency.Usd}
                                 placeholder="Select Type"
                                 options={Object.values(Currency).map((currency) => ({
                                     label: currency,

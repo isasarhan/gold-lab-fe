@@ -43,12 +43,6 @@ const EditBalanceModule: FC<EditBalanceModuleProps> = ({ balance }) => {
     };
     return (
         <Card>
-            <CardHeader>
-                <CardTitle className="text-2xl font-bold">Edit balance for {balance.customer.name}</CardTitle>
-                <CardDescription>
-                    Fill in the details to edit balance
-                </CardDescription>
-            </CardHeader>
             <Form {...form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <CardContent className="space-y-3">

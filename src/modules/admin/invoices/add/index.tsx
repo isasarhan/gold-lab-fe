@@ -36,7 +36,10 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
         mode: "onBlur",
         resolver: zodResolver(AddOrderSchema),
         defaultValues: {
-            karat: Karat.K18
+            karat: Karat.K18,
+            perItem: 0,
+            quantity: 1,
+            weight:0
         }
     });
     const { handleSubmit, watch } = form;
@@ -60,14 +63,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
         }
     }
     const onSubmit = async (data: InvoiceDate) => {
-        form.reset({
-            customer: data.customer,
-            date: data.date,
-            invoiceNb: data.invoiceNb,
-            karat: Karat.K18,
-            perItem: 0,
-            quantity: 1,
-        })
+        form.setValue('weight', 0)
         setOrders(prev => [...prev, data])
     };
     const handleEditOrder = (order: IOrder, index: number) => {
@@ -147,6 +143,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                                 control={form.control}
                                 name="quantity"
                                 title='Quantity'
+                                defaultValue={1}
                                 placeholder="Enter quantity"
                             />
                         </div>
@@ -170,6 +167,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                                 control={form.control}
                                 name="weight"
                                 title='Weight'
+                                defaultValue={0}
                                 placeholder="Enter quantity"
                             />
                         </div>
@@ -186,6 +184,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
                                 control={form.control}
                                 name="perItem"
                                 title='Per Item'
+                                defaultValue={0}
                                 placeholder="Enter price per Item"
                             />
                         </div>
