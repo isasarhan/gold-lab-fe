@@ -19,7 +19,7 @@ const ReceiptsPage: FC<ReceiptsPropsPage> = async ({ searchParams }) => {
     const { getAll: getCustomers } = useCustomers({ token })
 
     const [customers, receipts] = await Promise.all(
-        [getCustomers({}), getReceipts({ searchTerm: query, page, customer, startDate, endDate })])
+        [getCustomers({ pageSize: 100 }), getReceipts({ searchTerm: query, page, customer, startDate, endDate })])
 
     return (
         <>
