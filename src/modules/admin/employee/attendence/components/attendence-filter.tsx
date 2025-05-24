@@ -2,7 +2,7 @@
 import FormSelect from '@/components/common/form/select';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { months, years } from '@/lib/dates';
+import { MonthEnum, months, years } from '@/lib/dates';
 import { IEmployee } from '@/types/employee';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { FC } from 'react';
@@ -20,11 +20,15 @@ interface Filter {
     year?: number
 }
 
-const   AttendenceFilters: FC<AttendenceFiltersProps> = ({ employees }) => {
+const AttendenceFilters: FC<AttendenceFiltersProps> = ({ employees }) => {
     const pathName = usePathname()
     const router = useRouter()
     const form = useForm<Filter>({
         mode: "onBlur",
+        defaultValues: {
+            month: new Date().getMonth(),
+            year: new Date().getFullYear()
+        }
     });
     const { handleSubmit } = form;
 
@@ -45,43 +49,45 @@ const   AttendenceFilters: FC<AttendenceFiltersProps> = ({ employees }) => {
         <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex items-center gap-3 pe-8">
-                        <FormSelect
-                            control={form.control}
-                            name="employee"
-                            title="Employee"
-                            placeholder="Select employee"
-                            options={employees.map((employee) => ({
-                                key: employee._id,
-                                value: employee._id!,
-                                label: employee.name,
-                            }))}
-                        />
-                        <FormSelect
-                            control={form.control}
-                            name="month"
-                            title="Month"
-                            placeholder="Select month"
-                            options={months.map((month, index) => ({
-                                key: month.toString(),
-                                value: `${++index}`,
-                                label: month.toString(),
-                            }))}
-                        />
-                        <FormSelect
-                            control={form.control}
-                            name="year"
-                            title="Year"
-                            placeholder="Select year"
-                            options={years.map((year) => ({
-                                key: `${year}`,
-                                value: `${year}`,
-                                label: `${year}`,
-                            }))}
-                        />
+                    <FormSelect
+                        control={form.control}
+                        name="employee"
+                        title="Employee"
+                        placeholder="Select employee"
+                        options={employees.map((employee) => ({
+                            key: employee._id,
+                            value: employee._id!,
+                            label: employee.name,
+                        }))}
+                    />
+                    <FormSelect
+                        control={form.control}
+                        name="year"
+                        title="Year"
+                        defaultValue={new Date().getFullYear().toString()}
+                        placeholder="Select year"
+                        options={years.map((year) => ({
+                            key: `${year}`,
+                            value: `${year}`,
+                            label: `${year}`,
+                        }))}
+                    />
+
+                    <FormSelect
+                        control={form.control}
+                        name="month"
+                        title='Month'
+                        placeholder="Select Type"
+                        defaultValue={months[new Date().getMonth()]}
+                        options={Object.values(MonthEnum).map((month) => ({
+                            label: month,
+                            value: month
+                        }))}
+                    />
 
                     <Button className='mt-3' type="submit">View Attendence</Button>
-                    </div>
-                    {/* <div className="flex-1">
+                </div>
+                {/* <div className="flex-1">
                         <FormDate
                             control={form.control}
                             name="startDate"
