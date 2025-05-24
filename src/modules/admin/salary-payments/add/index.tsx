@@ -22,7 +22,7 @@ import FormSelect from "@/components/common/form/select";
 import useEmployees from "@/services/employees";
 import { IEmployee } from "@/types/employee";
 import FormAutocomplete from "@/components/common/form/autocomplete";
-import { MonthEnum, years } from "@/lib/dates";
+import { MonthEnum, months, years } from "@/lib/dates";
 import { PaymentTypeEnum } from "@/types/salary-payment";
 import FormTextArea from "@/components/common/form/textarea";
 import FormDate from "@/components/common/form/date";
@@ -39,6 +39,10 @@ const AddSalaryPaymentModule: FC<AddSalaryPaymentModuleProps> = ({ employees }) 
     const form = useForm({
         mode: "onBlur",
         resolver: zodResolver(AddSalaryPayment),
+        defaultValues:{
+            month:months[new Date().getMonth()],
+            year:new Date().getFullYear().toString()
+        }
     });
     const { handleSubmit } = form;
 
@@ -57,7 +61,7 @@ const AddSalaryPaymentModule: FC<AddSalaryPaymentModuleProps> = ({ employees }) 
         <Card>
             <CardHeader>
                 <CardDescription>
-                    Fill in the details to create a new employee
+                    Fill in the details to create a new employee payment
                 </CardDescription>
             </CardHeader>
             <Form {...form}>
@@ -79,6 +83,7 @@ const AddSalaryPaymentModule: FC<AddSalaryPaymentModuleProps> = ({ employees }) 
                                 <FormDate
                                     control={form.control}
                                     name="date"
+                                    defaultValue={new Date()}
                                     title="Date"
                                     placeholder="Pick a date"
                                 />
@@ -90,6 +95,7 @@ const AddSalaryPaymentModule: FC<AddSalaryPaymentModuleProps> = ({ employees }) 
                                         control={form.control}
                                         name="year"
                                         title="Year"
+                                        defaultValue={new Date().getFullYear().toString()}
                                         placeholder="Select year"
                                         options={years.map((year) => ({
                                             key: `${year}`,
@@ -103,6 +109,7 @@ const AddSalaryPaymentModule: FC<AddSalaryPaymentModuleProps> = ({ employees }) 
                                         control={form.control}
                                         name="month"
                                         title='Month'
+                                        defaultValue={months[new Date().getMonth()]}
                                         placeholder="Select Month"
                                         options={Object.values(MonthEnum).map((month) => ({
                                             label: month,

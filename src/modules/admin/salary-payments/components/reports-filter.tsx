@@ -9,7 +9,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ISupplier } from '@/types/supplier';
-import { MonthEnum, years } from '@/lib/dates';
+import { MonthEnum, months, years } from '@/lib/dates';
 export interface ReportsFilterProps {
 }
 
@@ -23,6 +23,10 @@ const ReportsFilter: FC<ReportsFilterProps> = () => {
     const router = useRouter()
     const form = useForm<Filter>({
         mode: "onBlur",
+        defaultValues: {
+            month: months[new Date().getMonth()],
+            year: new Date().getFullYear().toString()
+        }
     });
     const { handleSubmit } = form;
 
@@ -32,7 +36,7 @@ const ReportsFilter: FC<ReportsFilterProps> = () => {
             params.append("year", data.year);
             params.append("month", data.month);
         }
-        else{
+        else {
             toast.error('choose a year and month!')
             return
         }
@@ -49,6 +53,7 @@ const ReportsFilter: FC<ReportsFilterProps> = () => {
                             control={form.control}
                             name="year"
                             title="Year"
+                            defaultValue={new Date().getFullYear().toString()}
                             placeholder="Select year"
                             options={years.map((year) => ({
                                 key: `${year}`,
@@ -63,6 +68,7 @@ const ReportsFilter: FC<ReportsFilterProps> = () => {
                             name="month"
                             title='Month'
                             placeholder="Select Type"
+                            defaultValue={months[new Date().getMonth()]}
                             options={Object.values(MonthEnum).map((month) => ({
                                 label: month,
                                 value: month
