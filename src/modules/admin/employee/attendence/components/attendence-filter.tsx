@@ -87,23 +87,6 @@ const AttendenceFilters: FC<AttendenceFiltersProps> = ({ employees }) => {
 
                     <Button className='mt-3' type="submit">View Attendence</Button>
                 </div>
-                {/* <div className="flex-1">
-                        <FormDate
-                            control={form.control}
-                            name="startDate"
-                            title="Start Date"
-                            placeholder="Pick a date"
-                        />
-                    </div>
-                    <div className="flex-1">
-                        <FormDate
-                            control={form.control}
-                            name="endDate"
-                            defaultValue={new Date()}
-                            title="End Date"
-                            placeholder="Pick a date"
-                        />
-                    </div> */}
             </form>
         </Form>
     );

@@ -38,7 +38,7 @@ const EditSupplierModule: FC<EditSupplierModuleProps> = ({ supplier }) => {
     const onSubmit = async (data: any) => {
         try {
             const { name, phone, gold, cash, silver, description } = data
-            await update(supplier._id!, {name, phone, gold, cash, silver, description })
+            await update(supplier._id!, {name, phone, weight: gold, cash, silver, description })
             toast.success("Supplier updated successfully!");
         } catch (e: any) {
             toast.error(e.message);

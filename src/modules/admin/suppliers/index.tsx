@@ -21,7 +21,7 @@ const SuppliersModule: FC<SuppliersModuleProps> = ({ suppliers }) => {
         {
             label: 'Gold',
             render: (item: ISupplier) => (
-                <div>{item.gold?.toFixed(2)}</div>
+                <div>{item.weight?.toFixed(2)}</div>
             )
         },
         {
