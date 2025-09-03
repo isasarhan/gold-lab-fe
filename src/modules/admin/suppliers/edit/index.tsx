@@ -16,6 +16,8 @@ import FormTextArea from '@/components/common/form/textarea';
 import { useUserContext } from '@/providers/UserProvider';
 import useSuppliers from '@/services/supplier';
 import { Form } from '@/components/ui/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { supplierSchema } from '../validation';
 
 export interface EditSupplierModuleProps {
     supplier: ISupplier;
@@ -27,6 +29,7 @@ const EditSupplierModule: FC<EditSupplierModuleProps> = ({ supplier }) => {
 
     const form = useForm({
         mode: "onBlur",
+        resolver:zodResolver(supplierSchema)
     });
 
     const { handleSubmit } = form;
@@ -37,8 +40,8 @@ const EditSupplierModule: FC<EditSupplierModuleProps> = ({ supplier }) => {
 
     const onSubmit = async (data: any) => {
         try {
-            const { name, phone, gold, cash, silver, description } = data
-            await update(supplier._id!, {name, phone, weight: gold, cash, silver, description })
+            const { name, phone, weight, cash, silver, description } = data
+            await update(supplier._id!, {name, phone, weight, cash, silver, description })
             toast.success("Supplier updated successfully!");
         } catch (e: any) {
             toast.error(e.message);
@@ -74,7 +77,7 @@ const EditSupplierModule: FC<EditSupplierModuleProps> = ({ supplier }) => {
                             </div>
                             <FormInput
                                 control={form.control}
-                                name="gold"
+                                name="weight"
                                 title='Gold'
                                 placeholder="Enter supplier gold balance"
                             />

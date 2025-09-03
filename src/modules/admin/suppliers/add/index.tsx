@@ -13,7 +13,7 @@ import {
 import { useUserContext } from "@/providers/UserProvider";
 import useSuppliers from '@/services/supplier';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AddSupplierSchema } from '../validation';
+import { supplierSchema } from '../validation';
 import * as z from 'zod'
 import { toast } from 'sonner';
 import FormInput from '@/components/common/form/input';
@@ -28,10 +28,10 @@ const AddSupplierModule: FC<AddSupplyModuiereProps> = () => {
 
     const form = useForm({
         mode: "onBlur",
-        resolver: zodResolver(AddSupplierSchema),
+        resolver: zodResolver(supplierSchema),
     });
     const { handleSubmit } = form;
-    type SupplierData = z.infer<typeof AddSupplierSchema>;
+    type SupplierData = z.infer<typeof supplierSchema>;
 
     const onSubmit = async (data: SupplierData) => {
         try {
@@ -73,7 +73,7 @@ const AddSupplierModule: FC<AddSupplyModuiereProps> = () => {
                             </div>
                             <FormInput
                                 control={form.control}
-                                name="gold"
+                                name="weight"
                                 title='Gold'
                                 placeholder="Enter supplier gold balance"
                             />
