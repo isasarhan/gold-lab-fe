@@ -1,7 +1,6 @@
-import { FormTypes } from "@/types/form";
-import type { FC } from "react";
-import { InvoiceValues, OrderValues } from "./validation";
-import { Card, CardContent } from "@/components/ui/card";
+import { useState, type FC } from "react";
+import { OrderValues } from "./validation";
+import { Card } from "@/components/ui/card";
 import FormInput from "@/components/common/form/input";
 import { Button } from "@/components/ui/button";
 import FormAutocomplete from "@/components/common/form/autocomplete";
@@ -10,9 +9,17 @@ import FormDate from "@/components/common/form/date";
 import FormSelect from "@/components/common/form/select";
 import ConfirmDialog from "@/components/common/discard-dialog";
 import { watch } from "fs";
-import { ItemType, Karat } from "@/types/invoice";
+import { IOrder, ItemType, Karat } from "@/types/invoice";
+import FormTextArea from "@/components/common/form/textarea";
+import OrderTable from "@/modules/admin/invoices/components/order-table";
+import { parseInvoiceKarat } from "@/lib/parseKarat";
+import { UseFormReturn } from "react-hook-form";
 
-interface InvoiceFormProps extends FormTypes<OrderValues> {
+interface InvoiceFormProps {
+  isLoading?: boolean;
+  form: UseFormReturn<OrderValues>;
+  onSubmit: (orders: OrderValues[]) => void | Promise<void>;
+  onError?: (error: any) => void;
   customers: ICustomer[];
 }
 const InvoiceForm: FC<InvoiceFormProps> = ({
@@ -23,10 +30,44 @@ const InvoiceForm: FC<InvoiceFormProps> = ({
   isLoading,
 }) => {
   const { control, handleSubmit } = form;
+  const [orders, setOrders] = useState<IOrder[]>([]);
+
+  const handleEditOrder = (order: IOrder, index: number) => {
+    setOrders((prevOrders) => prevOrders.filter((_, i) => i !== index));
+    form.reset(order);
+  };
+  const handleDeleteOrder = (index: number) => {
+    setOrders((prevOrders) => prevOrders.filter((_, i) => i !== index));
+  };
+  const handleDiscardInvoice = () => {
+    setOrders([]);
+    form.reset({
+      karat: Karat.K18,
+    });
+  };
+  const addToOrder = async (data: OrderValues) => {
+    form.setValue("weight", 0);
+    setOrders((prev) => [...prev, data]);
+  };
+
+  const getTotals = () => {
+    return orders.reduce(
+      (total, order) => {
+        return {
+          gold:
+            total.gold + (order.weight * parseInvoiceKarat(order.karat!)) / 995,
+          cash:
+            total.cash +
+            (order.weight * order.perGram + order.quantity * order.perItem),
+        };
+      },
+      { gold: 0, cash: 0 },
+    );
+  };
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-3">
+      <form onSubmit={handleSubmit(addToOrder, onError)} className="space-y-3">
         <Card className="p-5">
           <div className="flex gap-3 flex-col lg:flex-row ">
             <div className="flex items-start lg:w-1/3">
@@ -143,14 +184,18 @@ const InvoiceForm: FC<InvoiceFormProps> = ({
               <ConfirmDialog
                 onConfirm={handleDiscardInvoice}
                 text="Discard Invoice"
-                label="Discard Invoice"
+                title="Discard Invoice"
                 description="Are you sure you want to discard invoice?"
               >
                 <Button type="button" variant={"destructive"}>
                   Discard Invoice
                 </Button>
               </ConfirmDialog>
-              <Button type="button" onClick={handleSave}>
+              <Button
+                type="button"
+                onClick={() => onSubmit(orders)}
+                loading={isLoading}
+              >
                 Save Invoice
               </Button>
             </div>

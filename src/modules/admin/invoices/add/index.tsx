@@ -1,27 +1,13 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 
-import { Card } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
-import { Form } from "@/components/ui/form";
 import { useUserContext } from "@/providers/UserProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import FormInput from "@/components/common/form/input";
-import FormSelect from "@/components/common/form/select";
 import useInvoices from "@/services/invoices";
-import { AddInvoiceSchema, AddOrderSchema } from "../validation";
 import { ICustomer } from "@/types/customer";
-import FormDate from "@/components/common/form/date";
-import { IOrder, ItemType, Karat } from "@/types/invoice";
-import FormTextArea from "@/components/common/form/textarea";
-import OrderTable from "../components/order-table";
-import ConfirmDialog from "../../../../components/common/discard-dialog";
-import FormAutocomplete from "@/components/common/form/autocomplete";
-import { or } from "ramda";
-import { parseInvoiceKarat } from "@/lib/parseKarat";
+import { Karat } from "@/types/invoice";
 import {
   createOrderSchema,
   OrderValues,
@@ -33,12 +19,10 @@ interface AddInvoiceModuleProps {
 }
 
 const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
-  const [orders, setOrders] = useState<IOrder[]>([]);
   const { token } = useUserContext();
   const { add } = useInvoices({ token });
 
   const orderForm = useForm({
-    mode: "onBlur",
     resolver: zodResolver(createOrderSchema()),
     defaultValues: {
       karat: Karat.K18,
@@ -48,7 +32,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
     },
   });
 
-  const handleSave = async () => {
+  const handleSave = async (orders: OrderValues[]) => {
     try {
       await add({
         orders,
@@ -57,49 +41,18 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
         date: orders[0].date,
       }).then(() => {
         toast.success("Invoice added successfully!");
-        handleDiscardInvoice();
       });
     } catch (e: any) {
       toast.error(e.message);
     }
   };
-  const handleSubmit = async (data: OrderValues) => {
-    orderForm.setValue("weight", 0);
-    setOrders((prev) => [...prev, data]);
-  };
-  const handleEditOrder = (order: IOrder, index: number) => {
-    setOrders((prevOrders) => prevOrders.filter((_, i) => i !== index));
-    orderForm.reset(order);
-  };
-  const handleDeleteOrder = (index: number) => {
-    setOrders((prevOrders) => prevOrders.filter((_, i) => i !== index));
-  };
-  const getTotals = () => {
-    return orders.reduce(
-      (total, order) => {
-        return {
-          gold:
-            total.gold + (order.weight * parseInvoiceKarat(order.karat!)) / 995,
-          cash:
-            total.cash +
-            (order.weight * order.perGram + order.quantity * order.perItem),
-        };
-      },
-      { gold: 0, cash: 0 },
-    );
-  };
-  const handleDiscardInvoice = () => {
-    setOrders([]);
-    orderForm.reset({
-      karat: Karat.K18,
-    });
-  };
+
   return (
     <>
       <InvoiceForm
         form={orderForm}
         customers={customers}
-        onSubmit={handleSubmit}
+        onSubmit={handleSave}
       />
     </>
   );
