@@ -1,0 +1,179 @@
+import { FormTypes } from "@/types/form";
+import type { FC } from "react";
+import { InvoiceValues, OrderValues } from "./validation";
+import { Card, CardContent } from "@/components/ui/card";
+import FormInput from "@/components/common/form/input";
+import { Button } from "@/components/ui/button";
+import FormAutocomplete from "@/components/common/form/autocomplete";
+import { ICustomer } from "@/types/customer";
+import FormDate from "@/components/common/form/date";
+import FormSelect from "@/components/common/form/select";
+import ConfirmDialog from "@/components/common/discard-dialog";
+import { watch } from "fs";
+import { ItemType, Karat } from "@/types/invoice";
+
+interface InvoiceFormProps extends FormTypes<OrderValues> {
+  customers: ICustomer[];
+}
+const InvoiceForm: FC<InvoiceFormProps> = ({
+  form,
+  customers,
+  onSubmit,
+  onError,
+  isLoading,
+}) => {
+  const { control, handleSubmit } = form;
+
+  return (
+    <>
+      <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-3">
+        <Card className="p-5">
+          <div className="flex gap-3 flex-col lg:flex-row ">
+            <div className="flex items-start lg:w-1/3">
+              <FormAutocomplete
+                control={control}
+                name="customer"
+                title="Customer"
+                placeholder="Select customer"
+                options={customers.map((customer) => ({
+                  key: customer._id,
+                  value: customer._id!,
+                  label: customer.name,
+                }))}
+              />
+            </div>
+            <div className="flex lg:w-1/3 ">
+              <FormInput
+                control={control}
+                name="invoiceNb"
+                label="Invoice #"
+                placeholder="Enter invoice #"
+              />
+            </div>
+            <div className="flex lg:w-1/3">
+              <FormDate
+                control={control}
+                name="date"
+                label="Date"
+                defaultValue={new Date()}
+                placeholder="Pick a date"
+              />
+            </div>
+          </div>
+        </Card>
+        <Card className="p-5">
+          <div className="flex gap-3 flex-col lg:flex-row">
+            <div className="flex lg:w-1/3">
+              <FormSelect
+                control={control}
+                name="type"
+                label="Type"
+                placeholder="Select Type"
+                options={Object.values(ItemType).map((type) => ({
+                  label: type,
+                  value: type,
+                }))}
+              />
+            </div>
+            <div className="flex lg:w-1/3">
+              <FormInput
+                control={control}
+                name="quantity"
+                label="Quantity"
+                defaultValue={1}
+                placeholder="Enter quantity"
+              />
+            </div>
+            <div className="flex lg:w-1/3">
+              <FormSelect
+                control={control}
+                name="karat"
+                label="Karat"
+                defaultValue={watch("karat")}
+                placeholder="Select Type"
+                options={Object.values(Karat).map((karat) => ({
+                  label: karat,
+                  value: karat,
+                }))}
+              />
+            </div>
+          </div>
+          <div className="flex gap-3 flex-col lg:flex-row">
+            <div className="flex lg:w-1/3">
+              <FormInput
+                control={control}
+                name="weight"
+                label="Weight"
+                defaultValue={0}
+                placeholder="Enter quantity"
+              />
+            </div>
+            <div className="flex lg:w-1/3">
+              <FormInput
+                control={control}
+                name="perGram"
+                label="Per Gram"
+                placeholder="Enter price per weight"
+              />
+            </div>
+            <div className="flex lg:w-1/3">
+              <FormInput
+                control={control}
+                name="perItem"
+                label="Per Item"
+                defaultValue={0}
+                placeholder="Enter price per Item"
+              />
+            </div>
+          </div>
+          <FormTextArea
+            control={control}
+            name="description"
+            label="Description"
+            placeholder="Enter description"
+          />
+
+          <div className="flex justify-between flex-col lg:flex-row">
+            <div className="mb-3 lg:mb-0">
+              <Button variant={"secondary"} type="submit">
+                Add
+              </Button>
+            </div>
+            <div className="flex gap-3">
+              <ConfirmDialog
+                onConfirm={handleDiscardInvoice}
+                text="Discard Invoice"
+                label="Discard Invoice"
+                description="Are you sure you want to discard invoice?"
+              >
+                <Button type="button" variant={"destructive"}>
+                  Discard Invoice
+                </Button>
+              </ConfirmDialog>
+              <Button type="button" onClick={handleSave}>
+                Save Invoice
+              </Button>
+            </div>
+          </div>
+        </Card>
+        <Card className="flex lg:gap-10 lg:flex-row px-3 justify-center ">
+          <div className="flex items-center gap-5 justify-center text-center">
+            <span className="font-semibold">Total Weight:</span>
+            <span>{getTotals().gold.toFixed(2)} gr</span>
+          </div>
+          <div className="flex items-center gap-5 justify-center text-center">
+            <span className="font-semibold">Total Cash:</span>
+            <span>{getTotals().cash.toFixed(2)} $</span>
+          </div>
+        </Card>
+        <OrderTable
+          orders={orders}
+          onDelete={handleDeleteOrder}
+          onEdit={handleEditOrder}
+        />
+      </form>
+    </>
+  );
+};
+
+export default InvoiceForm;

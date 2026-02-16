@@ -20,7 +20,6 @@ const UserPage: FC<UsersPageProps> = async ({ searchParams, params }) => {
     const { id } = await params;
     const { year } = await searchParams
     const { token } = await getAuth();
-    console.log('year', year);
 
     const { getById } = useCustomers({ token: token })
     const { findTotalYearRevenue, findTotalYearPayments } = useAnalytics({ token })
