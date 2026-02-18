@@ -1,13 +1,14 @@
 export interface IPaginatedResponse<T> {
   data: T[];
-  pagination: IPaginationMeta;
+  total: number;
+  pages: number;
+  page: number;
 }
 
 export interface IPaginationMeta {
-  totalDocuments: number;
-  totalPages: number;
-  currentPage: number;
-  perPage: number;
+  total: number;
+  pages: number;
+  page: number;
 }
 
 export interface IPagination {
