@@ -32,6 +32,11 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
     },
   });
 
+  const handleError = (e: any) => {
+    console.error("error---------", e);
+    toast.error("Missing or Invalid fields!");
+  };
+
   const handleSave = async (orders: OrderValues[]) => {
     try {
       await add({
@@ -53,6 +58,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
         form={orderForm}
         customers={customers}
         onSubmit={handleSave}
+        onError={handleError}
       />
     </>
   );

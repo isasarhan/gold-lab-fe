@@ -14,7 +14,6 @@ import { toast } from 'sonner';
 
 export interface ReceiptsModuleProps {
     customers: ICustomer[]
-
     data: {
         data: IِReceipt[]
         total: number;
@@ -39,6 +38,7 @@ const ReceiptsModule: FC<ReceiptsModuleProps> = ({ data, customers }) => {
             toast.error(e.message);
         }
     }
+    
     const columns: Column[] = [
         { value: "invoiceNb", label: "Invoice #" },
         { value: "weight", label: "Weight" },
