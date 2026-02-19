@@ -1,37 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { IUser, Role } from "./types/user";
-import { cookies } from "next/headers";
+import { auth } from "./auth";
 
 export async function middleware(request: NextRequest) {
   try {
-    const currentUser = request.cookies.get('user')?.value
+    const session = await auth()
     const pathname = request.nextUrl.pathname;
 
-    if (!currentUser && !pathname.startsWith('/login')) {
+    if (!session && !pathname.startsWith('/login')) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
 
-    if (currentUser) {
-      const user = JSON.parse(currentUser) as IUser
-
-      if (!user.isApproved) {
-        const cookieStore = await cookies()
-        cookieStore.delete('user').delete('token')
-        return NextResponse.redirect(new URL('/login', request.url));
-      }
-      switch (user.role) {
-        case Role.User:
-          if (!pathname.startsWith("/account")) {
-            return NextResponse.redirect(new URL("/account/dashboard", request.url));
-          }
-          break;
-        case Role.Admin:
-          if (!pathname.startsWith("/admin")) {
-            return NextResponse.redirect(new URL("/admin/dashboard", request.url));
-          }
-          break;
-      }
-      return NextResponse.next();
+    if (session) {
+      return NextResponse.redirect(new URL("/admin/dashboard", request.url));
     }
   }
   catch (e) {

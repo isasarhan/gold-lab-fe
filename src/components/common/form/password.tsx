@@ -6,14 +6,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Control, FieldValues, Path } from "react-hook-form";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
 import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 
 interface FormPasswordProps<
   T extends FieldValues,
@@ -26,7 +25,6 @@ interface FormPasswordProps<
   disabled?: boolean;
   control: Control<T>;
   name: Path<T>;
-  title: string;
 }
 
 const FormPassword = <T extends FieldValues>({
@@ -38,9 +36,10 @@ const FormPassword = <T extends FieldValues>({
   disabled = false,
   name,
   control,
-  title,
   ...props
 }: FormPasswordProps<T>) => {
+  const formId = id ?? name;
+
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -48,14 +47,14 @@ const FormPassword = <T extends FieldValues>({
   };
 
   return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <FormItem className="flex-1 w-full">
-          <FormLabel>{title}</FormLabel>
-          <FormControl>
-            <div className="relative">
+    <FieldGroup>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel htmlFor={formId}>{label}</FieldLabel>
+            <div>
               <Input
                 {...field}
                 {...props}
@@ -84,11 +83,11 @@ const FormPassword = <T extends FieldValues>({
                 </span>
               </Button>
             </div>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        )}
+      />
+    </FieldGroup>
   );
 };
 

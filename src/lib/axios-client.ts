@@ -1,11 +1,11 @@
 import axios from "axios";
-import Cookies from 'js-cookie'
+import { getSession } from "next-auth/react";
 
-const axiosClient = axios.create({});
+const axiosClient = axios.create({ baseURL: process.env.NEXT_PUBLIC_API });
 axiosClient.interceptors.request.use(async (config) => {
-  const token = Cookies.get('token')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  const session = await getSession();
+  if (session?.accessToken) {
+    config.headers.Authorization = `Bearer ${session?.accessToken}`;
   }
 
   return config;

@@ -29,13 +29,3 @@ export interface ISupply {
     type: ItemType;
     invoiceNb: string;
 }
-export interface IAddSupply {
-    supplier: string;
-    weight: number;
-    karat?: Karat;
-    perGram: number;
-    date: Date;
-    description?: string;
-    type?: ItemType;
-    invoiceNb: string;
-}

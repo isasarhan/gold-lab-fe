@@ -1,13 +1,12 @@
+import { auth } from "@/auth";
 import axios from "axios";
-import { cookies } from "next/headers";
 
 const axoisServer = axios.create({ baseURL: process.env.NEXT_PUBLIC_API });
 axoisServer.interceptors.request.use(async (config) => {
-  const cookieStore = await cookies()
-  const token = cookieStore.get('token')
+  const session = await auth()
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token.value}`;
+  if (session?.accessToken) {
+    config.headers.Authorization = `Bearer ${session?.accessToken}`;
   }
   return config;
 });
