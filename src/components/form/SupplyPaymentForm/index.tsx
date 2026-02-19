@@ -84,7 +84,7 @@ const SupplyPaymentForm: FC<SupplyPaymentFormProps> = ({
               <FormAutocomplete
                 control={control}
                 name="supplier"
-                title="supplier"
+                label="supplier"
                 placeholder="Select supplier"
                 options={suppliers.map((supplier) => ({
                   key: supplier._id,

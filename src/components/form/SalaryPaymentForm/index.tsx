@@ -33,7 +33,7 @@ const SalaryPaymentForm: FC<SalaryPaymentFormProps> = ({
               <FormAutocomplete
                 control={control}
                 name="employee"
-                title="Employeer"
+                label="Employeer"
                 placeholder="Select employee"
                 options={employees.map((customer) => ({
                   key: customer._id,

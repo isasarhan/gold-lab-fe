@@ -74,7 +74,7 @@ const InvoiceForm: FC<InvoiceFormProps> = ({
               <FormAutocomplete
                 control={control}
                 name="customer"
-                title="Customer"
+                label="Customer"
                 placeholder="Select customer"
                 options={customers.map((customer) => ({
                   key: customer._id,
