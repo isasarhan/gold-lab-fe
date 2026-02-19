@@ -55,7 +55,7 @@ const TableComp = <TData, TValue>({
     <div className={cn("w-full space-y-3", className)}>
       {/* Toolbar */}
       {hasPagination ? (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-card px-4 py-2.5 shadow-sm">
+        <div className="flex flex-col items-center gap-3 rounded-xl border bg-card px-4 py-2.5 shadow-sm sm:flex-row sm:justify-between">
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">Total</span>
             <span className="rounded-md bg-primary/10 px-2.5 py-0.5 text-sm font-semibold text-primary">
@@ -63,37 +63,39 @@ const TableComp = <TData, TValue>({
             </span>
           </div>
           <PaginationComp page={page} pages={pages} total={total} />
-          {sortOptions && (
+          {sortOptions ? (
             <div className="flex items-center gap-2">
               <span className="text-sm text-muted-foreground">Sort</span>
               <SortFilter options={sortOptions} />
             </div>
+          ) : (
+            <div className="hidden sm:block" />
           )}
         </div>
       ) : null}
 
       {/* Desktop / Tablet */}
       <div className="hidden sm:block">
-        <Card className="overflow-hidden rounded-xl border shadow-sm">
+        <Card className="overflow-hidden rounded-xl border border-border shadow-sm">
           {caption && (
-            <CardHeader className="border-b bg-muted/40 px-6 py-3">
-              <p className="text-sm font-medium text-muted-foreground">
+            <CardHeader className="border-b border-primary/20 bg-primary/8 px-6 py-3">
+              <p className="text-sm font-medium text-primary">
                 {caption}
               </p>
             </CardHeader>
           )}
-          <CardContent className="p-0">
+          <div className="max-h-130 overflow-auto">
             <Table>
-              <TableHeader>
+              <TableHeader className="sticky top-0 z-10">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow
                     key={headerGroup.id}
-                    className="border-b bg-muted/50 hover:bg-muted/50"
+                    className="border-b border-primary/20 bg-primary/10 hover:bg-primary/10"
                   >
                     {headerGroup.headers.map((header) => (
                       <TableHead
                         key={header.id}
-                        className="h-11 px-4 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                        className="h-11 px-4 text-center text-xs font-semibold uppercase tracking-wider text-primary"
                       >
                         {header.isPlaceholder
                           ? null
@@ -112,8 +114,8 @@ const TableComp = <TData, TValue>({
                     <TableRow
                       key={row.id}
                       className={cn(
-                        "transition-colors hover:bg-muted/40",
-                        index % 2 === 0 ? "bg-background" : "bg-muted/20",
+                        "transition-colors hover:bg-accent/60",
+                        index % 2 === 0 ? "bg-card" : "bg-primary/5",
                       )}
                     >
                       {row.getVisibleCells().map((cell) => (
@@ -144,7 +146,7 @@ const TableComp = <TData, TValue>({
                 )}
               </TableBody>
             </Table>
-          </CardContent>
+          </div>
         </Card>
       </div>
 
