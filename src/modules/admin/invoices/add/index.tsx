@@ -2,10 +2,9 @@
 import React, { FC } from "react";
 
 import { useForm } from "react-hook-form";
-import { useUserContext } from "@/providers/UserProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import useInvoices from "@/services/invoices";
+import { addInvoice } from "@/network/external/invoices";
 import { ICustomer } from "@/types/customer";
 import { Karat } from "@/types/invoice";
 import {
@@ -19,9 +18,6 @@ interface AddInvoiceModuleProps {
 }
 
 const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
-  const { token } = useUserContext();
-  const { add } = useInvoices({ token });
-
   const orderForm = useForm({
     resolver: zodResolver(createOrderSchema()),
     defaultValues: {
@@ -39,7 +35,7 @@ const AddInvoiceModule: FC<AddInvoiceModuleProps> = ({ customers }) => {
 
   const handleSave = async (orders: OrderValues[]) => {
     try {
-      await add({
+      await addInvoice({
         orders,
         invoiceNb: orders[0].invoiceNb,
         customer: orders[0].customer,

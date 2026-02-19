@@ -5,8 +5,7 @@ import { ISupplier } from '@/types/supplier';
 import { ISupply } from '@/types/supply';
 import React, { FC } from 'react';
 import ConfirmDialog from '@/components/common/discard-dialog';
-import { useUserContext } from '@/providers/UserProvider';
-import useSupplies from '@/services/supplies';
+import { deleteSupply } from '@/network/external/supplies';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { dateFormatter } from '@/lib/dateFormatter';
@@ -25,13 +24,11 @@ export interface SuppliesModuleProps {
 }
 
 const SuppliesModule: FC<SuppliesModuleProps> = ({ data, suppliers }) => {
-    const { token } = useUserContext();
-    const { remove } = useSupplies({ token })
     const router = useRouter()
 
     const handleDelete = async (item: ISupply) => {
         try {
-            await remove(item?._id!).then(() => {
+            await deleteSupply(item?._id!).then(() => {
                 toast.success("supply removed successfully!");
                 router.refresh()
             })

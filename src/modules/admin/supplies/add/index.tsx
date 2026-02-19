@@ -1,11 +1,10 @@
 "use client";
-import { useUserContext } from "@/providers/UserProvider";
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { ISupplier } from "@/types/supplier";
-import useSupplies from "@/services/supplies";
+import { addSupplyBulk } from "@/network/external/supplies";
 import { Karat } from "@/types/invoice";
 import SupplyForm from "@/components/form/SupplyForm";
 import {
@@ -18,9 +17,6 @@ export interface AddSupplyModuleProps {
 }
 
 const AddSupplyModule: FC<AddSupplyModuleProps> = ({ suppliers }) => {
-  const { token } = useUserContext();
-  const { addMany } = useSupplies({ token });
-
   const supplyForm = useForm({
     mode: "onBlur",
     resolver: zodResolver(createSupplySchema()),
@@ -36,7 +32,7 @@ const AddSupplyModule: FC<AddSupplyModuleProps> = ({ suppliers }) => {
 
   const handleSave = async (supplies: SupplyValues[]) => {
     try {
-      await addMany(supplies).then(() => {
+      await addSupplyBulk(supplies).then(() => {
         toast.success("Supplies added successfully!");
       });
     } catch (e: any) {

@@ -3,8 +3,7 @@ import ConfirmDialog from '@/components/common/discard-dialog';
 import SupplierDatesfilter from '@/components/common/supplier-dates-filters';
 import Table, { Column } from '@/components/common/table';
 import { dateFormatter } from '@/lib/dateFormatter';
-import { useUserContext } from '@/providers/UserProvider';
-import useSupplyPayments from '@/services/payments';
+import { deleteSupplyPayment } from '@/network/external/supply-payments';
 import { ISupplier } from '@/types/supplier';
 import { ISupplyPayment } from '@/types/supply-payments';
 import { Eye, Pencil, Trash } from 'lucide-react';
@@ -25,13 +24,11 @@ export interface PaymentsModuleProps {
 }
 
 const PaymentsModule: FC<PaymentsModuleProps> = ({ data, suppliers }) => {
-    const { token } = useUserContext();
-    const { remove } = useSupplyPayments({ token })
     const router = useRouter()
 
     const handleDelete = async (item: ISupplyPayment) => {
         try {
-            await remove(item?._id!).then(() => {
+            await deleteSupplyPayment(item?._id!).then(() => {
                 toast.success("supply payment removed successfully!");
                 router.refresh()
             })

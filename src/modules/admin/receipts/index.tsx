@@ -7,8 +7,7 @@ import Table, { Column } from '@/components/common/table';
 import { dateFormatter } from '@/lib/dateFormatter';
 import ConfirmDialog from '@/components/common/discard-dialog';
 import { Trash } from 'lucide-react';
-import { useUserContext } from '@/providers/UserProvider';
-import useReceipts from '@/services/receipts';
+import { deleteReceipt } from '@/network/external/receipts';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
@@ -23,13 +22,11 @@ export interface ReceiptsModuleProps {
 }
 
 const ReceiptsModule: FC<ReceiptsModuleProps> = ({ data, customers }) => {
-    const { token } = useUserContext();
-    const { remove } = useReceipts({ token })
     const router = useRouter()
 
     const handleDelete = async (item: IِReceipt) => {
         try {
-            await remove(item?._id!).then(() => {
+            await deleteReceipt(item?._id!).then(() => {
                 toast.success("receipt removed successfully!");
                 router.refresh()
             })

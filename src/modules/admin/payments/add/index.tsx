@@ -1,6 +1,5 @@
 "use client";
-import { useUserContext } from "@/providers/UserProvider";
-import useSupplyPayments from "@/services/payments";
+import { addSupplyPaymentBulk } from "@/network/external/supply-payments";
 import { ISupplier } from "@/types/supplier";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { FC } from "react";
@@ -17,9 +16,6 @@ export interface AddPaymentModuleProps {
   suppliers: ISupplier[];
 }
 const AddPaymentModule: FC<AddPaymentModuleProps> = ({ suppliers }) => {
-  const { token } = useUserContext();
-  const { addMany } = useSupplyPayments({ token });
-
   const supplyPaymentForm = useForm({
     resolver: zodResolver(createSupplyPaymentSchema()),
     defaultValues: {
@@ -35,7 +31,7 @@ const AddPaymentModule: FC<AddPaymentModuleProps> = ({ suppliers }) => {
 
   const handleSave = async (payments: SupplyPaymentValues[]) => {
     try {
-      await addMany(payments).then(() => {
+      await addSupplyPaymentBulk(payments).then(() => {
         toast.success("Payments added successfully!");
       });
     } catch (e: any) {

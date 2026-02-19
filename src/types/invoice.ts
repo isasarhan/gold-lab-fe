@@ -23,33 +23,33 @@ export enum ItemType {
 }
 
 export interface IOrder {
-    _id?:string
-    customer: string;
-    weight: number;
-    karat?: Karat;
-    perGram: number;
-    perItem: number;
-    invoiceNb: string;
-    type?: ItemType;
-    quantity: number;
-    description?: string;
-    date: Date;
+  _id?: string
+  customer: string;
+  weight: number;
+  karat?: Karat;
+  perGram: number;
+  perItem: number;
+  invoiceNb: string;
+  type?: ItemType;
+  quantity: number;
+  description?: string;
+  date: Date;
 }
 export interface IِAddInvoice {
-    _id?: string
-    invoiceNb: string;
-    customer: string;
-    orders: IOrder[];
-    totalWeight?: number;
-    totalCash?: number;
-    date: Date;
+  _id?: string
+  invoiceNb: string;
+  customer: string;
+  orders: IOrder[];
+  totalWeight?: number;
+  totalCash?: number;
+  date: Date;
 }
 export interface IInvoice {
-    _id?: string
-    invoiceNb: string;
-    customer: ICustomer;
-    totalWeight?: number;
-    totalCash?: number;
-    date: Date;
-    orders: IOrder[];
+  _id: string
+  invoiceNb: string;
+  customer: ICustomer;
+  totalWeight?: number;
+  totalCash?: number;
+  date: Date;
+  orders: IOrder[];
 }

@@ -2,8 +2,7 @@
 
 import Table, { Column } from '@/components/common/table';
 import { dateFormatter } from '@/lib/dateFormatter';
-import { useUserContext } from '@/providers/UserProvider';
-import useInvoices from '@/services/invoices';
+import { deleteInvoice } from '@/network/external/invoices';
 import { ICustomer } from '@/types/customer';
 import { IInvoice, IِAddInvoice } from '@/types/invoice';
 import { Eye, Pencil, Trash } from 'lucide-react';
@@ -27,13 +26,11 @@ export interface InvoicesModuleProps {
 
 
 const InvoicesModule: FC<InvoicesModuleProps> = ({ data, customers }) => {
-    const { token } = useUserContext();
-    const { remove } = useInvoices({ token })
     const router = useRouter()
 
     const handleDelete = async (item: IInvoice) => {
         try {
-            await remove(item?._id!).then(() => {
+            await deleteInvoice(item?._id).then(() => {
                 toast.success("invoice removed successfully!");
                 router.refresh()
             })

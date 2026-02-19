@@ -1,8 +1,7 @@
 "use client";
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
-import { useUserContext } from "@/providers/UserProvider";
-import useSuppliers from "@/services/supplier";
+import { addSupplier } from "@/network/external/supplier";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import SupplierForm from "@/components/form/SupplierForm";
@@ -12,9 +11,6 @@ import {
 } from "@/components/form/SupplierForm/validation";
 
 const AddSupplierModule = () => {
-  const { token } = useUserContext();
-  const { add } = useSuppliers({ token });
-
   const supplierForm = useForm({
     mode: "onBlur",
     resolver: zodResolver(createSupplierSchema()),
@@ -27,7 +23,7 @@ const AddSupplierModule = () => {
 
   const handleSubmit = async (data: SupplierValues) => {
     try {
-      await add(data).then(() => {
+      await addSupplier(data).then(() => {
         supplierForm.reset();
       });
       toast.success("Supplier added successfully!");

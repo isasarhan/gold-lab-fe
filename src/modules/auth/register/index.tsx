@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import { formSchema } from "./validation"
-import useAuth from "@/services/auth"
+import { register } from "@/network/external/auth"
 import React, { FC } from 'react';
 import { toast } from "sonner"
 import FormInput from "@/components/common/form/input"
@@ -15,8 +15,6 @@ import FormPassword from "@/components/common/form/password"
 export interface RegisterModuleProps { }
 
 const RegisterModule: FC<RegisterModuleProps> = () => {
-    const { register } = useAuth()
-
     type FormData = z.infer<typeof formSchema>
 
     const form = useForm<FormData>({

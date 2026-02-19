@@ -10,13 +10,12 @@ import {
 } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
-import { useUserContext } from "@/providers/UserProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AddUserSchema } from "../validation";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Role } from "@/types/user";
-import useUsers from "@/services/users";
+import { addUser } from "@/network/external/users";
 import { toast } from "sonner";
 import FormInput from "@/components/common/form/input";
 import FormSelect from "@/components/common/form/select";
@@ -24,9 +23,6 @@ import FormPassword from "@/components/common/form/password";
 
 export interface AddUserModuleProps {}
 const AddUserModule: FC<AddUserModuleProps> = () => {
-  const { token } = useUserContext();
-  const { add } = useUsers({ token });
-
   const form = useForm({
     mode: "onBlur",
     resolver: zodResolver(AddUserSchema),
@@ -36,7 +32,7 @@ const AddUserModule: FC<AddUserModuleProps> = () => {
 
   const onSubmit = async (data: UserType) => {
     try {
-      await add(data);
+      await addUser(data);
       toast.success("User added successfully!");
     } catch (e: any) {
       toast.error(e.message);

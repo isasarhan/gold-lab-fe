@@ -3,12 +3,11 @@ import React, { FC } from "react";
 
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
-import { useUserContext } from "@/providers/UserProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { IEmployee } from "@/types/employee";
 import { months } from "@/lib/dates";
-import useSalaryPayments from "@/services/salary-payment";
+import { addSalaryPayment } from "@/network/external/salary-payment";
 import {
   createSalaryPaymentSchema,
   SalaryPaymentValues,
@@ -21,9 +20,6 @@ export interface AddSalaryPaymentModuleProps {
 const AddSalaryPaymentModule: FC<AddSalaryPaymentModuleProps> = ({
   employees,
 }) => {
-  const { token } = useUserContext();
-  const { add } = useSalaryPayments({ token });
-
   const salaryPaymentForm = useForm({
     resolver: zodResolver(createSalaryPaymentSchema()),
     defaultValues: {
@@ -39,7 +35,7 @@ const AddSalaryPaymentModule: FC<AddSalaryPaymentModuleProps> = ({
 
   const onSubmit = async (data: SalaryPaymentValues) => {
     try {
-      await add(data);
+      await addSalaryPayment(data);
       toast.success("salary payment added successfully!");
     } catch (e: any) {
       toast.error(e.message);

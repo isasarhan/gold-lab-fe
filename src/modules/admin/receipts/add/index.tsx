@@ -1,6 +1,5 @@
 "use client";
-import { useUserContext } from "@/providers/UserProvider";
-import useReceipts from "@/services/receipts";
+import { addReceiptBulk } from "@/network/external/receipts";
 import { ICustomer } from "@/types/customer";
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -17,9 +16,6 @@ export interface AddReceiptModuleProps {
 }
 
 const AddReceiptModule: FC<AddReceiptModuleProps> = ({ customers }) => {
-  const { token } = useUserContext();
-  const { addMany } = useReceipts({ token });
-
   const receiptForm = useForm({
     mode: "onBlur",
     resolver: zodResolver(createReceiptSchema()),
@@ -37,7 +33,7 @@ const AddReceiptModule: FC<AddReceiptModuleProps> = ({ customers }) => {
 
   const handleSave = async (receipts: ReceiptValues[]) => {
     try {
-      await addMany(receipts).then(() => {
+      await addReceiptBulk(receipts).then(() => {
         toast.success("Payments added successfully!");
       });
     } catch (e: any) {

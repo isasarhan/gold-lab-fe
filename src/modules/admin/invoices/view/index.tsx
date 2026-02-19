@@ -5,23 +5,20 @@ import OrderTable from '../components/order-table';
 import { Card, CardContent } from '@/components/ui/card';
 import { dateFormatter } from '@/lib/dateFormatter';
 import { Badge } from '@/components/ui/badge';
-import useOrders from '@/services/orders';
-import { useUserContext } from '@/providers/UserProvider';
+import { deleteOrder } from '@/network/external/orders';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 export interface ViewInvoiceModuleProps {
   invoice: IInvoice;
 }
 const ViewInvoiceModule: FC<ViewInvoiceModuleProps> = ({ invoice }) => {
-  const { token } = useUserContext()
   const router = useRouter()
-  const { remove } = useOrders({ token })
   const handleEditOrder = async (data: IOrder, index: number) => {
 
   }
   const handleDeleteOrder = async (index: number, value?: IOrder) => {
     try {
-      await remove(value?._id!, { invoiceId: invoice._id! }).then(() => {
+      await deleteOrder(value?._id!, { invoiceId: invoice._id! }).then(() => {
         toast.success("Order removed successfully!");
         router.refresh()
       })
