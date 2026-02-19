@@ -1,11 +1,10 @@
 "use client";
 
-import { FC, useState } from "react";
+import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 import {
   Field,
@@ -54,7 +53,7 @@ const FormPassword = <T extends FieldValues>({
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel htmlFor={formId}>{label}</FieldLabel>
-            <div>
+            <div className="relative">
               <Input
                 {...field}
                 {...props}
@@ -69,7 +68,7 @@ const FormPassword = <T extends FieldValues>({
                 type="button"
                 variant="ghost"
                 size="icon"
-                className="absolute right-0 top-0 h-full px-3 py-2 text-gray-400 hover:text-gray-600"
+                className="absolute right-0 top-0 h-full px-3 py-2 text-muted-foreground hover:text-foreground"
                 onClick={togglePasswordVisibility}
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
