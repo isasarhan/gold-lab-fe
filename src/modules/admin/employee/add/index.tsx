@@ -3,21 +3,17 @@ import React, { FC } from "react";
 
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
-import { useUserContext } from "@/providers/UserProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import useEmployees from "@/services/employees";
 import EmployeeForm from "@/components/form/EmployeeForm";
 import {
   createEmployeeSchema,
   EmployeeValues,
 } from "@/components/form/EmployeeForm/validation";
+import { addEmployee } from "@/network/external/employees";
 
 export interface AddEmployeeModuleProps {}
 const AddEmployeeModule: FC<AddEmployeeModuleProps> = () => {
-  const { token } = useUserContext();
-  const { add } = useEmployees({ token });
-
   const employeeForm = useForm({
     mode: "onBlur",
     resolver: zodResolver(createEmployeeSchema()),
@@ -30,7 +26,7 @@ const AddEmployeeModule: FC<AddEmployeeModuleProps> = () => {
 
   const handleSubmit = async (data: EmployeeValues) => {
     try {
-      await add(data);
+      await addEmployee(data);
       toast.success("employee added successfully!");
     } catch (e: any) {
       toast.error(e.message);

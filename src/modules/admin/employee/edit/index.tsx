@@ -1,6 +1,4 @@
 "use client";
-import { useUserContext } from "@/providers/UserProvider";
-import useEmployees from "@/services/employees";
 import { IEmployee } from "@/types/employee";
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -12,15 +10,13 @@ import {
   createEmployeeSchema,
   EmployeeValues,
 } from "@/components/form/EmployeeForm/validation";
+import { updateEmployee } from "@/network/external/employees";
 
 export interface EditEmployeeModuleProps {
   employee: IEmployee;
 }
 
 const EditEmployeeModule: FC<EditEmployeeModuleProps> = ({ employee }) => {
-  const { token } = useUserContext();
-  const { update } = useEmployees({ token });
-
   const employeeForm = useForm({
     mode: "onBlur",
     resolver: zodResolver(createEmployeeSchema()),
@@ -34,7 +30,13 @@ const EditEmployeeModule: FC<EditEmployeeModuleProps> = ({ employee }) => {
   const handleSubmit = async (data: EmployeeValues) => {
     try {
       const { name, phone, position, salary, email } = data;
-      await update(employee?._id!, { name, phone, position, salary, email });
+      await updateEmployee(employee?._id!, {
+        name,
+        phone,
+        position,
+        salary,
+        email,
+      });
       toast.success("Employee updated successfully!");
     } catch (e: any) {
       toast.error(e.message);

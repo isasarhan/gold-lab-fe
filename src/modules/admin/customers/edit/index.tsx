@@ -1,7 +1,6 @@
 "use client";
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
-import { useUserContext } from "@/providers/UserProvider";
-import useCustomers from "@/services/customers";
+
 import { ICustomer } from "@/types/customer";
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -9,15 +8,13 @@ import { toast } from "sonner";
 import CustomerForm from "@/components/form/CustomerForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createCustomerSchema } from "@/components/form/CustomerForm/validation";
+import { updateCustomer } from "@/network/external/customers";
 
 export interface EditCustomerModuleProps {
   customer: ICustomer;
 }
 
 const EditCustomerModule: FC<EditCustomerModuleProps> = ({ customer }) => {
-  const { token } = useUserContext();
-  const { update } = useCustomers({ token });
-
   const customerForm = useForm({
     mode: "onBlur",
     resolver: zodResolver(createCustomerSchema()),
@@ -34,7 +31,13 @@ const EditCustomerModule: FC<EditCustomerModuleProps> = ({ customer }) => {
   const handleSubmit = async (data: any) => {
     try {
       const { email, phone, name, type, location } = data;
-      await update(customer._id!, { email, phone, name, type, location });
+      await updateCustomer(customer._id!, {
+        email,
+        phone,
+        name,
+        type,
+        location,
+      });
       toast.success("Customer info updated successfully!");
     } catch (e: any) {
       toast.error(e.message);

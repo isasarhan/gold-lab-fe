@@ -1,7 +1,5 @@
 "use client";
 import { Card } from "@/components/ui/card";
-import { useUserContext } from "@/providers/UserProvider";
-import useBalances from "@/services/balances";
 import { IBalance } from "@/types/balance";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { FC } from "react";
@@ -12,15 +10,13 @@ import {
   BalanceValues,
   creatBalanceSchema,
 } from "@/components/form/BalanceForm/validation";
+import { updateBalance } from "@/network/external/balances";
 
 export interface EditBalanceModuleProps {
   balance: IBalance;
 }
 
 const EditBalanceModule: FC<EditBalanceModuleProps> = ({ balance }) => {
-  const { token } = useUserContext();
-  const { update } = useBalances({ token });
-
   const balanceForm = useForm({
     mode: "onBlur",
     resolver: zodResolver(creatBalanceSchema()),
@@ -36,7 +32,7 @@ const EditBalanceModule: FC<EditBalanceModuleProps> = ({ balance }) => {
 
   const handleSubmit = async (data: BalanceValues) => {
     try {
-      await update(balance._id!, {
+      await updateBalance(balance._id!, {
         customer: balance.customer._id,
         gold: data.gold,
         cash: data.cash,
