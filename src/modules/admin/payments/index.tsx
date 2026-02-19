@@ -1,15 +1,12 @@
 'use client'
-import ConfirmDialog from '@/components/common/discard-dialog';
+import Table from '@/components/common/table';
+import { createPaymentColumns } from '@/components/columns/payments-columns';
 import SupplierDatesfilter from '@/components/common/supplier-dates-filters';
-import Table, { Column } from '@/components/common/table';
-import { dateFormatter } from '@/lib/dateFormatter';
 import { deleteSupplyPayment } from '@/network/external/supply-payments';
 import { ISupplier } from '@/types/supplier';
 import { ISupplyPayment } from '@/types/supply-payments';
-import { Eye, Pencil, Trash } from 'lucide-react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { toast } from 'sonner';
 
 export interface PaymentsModuleProps {
@@ -37,53 +34,9 @@ const PaymentsModule: FC<PaymentsModuleProps> = ({ data, suppliers }) => {
             toast.error(e.message);
         }
     }
-    const columns: Column[] = [
-        {
-            label: "Supplier",
-            render: (item: ISupplyPayment) =>
-                <div>
-                    {item.supplier.name}
-                </div>
-        },
-        { value: "invoiceNb", label: "Invoice #" },
-        {
-            label: "Date",
-            render: (item: ISupplyPayment) =>
-                <div>
-                    {dateFormatter(item.date.toString())}
-                </div>
-        },
-        {
-            label: "Weight",
-            render: (item: ISupplyPayment) => (
-                <div>{item.weight?.toFixed(2)}</div>
-            )
-        },
-        {
-            value: "karat",
-            label: "Karat"
-        },
-        {
-            label: "Cash",
-            render: (item: ISupplyPayment) => (
-                <div>{item.cash?.toFixed(2)}</div>
-            )
-        },
-        {
-            value: "_id", label: "Delete",
-            render: (item) => (
-                <div className="flex justify-center">
-                    <ConfirmDialog
-                        onConfirm={() => handleDelete(item)}
-                        text="Delete Order"
-                        title="Delete Order"
-                        description="Are you sure you want to delete order?">
-                        <Trash size={20} />
-                    </ConfirmDialog>
-                </div>
-            ),
-        },
-    ];
+
+    const columns = useMemo(() => createPaymentColumns(handleDelete), []);
+
     return (
         <div className="flex flex-col gap-3 pb-7">
             <SupplierDatesfilter suppliers={suppliers} />

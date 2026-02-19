@@ -1,11 +1,8 @@
 'use client'
-import Table, { Column } from '@/components/common/table';
+import Table from '@/components/common/table';
+import { balanceColumns } from '@/components/columns/balances-columns';
 import { Card } from '@/components/ui/card';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { BalancessSort, IBalance, IBalanceTotals } from '@/types/balance';
-import { Filter, Pen, Trash } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { FC } from 'react';
 export interface BalancesModuleProps {
     data: {
@@ -17,43 +14,6 @@ export interface BalancesModuleProps {
     total: IBalanceTotals
 }
 const BalancesModule: FC<BalancesModuleProps> = ({ data, total }) => {
-
-    const column: Column[] = [
-        {
-            label: 'Customer',
-            value: 'name',
-            render: (value: IBalance) => (
-                <div className='flex justify-center items-center w-full'>
-                    {value.customer.name}
-                </div>
-            )
-        },
-        {
-            label: 'Gold',
-            value: 'gold',
-            render: (value: IBalance) => (
-                <span>{value.gold.toFixed(2)}</span>
-            )
-
-        },
-        {
-            label: 'Cash',
-            value: 'cash',
-            render: (value: IBalance) => (
-                <span>{value.cash.toFixed(2)}</span>
-            )
-        },
-        {
-            label: 'Edit',
-            render: (value: IBalance) => (
-                <div className='flex justify-center items-center w-full'>
-                    <Link href={`/admin/balances/${value._id}/edit`}><Pen size={20} /> </Link>
-                </div>
-            )
-        },
-
-    ]
-
     return (
         <div className='flex flex-col gap-3 pb-7'>
             <div className="flex flex-col lg:flex-row gap-6 ">
@@ -88,16 +48,16 @@ const BalancesModule: FC<BalancesModuleProps> = ({ data, total }) => {
                 </Card>
             </div>
 
-
             <div className="w-full">
-                <Table data={data.data} columns={column} page={data.page}
+                <Table
+                    data={data.data}
+                    columns={balanceColumns}
+                    page={data.page}
                     pages={data.pages}
                     total={data.total}
-                    sortOptions={Object.values(BalancessSort).map((op) => {
-                        return {
-                            label: op, value: op
-                        }
-                    })}
+                    sortOptions={Object.values(BalancessSort).map((op) => ({
+                        label: op, value: op
+                    }))}
                 />
             </div>
 

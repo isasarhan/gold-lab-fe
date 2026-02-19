@@ -1,11 +1,9 @@
-import { getAuth } from "@/lib/auth";
 import AdminDashboardModule from "@/modules/admin/dashboard";
 import { getBalancesTotal } from "@/network/external/balances";
 import {
   getAllCustomers,
   getCustomerTypesAnalytics,
 } from "@/network/external/customers";
-import useCustomers from "@/services/customers";
 import React, { FC } from "react";
 
 export interface DashboardPageProps {
@@ -18,7 +16,6 @@ export interface DashboardPageProps {
 const DashboardPage: FC<DashboardPageProps> = async ({ searchParams }) => {
   const { query, page } = await searchParams;
 
-  const { token } = await getAuth();
 
   const [total, customersAnalytics, customers] = await Promise.all([
     getBalancesTotal(),
