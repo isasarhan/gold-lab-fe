@@ -185,7 +185,7 @@ const ReceiptForm: FC<ReceiptFormProps> = ({
             </div>
           </div>
         </Card>
-        <Card className="flex lg:gap-10 lg:flex-row px-3 justify-center ">
+        <Card className="flex flex-col gap-4 lg:flex-row lg:gap-10 px-3 py-4 justify-center items-center">
           <div className="flex items-center gap-5 justify-center text-center">
             <span className="font-semibold">Total Weight:</span>
             <span>{getTotals().gold.toFixed(2)} gr</span>

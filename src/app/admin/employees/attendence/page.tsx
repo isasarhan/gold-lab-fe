@@ -1,6 +1,7 @@
 import AttendenceModule from "@/modules/admin/employee/attendence";
 import { getAllAttendences } from "@/network/external/attendences";
 import { getAllEmployees } from "@/network/external/employees";
+import Title from "@/components/common/title";
 import React, { FC } from "react";
 
 export interface AttendencePageProps {
@@ -20,7 +21,12 @@ const AttendencePage: FC<AttendencePageProps> = async ({ searchParams }) => {
     getAllEmployees(),
     getAllAttendences({ searchTerm: query, page, month, employee, year }),
   ]);
-  return <AttendenceModule data={attendences} employees={employees.data} />;
+  return (
+    <>
+      <Title text="Attendance" />
+      <AttendenceModule data={attendences} employees={employees.data} />
+    </>
+  );
 };
 
 export default AttendencePage;

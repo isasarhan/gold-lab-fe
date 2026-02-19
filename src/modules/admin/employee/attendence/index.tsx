@@ -61,7 +61,7 @@ const AttendenceModule: FC<AttendenceModuleProps> = ({ data, employees }) => {
                             <TabsTrigger value="departure">Departure</TabsTrigger>
                         </TabsList>
                         <TabsContent value="arrival" >
-                            <ChartContainer config={chartConfig} className="h-[450] w-full">
+                            <ChartContainer config={chartConfig} className="h-[300] md:h-[400] lg:h-[450] w-full">
                                 <AreaChart
                                     accessibilityLayer
                                     data={data.data}
@@ -94,7 +94,7 @@ const AttendenceModule: FC<AttendenceModuleProps> = ({ data, employees }) => {
                             </ChartContainer>
                         </TabsContent>
                         <TabsContent value="departure">
-                            <ChartContainer config={chartConfig} className="h-[450] w-full">
+                            <ChartContainer config={chartConfig} className="h-[300] md:h-[400] lg:h-[450] w-full">
                                 <AreaChart
                                     accessibilityLayer
                                     data={data.data}

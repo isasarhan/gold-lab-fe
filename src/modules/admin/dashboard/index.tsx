@@ -25,7 +25,7 @@ const AdminDashboardModule: FC<AdminDashboardModuleProps> = ({
 }) => {
   return (
     <div className="flex flex-col gap-5">
-      <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 relative">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative">
         <SummaryCard
           title="Debit Gold in Market"
           icon={<Weight size={22} />}
@@ -55,11 +55,11 @@ const AdminDashboardModule: FC<AdminDashboardModuleProps> = ({
           value={`$ ${balanceTotal.totalCashNegative.toFixed(2)}`}
         />
       </div>
-      <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 relative items-center ">
-        <div className="col-span-4 lg:col-span-1">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 relative items-center">
+        <div className="lg:col-span-1">
           <CustomerPieChart customersAnalytics={customersAnalytics} />
         </div>
-        <div className="col-span-3">
+        <div className="lg:col-span-3">
           <CustomersModule data={customers} />
         </div>
       </div>

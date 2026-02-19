@@ -31,8 +31,10 @@ const UserPage: FC<UsersPageProps> = async ({ searchParams, params }) => {
       <Title text="Customer Info" goBack={true} />
       <ViewCustomerModule customer={customer} />
 
-      <CustomerInvoiceAnalytics chartData={revenue} />
-      <CustomerReceiptsAnalytics chartData={receipts} />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+        <CustomerInvoiceAnalytics chartData={revenue} />
+        <CustomerReceiptsAnalytics chartData={receipts} />
+      </div>
     </>
   );
 };

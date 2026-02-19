@@ -14,7 +14,7 @@ export interface EmployeesModuleProps {
 const EmployeesModule: FC<EmployeesModuleProps> = ({ data }) => {
   return (
     <div className="flex flex-col gap-3 pb-7">
-      <Table data={data.data} columns={employeeColumns} />
+      <Table data={data.data} columns={employeeColumns} page={data.page} pages={data.pages} total={data.total} />
     </div>
   );
 };

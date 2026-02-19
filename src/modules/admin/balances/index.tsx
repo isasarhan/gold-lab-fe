@@ -20,14 +20,14 @@ const BalancesModule: FC<BalancesModuleProps> = ({ data, total }) => {
                 <Card className="w-full p-6 gap-0">
                     <div className="flex justify-between lg:flex-row flex-col gap-3">
                         <span>Gold In Market</span>
-                        <div className="flex items-center gap-3">
-                            <span className="text-sm text-gray-500">Debit + :</span>
-                            <span className="text-lg font-semibold text-yellow-700">{total.totalGoldPositive.toFixed(2)}gr</span>
+                        <div className="flex items-center gap-3 min-w-0">
+                            <span className="text-sm text-gray-500 shrink-0">Debit + :</span>
+                            <span className="text-lg font-semibold text-yellow-700 truncate">{total.totalGoldPositive.toFixed(2)}gr</span>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                            <span className="text-sm text-gray-500">Credit - :</span>
-                            <span className="text-lg font-semibold text-yellow-900">{total.totalGoldNegative.toFixed(2)}gr</span>
+                        <div className="flex items-center gap-3 min-w-0">
+                            <span className="text-sm text-gray-500 shrink-0">Credit - :</span>
+                            <span className="text-lg font-semibold text-yellow-900 truncate">{total.totalGoldNegative.toFixed(2)}gr</span>
                         </div>
                     </div>
                 </Card>
@@ -35,14 +35,14 @@ const BalancesModule: FC<BalancesModuleProps> = ({ data, total }) => {
                     <div className="flex justify-between lg:flex-row flex-col gap-3">
 
                         <span>Cash In Market</span>
-                        <div className="flex items-center gap-3">
-                            <span className="text-sm text-gray-500">Debit + :</span>
-                            <span className="text-lg font-semibold text-green-700">{total.totalCashPositive.toFixed(2)}$</span>
+                        <div className="flex items-center gap-3 min-w-0">
+                            <span className="text-sm text-gray-500 shrink-0">Debit + :</span>
+                            <span className="text-lg font-semibold text-green-700 truncate">{total.totalCashPositive.toFixed(2)}$</span>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                            <span className="text-sm text-gray-500">Credit - :</span>
-                            <span className="text-lg font-semibold text-red-700">{total.totalCashNegative.toFixed(2)}$</span>
+                        <div className="flex items-center gap-3 min-w-0">
+                            <span className="text-sm text-gray-500 shrink-0">Credit - :</span>
+                            <span className="text-lg font-semibold text-red-700 truncate">{total.totalCashNegative.toFixed(2)}$</span>
                         </div>
                     </div>
                 </Card>
