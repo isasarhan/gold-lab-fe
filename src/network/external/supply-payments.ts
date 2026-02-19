@@ -1,6 +1,6 @@
 import axoisServer from "@/lib/axios-server";
 import axiosClient from "@/lib/axios-client";
-import { IAddSupplyPayment } from "@/types/supply-payments";
+import { ISupplyPayment } from "@/types/supply-payments";
 
 export const getAllSupplyPayments = async (query?: Record<string, any>) => {
     try {
@@ -22,7 +22,7 @@ export const getSupplyPaymentById = async (id: string) => {
     }
 }
 
-export const addSupplyPayment = async (payment: Partial<IAddSupplyPayment>) => {
+export const addSupplyPayment = async (payment: Partial<ISupplyPayment>) => {
     try {
         const res = await axiosClient.post('/api/supply-payments/add', payment);
         return res.data;
@@ -32,7 +32,7 @@ export const addSupplyPayment = async (payment: Partial<IAddSupplyPayment>) => {
     }
 }
 
-export const addSupplyPaymentBulk = async (payments: Partial<IAddSupplyPayment[]>) => {
+export const addSupplyPaymentBulk = async (payments: Partial<ISupplyPayment[]>) => {
     try {
         const res = await axiosClient.post('/api/supply-payments/add/bulk', payments);
         return res.data;
@@ -42,7 +42,7 @@ export const addSupplyPaymentBulk = async (payments: Partial<IAddSupplyPayment[]
     }
 }
 
-export const updateSupplyPayment = async (id: string, payment: Partial<IAddSupplyPayment>) => {
+export const updateSupplyPayment = async (id: string, payment: Partial<ISupplyPayment>) => {
     try {
         const res = await axiosClient.put(`/api/supply-payments/${id}`, payment);
         return res.data;

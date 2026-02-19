@@ -63,7 +63,6 @@ const AddDailyWorkflowModule: FC<AddDailyWorkflowModuleProps> = () => {
     setReports((prevReport) => prevReport.filter((_, i) => i !== index));
   };
   return (
-    <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
         <Card className="p-5">
           <div className="flex gap-3 flex-col lg:flex-row">
@@ -169,7 +168,6 @@ const AddDailyWorkflowModule: FC<AddDailyWorkflowModuleProps> = () => {
           onEdit={handleEditReport}
         />
       </form>
-    </Form>
   );
 };
 

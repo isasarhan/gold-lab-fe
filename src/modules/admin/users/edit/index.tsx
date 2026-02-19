@@ -36,57 +36,55 @@ const EditUserModule: FC<EditUserModuleProps> = ({ user }) => {
 
   return (
     <Card>
-      <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <CardContent className="space-y-3">
-            <div className="flex gap-4 items-center w-full ">
-              <FormSelect
-                control={form.control}
-                name="role"
-                label="Role"
-                defaultValue={user.role}
-                placeholder="Select Role"
-                options={Object.values(Role).map((type) => ({
-                  label: type,
-                  value: type,
-                }))}
-              />
-              <FormInput
-                control={form.control}
-                name="username"
-                label="User Name"
-                placeholder="Enter user name"
-              />
-            </div>
-            <div className="flex flex-col lg:flex-row items-center w-full gap-4 ">
-              <FormInput
-                control={form.control}
-                name="name"
-                label="Full Name"
-                placeholder="Enter user first name"
-              />
-            </div>
-            <div className="flex flex-col lg:flex-row items-center w-full gap-4">
-              <FormInput
-                control={form.control}
-                name="phone"
-                label="Phone"
-                placeholder="Enter phone"
-              />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CardContent className="space-y-3">
+          <div className="flex gap-4 items-center w-full ">
+            <FormSelect
+              control={form.control}
+              name="role"
+              label="Role"
+              defaultValue={user.role}
+              placeholder="Select Role"
+              options={Object.values(Role).map((type) => ({
+                label: type,
+                value: type,
+              }))}
+            />
+            <FormInput
+              control={form.control}
+              name="username"
+              label="User Name"
+              placeholder="Enter user name"
+            />
+          </div>
+          <div className="flex flex-col lg:flex-row items-center w-full gap-4 ">
+            <FormInput
+              control={form.control}
+              name="name"
+              label="Full Name"
+              placeholder="Enter user first name"
+            />
+          </div>
+          <div className="flex flex-col lg:flex-row items-center w-full gap-4">
+            <FormInput
+              control={form.control}
+              name="phone"
+              label="Phone"
+              placeholder="Enter phone"
+            />
 
-              <FormInput
-                control={form.control}
-                name="email"
-                label="Email"
-                placeholder="Enter email"
-              />
-            </div>
-            <Button type="submit" className="w-full">
-              Edit
-            </Button>
-          </CardContent>
-        </form>
-      </Form>
+            <FormInput
+              control={form.control}
+              name="email"
+              label="Email"
+              placeholder="Enter email"
+            />
+          </div>
+          <Button type="submit" className="w-full">
+            Edit
+          </Button>
+        </CardContent>
+      </form>
     </Card>
   );
 };

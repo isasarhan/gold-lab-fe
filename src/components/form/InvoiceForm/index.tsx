@@ -8,7 +8,6 @@ import { ICustomer } from "@/types/customer";
 import FormDate from "@/components/common/form/date";
 import FormSelect from "@/components/common/form/select";
 import ConfirmDialog from "@/components/common/discard-dialog";
-import { watch } from "fs";
 import { IOrder, ItemType, Karat } from "@/types/invoice";
 import FormTextArea from "@/components/common/form/textarea";
 import OrderTable from "@/modules/admin/invoices/components/order-table";
@@ -29,7 +28,7 @@ const InvoiceForm: FC<InvoiceFormProps> = ({
   onError,
   isLoading,
 }) => {
-  const { control, handleSubmit } = form;
+  const { control, handleSubmit, watch } = form;
   const [orders, setOrders] = useState<IOrder[]>([]);
 
   const handleEditOrder = (order: IOrder, index: number) => {

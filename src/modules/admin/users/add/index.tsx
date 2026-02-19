@@ -47,61 +47,60 @@ const AddUserModule: FC<AddUserModuleProps> = () => {
           Fill in the details to create a new user
         </CardDescription>
       </CardHeader>
-      <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <CardContent className="space-y-3">
-            <div className="flex flex-col lg:flex-row lg:items-center w-full gap-4 ">
-              <FormSelect
-                control={form.control}
-                name="role"
-                label="Role"
-                placeholder="Select Role"
-                options={Object.values(Role).map((type) => ({
-                  label: type,
-                  value: type,
-                }))}
-              />
 
-              <FormInput
-                control={form.control}
-                name="username"
-                label="User Name"
-                placeholder="Enter user name"
-              />
-              <FormInput
-                control={form.control}
-                name="name"
-                label="Full Name"
-                placeholder="Enter user first name"
-              />
-            </div>
-            <div className="flex flex-col lg:flex-row lg:items-center w-full gap-4">
-              <FormInput
-                control={form.control}
-                name="phone"
-                label="Phone"
-                placeholder="Enter phone"
-              />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CardContent className="space-y-3">
+          <div className="flex flex-col lg:flex-row lg:items-center w-full gap-4 ">
+            <FormSelect
+              control={form.control}
+              name="role"
+              label="Role"
+              placeholder="Select Role"
+              options={Object.values(Role).map((type) => ({
+                label: type,
+                value: type,
+              }))}
+            />
 
-              <FormInput
-                control={form.control}
-                name="email"
-                label="Email"
-                placeholder="Enter email"
-              />
-              <FormPassword
-                control={form.control}
-                name="password"
-                title="Password"
-                placeholder="Enter password"
-              />
-            </div>
-            <Button type="submit" className="w-full">
-              Add
-            </Button>
-          </CardContent>
-        </form>
-      </Form>
+            <FormInput
+              control={form.control}
+              name="username"
+              label="User Name"
+              placeholder="Enter user name"
+            />
+            <FormInput
+              control={form.control}
+              name="name"
+              label="Full Name"
+              placeholder="Enter user first name"
+            />
+          </div>
+          <div className="flex flex-col lg:flex-row lg:items-center w-full gap-4">
+            <FormInput
+              control={form.control}
+              name="phone"
+              label="Phone"
+              placeholder="Enter phone"
+            />
+
+            <FormInput
+              control={form.control}
+              name="email"
+              label="Email"
+              placeholder="Enter email"
+            />
+            <FormPassword
+              control={form.control}
+              name="password"
+              title="Password"
+              placeholder="Enter password"
+            />
+          </div>
+          <Button type="submit" className="w-full">
+            Add
+          </Button>
+        </CardContent>
+      </form>
     </Card>
   );
 };

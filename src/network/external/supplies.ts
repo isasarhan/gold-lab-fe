@@ -31,7 +31,7 @@ export const addSupply = async (supply: Partial<ISupply>) => {
         throw new Error("Failed to fetch Supplies");
     }
 }
-export const addSupplyBulk = async (supplies: Partial<ISupply[]>) => {
+export const addSupplyBulk = async (supplies: Partial<Omit<ISupply, '_id'>>[]) => {
     try {
         const res = await axiosClient.post(`/api/supplies/add/bulk`, supplies);
         return res.data;

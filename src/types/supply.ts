@@ -20,7 +20,7 @@ export enum ItemType {
 
 export interface ISupply {
     _id: string
-    supplier: ISupplier;
+    supplier: string | ISupplier;
     weight: number;
     karat: Karat;
     perGram: number;

@@ -70,113 +70,111 @@ const ViewDailyWorkflowModule: FC<ViewDailyWorkflowModuleProps> = ({
     setReports((prevReport) => prevReport.filter((_, i) => i !== index));
   };
   return (
-    <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-        <Card className="p-5">
-          <div className="flex gap-3 flex-col lg:flex-row">
-            <div className="flex lg:w-1/3">
-              <FormSelect
-                control={form.control}
-                name="from"
-                label="From"
-                placeholder="Select Type"
-                options={Object.values(Sector).map((type) => ({
-                  label: type,
-                  value: type,
-                }))}
-              />
-            </div>
-            <div className="flex lg:w-1/3">
-              <FormSelect
-                control={form.control}
-                name="to"
-                label="To"
-                placeholder="Select Type"
-                options={Object.values(Sector).map((type) => ({
-                  label: type,
-                  value: type,
-                }))}
-              />
-            </div>
-            <div className="flex lg:w-1/3">
-              <FormDate
-                control={form.control}
-                name="date"
-                defaultValue={report.date}
-                label="Date"
-                placeholder="Pick a date"
-              />
-            </div>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+      <Card className="p-5">
+        <div className="flex gap-3 flex-col lg:flex-row">
+          <div className="flex lg:w-1/3">
+            <FormSelect
+              control={form.control}
+              name="from"
+              label="From"
+              placeholder="Select Type"
+              options={Object.values(Sector).map((type) => ({
+                label: type,
+                value: type,
+              }))}
+            />
           </div>
-        </Card>
-        <Card className="p-5">
-          <div className="flex gap-3 flex-col lg:flex-row">
-            <div className="flex lg:w-1/3">
-              <FormInput
-                control={form.control}
-                name="weight"
-                label="Weight"
-                placeholder="Enter weight"
-              />
-            </div>
-            <div className="flex lg:w-1/3">
-              <FormInput
-                control={form.control}
-                name="quantity"
-                label="Quantity"
-                placeholder="Enter quantity"
-              />
-            </div>
-            <div className="flex lg:w-1/3">
-              <FormSelect
-                control={form.control}
-                name="karat"
-                label="Karat"
-                defaultValue={watch("karat")}
-                placeholder="Select Type"
-                options={Object.values(Karat).map((karat) => ({
-                  label: karat,
-                  value: karat,
-                }))}
-              />
-            </div>
+          <div className="flex lg:w-1/3">
+            <FormSelect
+              control={form.control}
+              name="to"
+              label="To"
+              placeholder="Select Type"
+              options={Object.values(Sector).map((type) => ({
+                label: type,
+                value: type,
+              }))}
+            />
           </div>
-          <FormTextArea
-            control={form.control}
-            name="description"
-            label="Description"
-            placeholder="Enter description"
-          />
-          <div className="flex justify-between flex-col lg:flex-row">
-            <div className="mb-3 lg:mb-0">
-              <Button variant={"secondary"} type="submit">
-                Add
-              </Button>
-            </div>
-            <div className="flex gap-3">
-              <ConfirmDialog
-                onConfirm={handleDiscardInvoice}
-                text="Discard Report"
-                title="Discard Report"
-                description="Are you sure you want to discard Report?"
-              >
-                <Button type="button" variant={"destructive"}>
-                  Discard Report
-                </Button>
-              </ConfirmDialog>
-              <Button type="button" onClick={handleSave}>
-                Update Report
-              </Button>
-            </div>
+          <div className="flex lg:w-1/3">
+            <FormDate
+              control={form.control}
+              name="date"
+              defaultValue={report.date}
+              label="Date"
+              placeholder="Pick a date"
+            />
           </div>
-        </Card>
-        <ReportTable
-          reports={reports}
-          onDelete={handleDeleteReport}
-          onEdit={handleEditReport}
+        </div>
+      </Card>
+      <Card className="p-5">
+        <div className="flex gap-3 flex-col lg:flex-row">
+          <div className="flex lg:w-1/3">
+            <FormInput
+              control={form.control}
+              name="weight"
+              label="Weight"
+              placeholder="Enter weight"
+            />
+          </div>
+          <div className="flex lg:w-1/3">
+            <FormInput
+              control={form.control}
+              name="quantity"
+              label="Quantity"
+              placeholder="Enter quantity"
+            />
+          </div>
+          <div className="flex lg:w-1/3">
+            <FormSelect
+              control={form.control}
+              name="karat"
+              label="Karat"
+              defaultValue={watch("karat")}
+              placeholder="Select Type"
+              options={Object.values(Karat).map((karat) => ({
+                label: karat,
+                value: karat,
+              }))}
+            />
+          </div>
+        </div>
+        <FormTextArea
+          control={form.control}
+          name="description"
+          label="Description"
+          placeholder="Enter description"
         />
-      </form>
-    </Form>
+        <div className="flex justify-between flex-col lg:flex-row">
+          <div className="mb-3 lg:mb-0">
+            <Button variant={"secondary"} type="submit">
+              Add
+            </Button>
+          </div>
+          <div className="flex gap-3">
+            <ConfirmDialog
+              onConfirm={handleDiscardInvoice}
+              text="Discard Report"
+              title="Discard Report"
+              description="Are you sure you want to discard Report?"
+            >
+              <Button type="button" variant={"destructive"}>
+                Discard Report
+              </Button>
+            </ConfirmDialog>
+            <Button type="button" onClick={handleSave}>
+              Update Report
+            </Button>
+          </div>
+        </div>
+      </Card>
+      <ReportTable
+        reports={reports}
+        onDelete={handleDeleteReport}
+        onEdit={handleEditReport}
+      />
+    </form>
   );
 };
 

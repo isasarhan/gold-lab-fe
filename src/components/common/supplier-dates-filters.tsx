@@ -39,7 +39,6 @@ const SupplierDatesfilter: FC<SupplierDatesfilterProps> = ({ suppliers }) => {
 
   return (
     <Card className="p-5">
-      <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-3 w-full md:flex-row">
             <div className="flex-1">
@@ -77,7 +76,6 @@ const SupplierDatesfilter: FC<SupplierDatesfilterProps> = ({ suppliers }) => {
             </div>
           </div>
         </form>
-      </Form>
     </Card>
   );
 };
