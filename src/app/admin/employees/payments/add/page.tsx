@@ -2,6 +2,8 @@ import Title from "@/components/common/title";
 import AddSalaryPaymentModule from "@/modules/admin/salary-payments/add";
 import { getAllEmployees } from "@/network/external/employees";
 
+export const dynamic = "force-dynamic";
+
 const AddSalaryPaymentPage = async () => {
   const employees = await getAllEmployees();
   return (

@@ -15,7 +15,7 @@ const eslintConfig = defineConfig([
   {
     // Custom rules overrides
     rules: {
-      "@typescript-eslint/no-explicit-any": "off", // ✅ allow 'any'
+      "@typescript-eslint/no-explicit-any": "off",
       "react/react-in-jsx-scope": "off",
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
