@@ -2,11 +2,7 @@ import Title from "@/components/common/title";
 import SuppliersModule from "@/modules/admin/suppliers";
 import { getAllSuppliers } from "@/network/external/supplier";
 
-import React, { FC } from "react";
-
-export interface SuppliersPageProps {}
-
-const SuppliersPage: FC<SuppliersPageProps> = async () => {
+const SuppliersPage = async () => {
   const data = await getAllSuppliers();
   return (
     <>

@@ -1,4 +1,3 @@
-import { getAuth } from "@/lib/auth";
 import AdminDashboardModule from "@/modules/admin/dashboard";
 import { getBalancesTotal } from "@/network/external/balances";
 import {
@@ -6,11 +5,7 @@ import {
   getCustomerTypesAnalytics,
 } from "@/network/external/customers";
 
-import React, { FC } from "react";
-
-export interface DashboardPageProps {}
-
-const DashboardPage: FC<DashboardPageProps> = async () => {
+const DashboardPage = async () => {
   const [total, customersAnalytics, customers] = await Promise.all([
     getBalancesTotal(),
     getCustomerTypesAnalytics(),
