@@ -1,30 +1,53 @@
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
-import React, { FC } from 'react';
-import { Control } from 'react-hook-form';
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Textarea } from "@/components/ui/textarea";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
 
-export interface FormTextAreaProps extends React.ComponentProps<"textarea">{
-    control: Control<any>
-    name: string
-    title: string
-    placeholder: string
+export interface FormTextAreaProps<
+  T extends FieldValues,
+> extends React.ComponentProps<"textarea"> {
+  id?: string;
+  label: string;
+  control: Control<T>;
+  name: Path<T>;
+  placeholder: string;
 }
-const FormTextArea: FC<FormTextAreaProps> = ({ control, name, title, placeholder }) => {
-    return (
-        <FormField
-        control={control}
+const FormTextArea = <T extends FieldValues>({
+  id,
+  label,
+  control,
+  name,
+  placeholder,
+  ...props
+}: FormTextAreaProps<T>) => {
+  const formId = id ?? name;
+
+  return (
+    <FieldGroup>
+      <Controller
         name={name}
-            render={({ field }) => (
-                <FormItem>
-                    <FormLabel>{title}</FormLabel>
-                    <FormControl>
-                        <Textarea placeholder={placeholder} className="resize-none min-h-[80px]" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                </FormItem>
-            )}
-        />
-    );
+        control={control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel htmlFor={formId}>{label}</FieldLabel>
+            <Textarea
+              {...field}
+              id={formId}
+              {...props}
+              aria-invalid={fieldState.invalid}
+              placeholder={placeholder}
+              autoComplete="off"
+            />
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        )}
+      />
+    </FieldGroup>
+  );
 };
 
 export default FormTextArea;

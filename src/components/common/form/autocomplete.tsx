@@ -1,34 +1,50 @@
-import React, { FC } from 'react';
-import { Control } from 'react-hook-form';
+import React, { FC } from "react";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
+import Autocomplete from "@/components/ui/autocomplete";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 
-import { cn } from "@/lib/utils"
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import Autocomplete from '@/components/ui/autocomplete';
-export interface FormAutocompleteProps {
-    control: Control<any>
-    name: string
-    title: string
-    placeholder: string
-    className?: string
-    options: { label: string, value: any }[]
+export interface FormAutocompleteProps<T extends FieldValues> {
+  id?: string;
+  label: string;
+  control: Control<T>;
+  name: Path<T>;
+  placeholder: string;
+  className?: string;
+  options: { label: string; value: any }[];
 }
 
-const FormAutocomplete: FC<FormAutocompleteProps> = ({ options, control, name, className, title, placeholder, ...props }) => {
+const FormAutocomplete = <T extends FieldValues>({
+  id,
+  options,
+  control,
+  name,
+  className,
+  label,
+  placeholder,
+  ...props
+}: FormAutocompleteProps<T>) => {
+  const formId = id ?? name;
 
-    return (
-        <FormField
-            control={control}
-            name={name}
-            render={({ field }) => (
-                <FormItem className={cn(className, "flex-1 w-full p-0 m-0")}>
-                    <FormLabel>{title}</FormLabel>
-                    <FormControl>
-                        <Autocomplete options={options} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                </FormItem>
-            )}
-        />)
+  return (
+    <FieldGroup>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel htmlFor={formId}>{label}</FieldLabel>
+            <Autocomplete options={options} {...field} />
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        )}
+      />
+    </FieldGroup>
+  );
 };
 
 export default FormAutocomplete;

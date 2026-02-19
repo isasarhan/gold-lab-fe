@@ -1,6 +1,6 @@
-'use client'
-import * as React from "react"
-import { ChevronRight, GalleryVerticalEnd } from "lucide-react"
+"use client";
+import * as React from "react";
+import { ChevronRight, GalleryVerticalEnd } from "lucide-react";
 
 import {
   Sidebar,
@@ -15,26 +15,31 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarRail,
-} from "@/components/ui/sidebar"
-import { usePathname } from "next/navigation"
-import { generateSidebar } from "./data"
-import { Button } from "../../ui/button"
-import { useUserContext } from "@/providers/UserProvider"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import Link from "next/link"
+} from "@/components/ui/sidebar";
+import { usePathname } from "next/navigation";
+import { generateSidebar } from "./data";
+import { Button } from "../../ui/button";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
 
+export function AccountSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
+  const pathName = usePathname();
+  const data = generateSidebar(pathName);
 
-export function AccountSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const pathName = usePathname()
-  const data = generateSidebar(pathName)
-  const { signOut } = useUserContext()
   return (
     <Sidebar {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href={'/account/dashboard'}>
+              <Link href={"/account/dashboard"}>
                 <Button variant="default" size="icon">
                   <GalleryVerticalEnd />
                 </Button>
@@ -69,14 +74,16 @@ export function AccountSidebar({ ...props }: React.ComponentProps<typeof Sidebar
                   <CollapsibleContent>
                     <SidebarGroupContent>
                       <SidebarMenuSub>
-                          {item.items.map((item) => (
-                            <SidebarMenuItem key={item.title} className="my-1.5 ">
-                              <SidebarMenuButton asChild isActive={item.isActive}>
-                                <a href={item.url}>{'icon' in item && item.icon} {item.title}</a>
-                              </SidebarMenuButton>
-                            </SidebarMenuItem>
-                          ))}
-                      </SidebarMenuSub >
+                        {item.items.map((item) => (
+                          <SidebarMenuItem key={item.title} className="my-1.5 ">
+                            <SidebarMenuButton asChild isActive={item.isActive}>
+                              <a href={item.url}>
+                                {"icon" in item && item.icon} {item.title}
+                              </a>
+                            </SidebarMenuButton>
+                          </SidebarMenuItem>
+                        ))}
+                      </SidebarMenuSub>
                     </SidebarGroupContent>
                   </CollapsibleContent>
                 </SidebarGroup>
@@ -87,8 +94,10 @@ export function AccountSidebar({ ...props }: React.ComponentProps<typeof Sidebar
       </SidebarContent>
       <SidebarRail />
       <SidebarFooter>
-        <Button className="m-4" onClick={() => signOut()}>LOGOUT</Button>
+        <Button className="m-4" onClick={() => signOut()}>
+          LOGOUT
+        </Button>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

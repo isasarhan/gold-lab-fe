@@ -1,22 +1,17 @@
-import Title from '@/components/common/title';
-import { getAuth } from '@/lib/auth';
-import AddPaymentModule from '@/modules/admin/payments/add';
-import useSuppliers from '@/services/supplier';
-import React, { FC } from 'react';
+import Title from "@/components/common/title";
+import AddPaymentModule from "@/modules/admin/payments/add";
+import { getAllSuppliers } from "@/network/external/supplier";
 
-export interface AddPaymentPageProps { }
+export const dynamic = "force-dynamic";
 
-const AddPaymentPage: FC<AddPaymentPageProps> = async () => {
-    const { token } = await getAuth();
-
-    const { getAll } = useSuppliers({ token })
-    const data = await getAll();
-    return (
-        <>
-            <Title text='New Payment' />
-            <AddPaymentModule suppliers={data} />
-        </>
-    );
+const AddPaymentPage = async () => {
+  const data = await getAllSuppliers();
+  return (
+    <>
+      <Title text="New Payment" />
+      <AddPaymentModule suppliers={data} />
+    </>
+  );
 };
 
 export default AddPaymentPage;

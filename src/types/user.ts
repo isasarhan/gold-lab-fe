@@ -1,6 +1,6 @@
 
 export interface IUser {
-    _id?: string
+    _id: string
     username: string;
     name: string;
     email: string;
@@ -8,7 +8,7 @@ export interface IUser {
     phone: string;
     isSuperAdmin: boolean;
     profileUrl: string;
-    role: Role |string ;
+    role: Role | string;
     isApproved: boolean;
 }
 

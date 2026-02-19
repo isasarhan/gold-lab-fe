@@ -1,23 +1,18 @@
-import Title from '@/components/common/title';
-import { getAuth } from '@/lib/auth';
-import AddInvoiceModule from '@/modules/admin/invoices/add';
-import useCustomers from '@/services/customers';
-import type { FC } from 'react';
+import Title from "@/components/common/title";
+import AddInvoiceModule from "@/modules/admin/invoices/add";
+import { getAllCustomers } from "@/network/external/customers";
 
-interface AddInvoicePageProps { }
+export const dynamic = "force-dynamic";
 
-const AddInvoicePage: FC<AddInvoicePageProps> = async () => {
-    const { token } = await getAuth();
+const AddInvoicePage = async () => {
+  const data = await getAllCustomers({ pageSize: 100 });
 
-    const { getAll } = useCustomers({ token })
-    const data = await getAll({ pageSize: 100 });
-
-    return (
-        <>
-            <Title text='New Invoice' goBack={true}/>
-            <AddInvoiceModule customers={data.data} />
-        </>
-    );
-}
+  return (
+    <>
+      <Title text="New Invoice" goBack={true} />
+      <AddInvoiceModule customers={data.data} />
+    </>
+  );
+};
 
 export default AddInvoicePage;

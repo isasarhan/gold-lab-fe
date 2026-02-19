@@ -1,22 +1,17 @@
-import Title from '@/components/common/title';
-import { getAuth } from '@/lib/auth';
-import AddReceiptModule from '@/modules/admin/receipts/add';
-import useCustomers from '@/services/customers';
-import React, { FC } from 'react';
+import Title from "@/components/common/title";
+import AddReceiptModule from "@/modules/admin/receipts/add";
+import { getAllCustomers } from "@/network/external/customers";
 
-export interface AddRecieptsPageProps { }
+export const dynamic = "force-dynamic";
 
-const AddRecieptsPage: FC<AddRecieptsPageProps> = async () => {
-    const { token } = await getAuth();
-
-    const { getAll } = useCustomers({ token })
-    const data = await getAll({ pageSize: 100 });
-    return (
-        <>
-            <Title text='New Receipt' />
-            <AddReceiptModule customers={data.data} />
-        </>
-    );
+const AddRecieptsPage = async () => {
+  const data = await getAllCustomers({ pageSize: 100 });
+  return (
+    <>
+      <Title text="New Receipt" />
+      <AddReceiptModule customers={data.data} />
+    </>
+  );
 };
 
 export default AddRecieptsPage;

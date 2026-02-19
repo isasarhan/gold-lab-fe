@@ -20,22 +20,12 @@ export enum ItemType {
 
 export interface ISupply {
     _id: string
-    supplier: ISupplier;
+    supplier: string | ISupplier;
     weight: number;
     karat: Karat;
     perGram: number;
     date: Date;
     description: string;
     type: ItemType;
-    invoiceNb: string;
-}
-export interface IAddSupply {
-    supplier: string;
-    weight: number;
-    karat?: Karat;
-    perGram: number;
-    date: Date;
-    description?: string;
-    type?: ItemType;
     invoiceNb: string;
 }

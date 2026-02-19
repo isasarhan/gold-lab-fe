@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { Role } from "@/types/user";
 import { CustomerType } from "@/types/customer";
 
 

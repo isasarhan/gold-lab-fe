@@ -1,32 +1,39 @@
-import Title from '@/components/common/title';
-import { getAuth } from '@/lib/auth';
-import PaymentsModule from '@/modules/admin/payments';
-import useSupplyPayments from '@/services/payments';
-import useSuppliers from '@/services/supplier';
-import React, { FC } from 'react';
+import Title from "@/components/common/title";
+import PaymentsModule from "@/modules/admin/payments";
+import { getAllSuppliers } from "@/network/external/supplier";
+import { getAllSupplyPayments } from "@/network/external/supply-payments";
+import React, { FC } from "react";
 
 export interface PaymentsPageProps {
-    searchParams: Promise<{
-        query: string, supplier: string, startDate: string, endDate: string, page: number;
-    }>
+  searchParams: Promise<{
+    query: string;
+    supplier: string;
+    startDate: string;
+    endDate: string;
+    page: number;
+  }>;
 }
 
 const PaymentsPage: FC<PaymentsPageProps> = async ({ searchParams }) => {
-    const { query, supplier, startDate, endDate, page } = await searchParams
+  const { query, supplier, startDate, endDate, page } = await searchParams;
 
-    const { token } = await getAuth();
+  const [suppliers, payments] = await Promise.all([
+    getAllSuppliers({}),
+    getAllSupplyPayments({
+      searchTerm: query,
+      page,
+      supplier,
+      startDate,
+      endDate,
+    }),
+  ]);
 
-    const { getAll: getSuppliers } = useSuppliers({ token })
-    const { getAll: getPayments } = useSupplyPayments({ token })
-    const [suppliers, payments] = await Promise.all(
-        [getSuppliers({}), getPayments({ searchTerm: query, page, supplier, startDate, endDate })])
-        
-    return (
-        <>
-            <Title text='All Payments' />
-            <PaymentsModule data={payments} suppliers={suppliers} />
-        </>
-    );
+  return (
+    <>
+      <Title text="All Payments" />
+      <PaymentsModule data={payments} suppliers={suppliers} />
+    </>
+  );
 };
 
 export default PaymentsPage;

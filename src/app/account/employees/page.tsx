@@ -1,26 +1,23 @@
-import Title from '@/components/common/title';
-import { getAuth } from '@/lib/auth';
-import EmployeesModule from '@/modules/admin/employee';
-import useEmployees from '@/services/employees';
-import React, { FC } from 'react';
+import Title from "@/components/common/title";
+import EmployeesModule from "@/modules/admin/employee";
+import { getAllEmployees } from "@/network/external/employees";
+import React, { FC } from "react";
 export interface EmployeesPageProps {
-    searchParams: Promise<{
-        query: string
-        page: number;
-    }>
+  searchParams: Promise<{
+    query: string;
+    page: number;
+  }>;
 }
 const EmployeesPage: FC<EmployeesPageProps> = async ({ searchParams }) => {
-    const { query, page } = await searchParams
-    const { token } = await getAuth();
+  const { query, page } = await searchParams;
 
-    const { getAll } = useEmployees({ token })
-    const data = await getAll({ searchTerm: query, page });
-    return (
-        <>
-            <Title text='All Employees'/>
-            <EmployeesModule data={data} />
-        </>
-    );
+  const data = await getAllEmployees({ searchTerm: query, page });
+  return (
+    <>
+      <Title text="All Employees" />
+      <EmployeesModule data={data} />
+    </>
+  );
 };
 
 export default EmployeesPage;

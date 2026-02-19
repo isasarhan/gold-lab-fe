@@ -2,8 +2,7 @@
 import Dropdown from '@/components/common/dropdown';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { getRoleColor } from '@/lib/roleColors';
-import { useUserContext } from '@/providers/UserProvider';
-import useUsers from '@/services/users';
+import { updateUser } from '@/network/external/users';
 import { IUser, Role } from '@/types/user';
 import { PhoneIcon, UserIcon, Mail } from 'lucide-react';
 import Image from 'next/image';
@@ -16,13 +15,11 @@ export interface ViewUserModuleProps {
 }
 
 const ViewUserModule: FC<ViewUserModuleProps> = ({ user }) => {
-    const { token } = useUserContext()
-    const { update } = useUsers({ token })
     const router = useRouter()
 
     const handleChangeRole = async (role: Role | string) => {
         if (role === 'all') return
-        await update(user._id!, { role }).then(() => {
+        await updateUser(user._id!, { role }).then(() => {
             router.refresh()
             toast.success('updated!')
         })

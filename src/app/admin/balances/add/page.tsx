@@ -1,9 +1,6 @@
 import AddCustomerModule from "@/modules/admin/customers/add";
-import React, { FC } from "react";
 
-export interface AddUserPageProps {}
-
-const AddUserPage: FC<AddUserPageProps> = async () => {
+const AddUserPage = async () => {
 
   return <AddCustomerModule />;
 };

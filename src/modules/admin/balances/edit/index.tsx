@@ -1,75 +1,56 @@
-'use client'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Form } from '@/components/ui/form';
-import { useUserContext } from '@/providers/UserProvider';
-import useBalances from '@/services/balances';
-import { IBalance, IBalanceUpdate } from '@/types/balance';
-import { zodResolver } from '@hookform/resolvers/zod';
-import React, { FC } from 'react';
-import { useForm } from 'react-hook-form';
-import { EditBalanceSchema } from '../validation';
-import * as z from "zod";
-import { toast } from 'sonner';
-import FormInput from '@/components/common/form/input';
-import { Button } from '@/components/ui/button';
+"use client";
+import { Card } from "@/components/ui/card";
+import { IBalance } from "@/types/balance";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React, { FC } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import BalanceForm from "@/components/form/BalanceForm";
+import {
+  BalanceValues,
+  creatBalanceSchema,
+} from "@/components/form/BalanceForm/validation";
+import { updateBalance } from "@/network/external/balances";
 
 export interface EditBalanceModuleProps {
-    balance: IBalance
+  balance: IBalance;
 }
 
 const EditBalanceModule: FC<EditBalanceModuleProps> = ({ balance }) => {
-    const { token } = useUserContext();    
-    const { update } = useBalances({ token })
+  const balanceForm = useForm({
+    mode: "onBlur",
+    resolver: zodResolver(creatBalanceSchema()),
+    defaultValues: {
+      ...balance,
+    },
+  });
 
-    const form = useForm({
-        mode: "onBlur",
-        resolver: zodResolver(EditBalanceSchema),
-        defaultValues: {
-            cash: balance.cash,
-            gold: balance.gold,
-        }
-    });
-    const { handleSubmit } = form;
+  const handleError = (e: any) => {
+    console.error("error---------", e);
+    toast.error("Missing or Invalid fields!");
+  };
 
-    type BalanceSchema = z.infer<typeof EditBalanceSchema>;
-
-    const onSubmit = async (data: BalanceSchema) => {
-        try {
-            await update(balance._id!, { customer: balance.customer._id, gold: data.gold, cash: data.cash });
-            toast.success("Balance updated successfully!");
-        } catch (e: any) {
-            toast.error(e.message);
-        }
-    };
-    return (
-        <Card>
-            <Form {...form}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <CardContent className="space-y-3">
-                        <div className="flex flex-col gap-4 ">
-
-                            <FormInput
-                                control={form.control}
-                                name="gold"
-                                title='Gold'
-                                placeholder="Enter balance gold"
-                            />
-                            <FormInput
-                                control={form.control}
-                                name="cash"
-                                title='Cash'
-                                placeholder="Enter balance cash"
-                            />
-
-                            <Button type="submit" className="w-full">
-                                Update
-                            </Button>
-                        </div>
-                    </CardContent>
-                </form>
-            </Form>
-        </Card >
-    );
+  const handleSubmit = async (data: BalanceValues) => {
+    try {
+      await updateBalance(balance._id!, {
+        customer: balance.customer._id,
+        gold: data.gold,
+        cash: data.cash,
+      });
+      toast.success("Balance updated successfully!");
+    } catch (e: any) {
+      toast.error(e.message);
+    }
+  };
+  return (
+    <Card>
+      <BalanceForm
+        onSubmit={handleSubmit}
+        form={balanceForm}
+        onError={handleError}
+      />
+    </Card>
+  );
 };
 
 export default EditBalanceModule;
